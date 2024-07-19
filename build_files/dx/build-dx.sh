@@ -14,5 +14,4 @@ sysctl -p
 . /tmp/build/fonts-dx.sh
 . /tmp/build/workarounds.sh
 . /tmp/build/systemd-dx.sh
-. /tmp/build/branding-dx.sh
 . /tmp/build/cleanup-dx.sh

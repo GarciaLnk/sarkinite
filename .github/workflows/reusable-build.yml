@@ -7,7 +7,7 @@ on:
         required: true
         type: string
       brand_name:
-        description: "'aurora' or 'bluefin'"
+        description: "'kde' or 'gnome'"
         required: true
         type: string
     outputs:
@@ -79,9 +79,9 @@ jobs:
           fi
 
           # BASE_IMAGE_NAME
-          if [[ "${{ matrix.base_name }}" =~ "bluefin" ]]; then
+          if [[ "${{ matrix.base_name }}" =~ "gnome" ]]; then
               echo "BASE_IMAGE_NAME"="silverblue" >> $GITHUB_ENV
-          elif [[ "${{ matrix.base_name }}" =~ "aurora" ]]; then
+          elif [[ "${{ matrix.base_name }}" =~ "kde" ]]; then
               echo "BASE_IMAGE_NAME"="kinoite" >> $GITHUB_ENV
           fi
 
@@ -301,7 +301,6 @@ jobs:
             org.opencontainers.image.version=${{ env.VERSION }}
             org.opencontainers.image.description=An interpretation of the Ubuntu spirit built on Fedora technology
             ostree.linux=${{ env.kernel_release }}
-            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/ublue-os/bluefin/bluefin/README.md
             io.artifacthub.package.logo-url=https://avatars.githubusercontent.com/u/120078124?s=200&v=4
 
       - name: Pull  images

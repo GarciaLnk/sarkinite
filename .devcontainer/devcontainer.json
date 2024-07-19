@@ -1,6 +1,6 @@
 // For format details, see https://aka.ms/devcontainer.json.
 {
-	"name": "Bluefin-devcontainer",
+	"name": "sarkinite-devcontainer",
 	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 	"customizations": {
 		"vscode": {

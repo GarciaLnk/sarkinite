@@ -6,7 +6,7 @@ target=$2
 
 # Add build to images to distinguish from ghcr
 if [[ "${target}" =~ "base" ]]; then
-    echo "${image}-build"
+    echo "sarkinite-${image}-build"
 elif [[ "${target}" =~ "dx" ]]; then
-    echo "${image}-${target}-build"
+    echo "sarkinite-${image}-${target}-build"
 fi

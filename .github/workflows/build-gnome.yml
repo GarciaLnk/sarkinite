@@ -1,0 +1,21 @@
+name: Sarkinite (GNOME)
+on:
+  pull_request:
+    branches:
+      - main
+      - testing
+    paths-ignore:
+      - '**.md'
+      - 'system_files/kinoite/**'
+  schedule:
+    - cron: '41 5 * * 2'  # 5:41 UTC every Tuesday
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: build
+    uses: ./.github/workflows/reusable-build.yml
+    secrets: inherit
+    with:
+      brand_name: gnome
+      fedora_version: stable

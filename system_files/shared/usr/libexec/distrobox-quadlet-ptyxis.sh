@@ -1,13 +1,13 @@
 #!/usr/bin/bash
 # shellcheck disable=SC1091,SC2154
-# Shellcheck SC1091 => sourcing /usr/share/ublue-os/bluefin-cli/known-containers
+# Shellcheck SC1091 => sourcing /usr/share/ublue-os/sarkinite-cli/known-containers
 # Shellcheck SC2154 => known containers Associative Array declared in above source
 
 # Container Name and Target Name for Quadlet
 name=$1
 
 # Source Known Containers used with ptyxis profiles 
-. /usr/share/ublue-os/bluefin-cli/known-containers
+. /usr/share/ublue-os/sarkinite-cli/known-containers
 if test -z "${known_container[$name]}"; then
     notify-send "Unknown Container $name... Bailing Out..."
     exit 1

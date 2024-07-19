@@ -5,14 +5,6 @@ set -ouex pipefail
 # Make Directory
 mkdir -p /usr/etc/containers/systemd/users
 
-# bluefin-cli
-curl -Lo /usr/etc/containers/systemd/users/bluefin-cli.container https://raw.githubusercontent.com/ublue-os/toolboxes/main/quadlets/bluefin-cli/bluefin-cli.container 
-sed -i 's/ContainerName=bluefin/ContainerName=bluefin-cli/' /usr/etc/containers/systemd/users/bluefin-cli.container
-
-# bluefin-dx-cli
-curl -Lo /usr/etc/containers/systemd/users/bluefin-dx-cli.container https://raw.githubusercontent.com/ublue-os/toolboxes/main/quadlets/bluefin-cli/bluefin-dx-cli.container 
-sed -i 's/ContainerName=bluefin/ContainerName=bluefin-dx-cli/' /usr/etc/containers/systemd/users/bluefin-dx-cli.container
-
 # fedora-toolbox
 curl -Lo /usr/etc/containers/systemd/users/fedora-toolbox.container https://raw.githubusercontent.com/ublue-os/toolboxes/main/quadlets/fedora-toolbox/fedora-distrobox-quadlet.container 
 sed -i 's/ContainerName=fedora-distrobox-quadlet/ContainerName=fedora-toolbox/' /usr/etc/containers/systemd/users/fedora-toolbox.container
@@ -36,8 +28,6 @@ printf "\nVolume=/home/linuxbrew:/home/linuxbrew:rslave\nVolume=/usr/etc/profile
 # Make systemd targets 
 mkdir -p /usr/lib/systemd/user
 QUADLET_TARGETS=(
-    "bluefin-cli"
-    "bluefin-dx-cli"
     "fedora-toolbox"
     "ubuntu-toolbox"
     "wolfi-toolbox"
@@ -54,6 +44,6 @@ WantedBy=default.target
 EOF
 
 # Add ptyxis integration and have autostart tied to systemd targets
-cat /usr/share/ublue-os/bluefin-cli/ptyxis-integration >> /usr/etc/containers/systemd/users/"$i".container
+cat /usr/share/ublue-os/sarkinite-cli/ptyxis-integration >> /usr/etc/containers/systemd/users/"$i".container
 printf "\n\n[Install]\nWantedBy=%s.target" "$i" >> /usr/etc/containers/systemd/users/"$i".container
 done

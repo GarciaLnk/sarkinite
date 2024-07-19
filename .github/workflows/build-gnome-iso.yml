@@ -1,0 +1,15 @@
+name: Sarkinite (KDE) ISO
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: '41 6 * * 2'  # 6:41 UTC every Tuesday
+  
+
+jobs:
+  build-latest:
+    name: Sarkinite (GNOME)
+    uses: ./.github/workflows/reusable-build-iso.yml
+    secrets: inherit
+    with:
+      brand_name: gnome
+      fedora_version: stable

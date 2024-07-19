@@ -3,7 +3,7 @@ on:
   workflow_call:
     inputs:
       brand_name:
-        description: "'aurora' or 'bluefin'"
+        description: "'kde' or 'gnome'"
         required: true
         type: string
       fedora_version:
@@ -65,9 +65,9 @@ jobs:
           else
             echo "IMAGE_NAME=${{ format('{0}-{1}', matrix.base_name, matrix.image_flavor) }}" >> $GITHUB_ENV
           fi
-          if [[ ${{ inputs.brand_name }} == "bluefin" ]]; then
+          if [[ ${{ inputs.brand_name }} == "gnome" ]]; then
             echo "VARIANT=Silverblue" >> $GITHUB_ENV
-          elif [[ ${{ inputs.brand_name }} == "aurora" ]]; then
+          elif [[ ${{ inputs.brand_name }} == "kde" ]]; then
             echo "VARIANT=Kinoite" >> $GITHUB_ENV
           fi
 
@@ -108,10 +108,10 @@ jobs:
         id: generate-flatpak-dir-shortname
         shell: bash
         run: |
-          if [[ ${{ inputs.brand_name }} = "bluefin" ]]; then
-            FLATPAK_DIR_SHORTNAME="bluefin_flatpaks"
-          elif [[ ${{ inputs.brand_name }} = "aurora" ]]; then
-            FLATPAK_DIR_SHORTNAME="aurora_flatpaks"
+          if [[ ${{ inputs.brand_name }} = "gnome" ]]; then
+            FLATPAK_DIR_SHORTNAME="flatpaks_gnome"
+          elif [[ ${{ inputs.brand_name }} = "kde" ]]; then
+            FLATPAK_DIR_SHORTNAME="flatpaks_kde"
           fi
           echo "flatpak-dir-shortname=${FLATPAK_DIR_SHORTNAME}" >> $GITHUB_OUTPUT
 
@@ -186,8 +186,8 @@ jobs:
           compression-level: 0
           overwrite: true
 
-      - name: Upload ISOs and Checksum to R2 to Bluefin Bucket
-        if: github.ref_name == 'main' && inputs.brand_name == 'bluefin'
+      - name: Upload ISOs and Checksum to R2 to Sarkinite Bucket
+        if: github.ref_name == 'main'
         shell: bash
         env:
           RCLONE_CONFIG_R2_TYPE: s3
@@ -200,20 +200,4 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y rclone
-          rclone copy $SOURCE_DIR R2:bluefin
-
-      - name: Upload ISOs and Checksum to R2 to Aurora Bucket
-        if: github.ref_name == 'main' && inputs.brand_name == 'aurora'
-        shell: bash
-        env:
-          RCLONE_CONFIG_R2_TYPE: s3
-          RCLONE_CONFIG_R2_PROVIDER: Cloudflare
-          RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.AURORA_R2_ACCESS_KEY_ID }}
-          RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.AURORA_R2_SECRET_ACCESS_KEY }}
-          RCLONE_CONFIG_R2_REGION: auto
-          RCLONE_CONFIG_R2_ENDPOINT: ${{ secrets.AURORA_R2_ENDPOINT }}
-          SOURCE_DIR: ${{ steps.upload-directory.outputs.iso-upload-dir }}
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y rclone
-          rclone copy $SOURCE_DIR R2:aurora-dl
+          rclone copy $SOURCE_DIR R2:sarkinite

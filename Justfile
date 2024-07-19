@@ -87,7 +87,7 @@ help:
     echo "You can run dev images either in 'booted like' setup with 'just run-booted'   "
     echo "Or in a more stripped down version with 'just run'                            "
     echo "Specify which image you wish to build and run by name.                        "
-    echo "Example: 'just run-container aurora' -> runs aurora without systemd           "
+    echo "Example: 'just run-container kde' -> runs Sarkinite (KDE) without systemd           "
     echo "                                                                              "
     echo "Helper scripts are in 'project_root/scripts'.                                 "
     echo "                                                                              "
@@ -97,26 +97,14 @@ help:
     echo "                                                                              "
     just --list
 
-# Build Bluefin GTS
-bluefin: (build "bluefin" "base" "gts")
+# Build Sarkinite (KDE)
+sarkinite: (build "kde" "base" "stable")
 
-# Build Bluefin-DX GTS
-bluefin-dx: (build "bluefin" "dx" "gts")
+# Build Sarkinite-DX (KDE)
+sarkinite-dx: (build "kde" "dx" "stable")
 
-# Build Bluefin GTS ISO
-bluefin-iso: (build-iso "bluefin" "base" "gts")
+# Build Sarkinite (KDE) ISO
+sarkinite-iso: (build-iso "kde" "base" "stable")
 
-# Build Bluefin-DX GTS ISO
-bluefin-dx-iso: (build-iso "bluefin" "dx" "gts")
-
-# Build Aurora
-aurora: (build "aurora" "base" "stable")
-
-# Builed Aurora-DX
-aurora-dx: (build "aurora" "dx" "stable")
-
-# Build Aurora ISO
-aurora-iso: (build-iso "aurora" "base" "stable")
-
-# Builed Aurora-DX ISO
-aurora-dx-iso: (build-iso "aurora" "dx" "stable")
+# Build Sarkinite-DX (KDE) ISO
+sarkinite-dx-iso: (build-iso "kde" "dx" "stable")

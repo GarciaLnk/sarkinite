@@ -8,9 +8,9 @@ if [[ ${image} =~ "-dx" ]]; then
     target="dx"
 fi
 
-# if no image, bluefin
+# if no image, kde
 if [[ -z "${image}" ]]; then
-    image="bluefin"
+    image="kde"
 fi
 
 # if no target, base
@@ -31,11 +31,7 @@ elif [[ ${target} =~ gts ]]; then
     target="base"
 fi
 
-# if no version, bluefin is GTS, Aurora is Latest
+# if no version, set to stable
 if [[ -z "${version}" ]]; then
-    if [[ "${image}" =~ "bluefin" ]]; then
-        version="gts"
-    elif [[ "${image}" =~ "aurora" ]]; then
-        version="stable"
-    fi
+    version="stable"
 fi

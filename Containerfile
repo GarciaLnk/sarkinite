@@ -4,7 +4,7 @@ ARG AKMODS_FLAVOR="${AKMODS_FLAVOR:-main}"
 ARG SOURCE_IMAGE="${SOURCE_IMAGE:-${BASE_IMAGE_NAME}-${IMAGE_FLAVOR}}"
 ARG BASE_IMAGE="ghcr.io/ublue-os/${SOURCE_IMAGE}"
 ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-40}"
-ARG TARGET_BASE="${TARGET_BASE:-bluefin}"
+ARG TARGET_BASE="${TARGET_BASE:-sarkinite}"
 ARG NVIDIA_TYPE="${NVIDIA_TYPE:-}"
 ARG KERNEL="${KERNEL:-6.9.7-200.fc40.x86_64}"
 ARG UBLUE_IMAGE_TAG="${UBLUE_IMAGE_TAG:-latest}"
@@ -19,7 +19,7 @@ FROM ${ZFS_CACHE} AS zfs_cache
 FROM ${NVIDIA_CACHE} AS nvidia_cache
 FROM ${KERNEL_CACHE} AS kernel_cache
 
-## bluefin image section
+## sarkinite image section
 FROM ${BASE_IMAGE}:${FEDORA_MAJOR_VERSION} AS base
 
 ARG IMAGE_NAME="${IMAGE_NAME}"
@@ -61,7 +61,7 @@ RUN --mount=type=bind,from=akmods,source=/rpms,target=/tmp/akmods \
     mkdir -p /var/tmp && \
     chmod -R 1777 /var/tmp
 
-## bluefin-dx developer edition image section
+## sarkinite-dx developer edition image section
 FROM base AS dx
 
 ARG IMAGE_NAME="${IMAGE_NAME}"

@@ -1,5 +1,4 @@
 [KDE]
-LookAndFeelPackage=dev.getaurora.aurora.desktop
 SingleClick=false
 ColorScheme=BreezeDark
 widgetStyle=Breeze

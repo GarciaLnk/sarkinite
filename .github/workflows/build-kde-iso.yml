@@ -1,0 +1,12 @@
+name: Sarkinite (KDE) ISO
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Sarkinite (KDE)
+    uses: ./.github/workflows/reusable-build-iso.yml
+    secrets: inherit
+    with:
+      brand_name: kde
+      fedora_version: stable

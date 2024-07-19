@@ -94,14 +94,10 @@
             "id": "outputChoice",
             "type": "pickString",
             "description": "Choose which container to build",
-            "default": "bluefin",
+            "default": "sarkinite",
             "options": [
-                "bluefin gts",
-                "bluefin-dx gts",
-                "bluefin stable",
-                "bluefin-dx stable",
-                "aurora stable",
-                "aurora-dx stable"
+                "sarkinite stable",
+                "sarkinite-dx stable"
             ]
         }
     ]

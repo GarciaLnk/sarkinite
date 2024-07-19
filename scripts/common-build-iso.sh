@@ -58,10 +58,10 @@ fedora_version=$(echo "$KERNEL_RELEASE" | grep -oP 'fc\K[0-9]+')
 # Set variant and flatpak dir
 if [[ "${base_image}" =~ "silverblue" ]]; then
     variant=Silverblue
-    flatpak_dir_shortname="bluefin_flatpaks"
+    flatpak_dir_shortname="flatpaks_gnome"
 elif [[ "${base_image}" =~ "kinoite" ]]; then
     variant=Kinoite
-    flatpak_dir_shortname="aurora_flatpaks"
+    flatpak_dir_shortname="flatpaks_kde"
 else
     exit 1
 fi

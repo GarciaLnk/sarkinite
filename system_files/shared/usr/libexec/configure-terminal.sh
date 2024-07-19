@@ -6,8 +6,6 @@ source /usr/lib/ujust/ujust.sh
 # List of possible containers
 ###
 targets=(
-    "bluefin-cli"
-    "bluefin-dx-cli"
     "fedora-toolbox"
     "ubuntu-toolbox"
     "wolfi-toolbox"
@@ -20,12 +18,12 @@ targets=(
 # shellcheck disable=SC2154
 function Exiting(){
     echo "${red}Exiting...${normal}"
-    echo "Rerun CLI setup using ${blue}ujust bluefin-cli${normal}..."
+    echo "Rerun CLI setup using ${blue}ujust sarkinite-cli${normal}..."
     exit 0
 }
 function Good_Exit(){
     echo ""
-    echo "Finished Bluefin-CLI setup, rerun with ${blue}ujust bluefin-cli${normal} to reconfigure"
+    echo "Finished Sarkinite-CLI setup, rerun with ${blue}ujust sarkinite-cli${normal} to reconfigure"
     exit 0
 }
 
@@ -203,7 +201,7 @@ function Build_container(){
 #         echo "Enter into container using ptyxis's menu after first entry"
 #         echo "${blue}This requires your bash shell to source files in ~/.bashrc.d/${normal}"
 #         test -e "${HOME}/.bashrc.d/00-container.sh" && rm "${HOME}/.bashrc.d/00-container.sh"
-#         cp "/usr/share/ublue-os/bluefin-cli/${2}.sh" "${HOME}/.bashrc.d/00-container.sh"
+#         cp "/usr/share/ublue-os/sarkinite-cli/${2}.sh" "${HOME}/.bashrc.d/00-container.sh"
 #     else
 #         echo "${red}Not implemented for non-Bash shells${normal} at this time..."
 #     fi
@@ -211,7 +209,7 @@ function Build_container(){
 
 function main(){
     trap ctrl_c SIGINT
-    printf "Set Up bluefin-cli\n"
+    printf "Set Up sarkinite-cli\n"
     Terminal_choice
     Make_container "$TERMINAL_CHOICE" 
     Container_manager
