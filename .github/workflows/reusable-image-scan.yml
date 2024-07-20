@@ -3,9 +3,11 @@ on:
   workflow_call:
     inputs:
       images:
-        description: "A comma-separated list of images to scan.  E.G. '[\"docker.io/library/alpine:3.14.0\", \"docker.io/library/alpine:3.13.6\"]'"
+        description: 'A comma-separated list of images to scan.  E.G. ''["docker.io/library/alpine:3.14.0", "docker.io/library/alpine:3.13.6"]'''
         required: true
         type: string
+
+permissions: read-all
 
 jobs:
   generate-matrix:

@@ -3,7 +3,8 @@ on:
   workflow_dispatch:
   # schedule:
   #   - cron: '41 6 * * 2'  # 6:41 UTC every Tuesday
-  
+
+permissions: read-all
 
 jobs:
   build-latest:

@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 if [[ -z ${project_root} ]]; then
-    project_root=$(git rev-parse --show-toplevel)
+	project_root=$(git rev-parse --show-toplevel)
 fi
 if [[ -z ${git_branch} ]]; then
-    git_branch=$(git branch --show-current)
+	git_branch=$(git branch --show-current)
 fi
 
 # Get inputs
@@ -21,19 +21,18 @@ tag=$(just _tag "${image}" "${target}")
 
 # Graphical Warning
 if "${container_mgr}" info | grep Root | grep -q /home; then
-    echo "Cannot run Graphical Session with rootless container..."
-    secs=5
-    while [ $secs -gt 0 ]
-    do
-        printf "\r\033[KWaiting %.d seconds." $((secs--))
-        sleep 1
-    done
+	echo "Cannot run Graphical Session with rootless container..."
+	secs=5
+	while [[ ${secs} -gt 0 ]]; do
+		printf "\r\033[KWaiting %.d seconds." $((secs--))
+		sleep 1
+	done
 fi
 
 # Check to see if image exists, build it if it doesn't
 ID=$(${container_mgr} images --filter reference=localhost/"${tag}:${version}-${git_branch}" --format "{{.ID}}")
 if [[ -z ${ID} ]]; then
-    just build "${image}" "${target}" "${version}"
+	just build "${image}" "${target}" "${version}"
 fi
 
 # Start building run command
@@ -51,7 +50,7 @@ run_cmd+=(-v /var/lib/flatpak:/var/lib/flatpak:rslave)
 # Mount in $HOME.
 home_location=/home
 if [[ -L /home ]]; then
-    home_location=/$(readlink /home)
+	home_location=/$(readlink /home)
 fi
 run_cmd+=(-v "${home_location}":/var/home:rslave)
 
@@ -66,13 +65,13 @@ run_cmd+=(-v /sys/fs/selinux)
 
 # Host Network Option
 if [[ -n ${HOST_NETWORK} ]]; then
-    run_cmd+=(--network host)
-    run_cmd+=(-v /etc/NetworkManager:/etc/NetworkManager)
-    run_cmd+=(-v /etc/hosts:/etc/hosts)
-    run_cmd+=(-v /etc/resolv.conf:/etc/resolv.conf)
+	run_cmd+=(--network host)
+	run_cmd+=(-v /etc/NetworkManager:/etc/NetworkManager)
+	run_cmd+=(-v /etc/hosts:/etc/hosts)
+	run_cmd+=(-v /etc/resolv.conf:/etc/resolv.conf)
 fi
 
 # Boot the container
-"$container_mgr" "${run_cmd[@]}" "localhost/${tag}:${version}" /sbin/init
+"${container_mgr}" "${run_cmd[@]}" "localhost/${tag}:${version}" /sbin/init
 
 exit 0

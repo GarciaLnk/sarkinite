@@ -149,11 +149,7 @@
 				"gnome-terminal-nautilus",
 				"gnome-tour"
 			],
-			"kinoite": [
-				"krfb",
-				"krfb-libs",
-				"plasma-welcome"
-			],
+			"kinoite": ["krfb", "krfb-libs", "plasma-welcome"],
 			"dx": []
 		}
 	},
@@ -161,16 +157,11 @@
 		"include": {
 			"all": [],
 			"silverblue": [],
-			"dx": [
-				"distrobuilder",
-				"podman-plugins"
-			]
+			"dx": ["distrobuilder", "podman-plugins"]
 		},
 		"exclude": {
 			"all": [],
-			"silverblue": [
-				
-			],
+			"silverblue": [],
 			"dx": []
 		}
 	},
@@ -181,10 +172,9 @@
 			"dx": []
 		},
 		"exclude": {
-			"all":	[],
+			"all": [],
 			"silverblue": [],
 			"dx": []
 		}
 	}
-
 }

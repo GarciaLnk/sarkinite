@@ -4,9 +4,9 @@ set -euo pipefail
 image=$1
 
 if [[ ${image} =~ "gnome" ]]; then
-    echo silverblue
+	echo silverblue
 elif [[ ${image} =~ "kde" ]]; then
-    echo kinoite
+	echo kinoite
 else
-    exit 1
+	exit 1
 fi

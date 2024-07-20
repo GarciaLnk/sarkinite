@@ -2,6 +2,8 @@ name: Sarkinite (KDE) ISO
 on:
   workflow_dispatch:
 
+permissions: read-all
+
 jobs:
   build:
     name: Sarkinite (KDE)

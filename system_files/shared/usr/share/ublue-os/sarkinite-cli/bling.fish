@@ -1,3 +1,5 @@
+#!/usr/bin/fish
+
 # ls aliases
 if [ "$(command -v eza)" ]
     alias ll='eza -l --icons=auto --group-directories-first'

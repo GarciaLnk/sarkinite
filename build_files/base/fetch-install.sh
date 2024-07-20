@@ -7,7 +7,7 @@ curl -Lo /tmp/starship.tar.gz "https://github.com/starship/starship/releases/lat
 tar -xzf /tmp/starship.tar.gz -C /tmp
 install -c -m 0755 /tmp/starship /usr/bin
 # shellcheck disable=SC2016
-echo 'eval "$(starship init bash)"' >> /etc/bashrc
+echo 'eval "$(starship init bash)"' >>/etc/bashrc
 
 # Bash Prexec
 curl -Lo /usr/share/bash-prexec https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh
@@ -20,7 +20,7 @@ sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/ublue-os-staging-fedora-"${FED
 rpm-ostree install ublue-update
 
 # Consolidate Just Files
-find /tmp/just -iname '*.just' -exec printf "\n\n" \; -exec cat {} \; >> /usr/share/ublue-os/just/60-custom.just
+find /tmp/just -iname '*.just' -exec printf "\n\n" \; -exec cat {} \; >>/usr/share/ublue-os/just/60-custom.just
 
 # Copy over ublue-update config
 cp /tmp/ublue-update.toml /usr/etc/ublue-update/ublue-update.toml

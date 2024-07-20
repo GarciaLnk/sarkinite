@@ -10,16 +10,17 @@
 				"mads-hartmann.bash-ide-vscode",
 				"ms-azuretools.vscode-docker",
 				"sclu1034.justfile",
-				"timonwong.shellcheck"
+				"tudoudou.json5-for-vscode",
+				"ms-vscode.makefile-tools",
+				"github.vscode-github-actions",
+				"Trunk.io"
 			]
 		}
 	},
-	// Likely need to add "--userns=keep-id, --group-add=keep-groups" for podman support 
+	// Likely need to add "--userns=keep-id, --group-add=keep-groups" for podman support
 	"runArgs": ["--init"],
 	"remoteEnv": { "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}" },
-	"securityOpt": [
-		"label=disable"
-	],
+	"securityOpt": ["label=disable"],
 	"features": {
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
 		"ghcr.io/guiyomh/features/just:0": {},

@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 if [[ -z ${project_root} ]]; then
-    project_root=$(git rev-parse --show-toplevel)
+	project_root=$(git rev-parse --show-toplevel)
 fi
 if [[ -z ${git_branch} ]]; then
-    git_branch=$(git branch --show-current)
+	git_branch=$(git branch --show-current)
 fi
 set -eo pipefail
 
@@ -23,7 +23,7 @@ tag=$(just _tag "${image}" "${target}")
 # Check if requested image exist, if it doesn't build it
 ID=$(${container_mgr} images --filter reference=localhost/"${tag}":"${version}-${git_branch}" --format "{{.ID}}")
 if [[ -z ${ID} ]]; then
-    just build "${image}" "${target}" "${version}"
+	just build "${image}" "${target}" "${version}"
 fi
 
 # Run image

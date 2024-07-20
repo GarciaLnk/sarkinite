@@ -6,11 +6,11 @@ set -ouex pipefail
 mkdir -p /usr/etc/containers/systemd/users
 
 # fedora-toolbox
-curl -Lo /usr/etc/containers/systemd/users/fedora-toolbox.container https://raw.githubusercontent.com/ublue-os/toolboxes/main/quadlets/fedora-toolbox/fedora-distrobox-quadlet.container 
+curl -Lo /usr/etc/containers/systemd/users/fedora-toolbox.container https://raw.githubusercontent.com/ublue-os/toolboxes/main/quadlets/fedora-toolbox/fedora-distrobox-quadlet.container
 sed -i 's/ContainerName=fedora-distrobox-quadlet/ContainerName=fedora-toolbox/' /usr/etc/containers/systemd/users/fedora-toolbox.container
 
 # ubuntu-toolbox
-curl -Lo /usr/etc/containers/systemd/users/ubuntu-toolbox.container https://raw.githubusercontent.com/ublue-os/toolboxes/main/quadlets/ubuntu-toolbox/ubuntu-distrobox-quadlet.container 
+curl -Lo /usr/etc/containers/systemd/users/ubuntu-toolbox.container https://raw.githubusercontent.com/ublue-os/toolboxes/main/quadlets/ubuntu-toolbox/ubuntu-distrobox-quadlet.container
 sed -i 's/ContainerName=ubuntu-distrobox-quadlet/ContainerName=ubuntu-toolbox/' /usr/etc/containers/systemd/users/ubuntu-toolbox.container
 
 # wolfi-toolbox
@@ -22,20 +22,19 @@ curl -Lo /usr/etc/containers/systemd/users/wolfi-dx-toolbox.container https://ra
 sed -i 's/ContainerName=wolfi-quadlet/ContainerName=wolfi-dx-toolbox/' /usr/etc/containers/systemd/users/wolfi-dx-toolbox.container
 
 # Brew Integration for Fedora and Ubuntu Toolboxes
-printf "\nVolume=/home/linuxbrew:/home/linuxbrew:rslave\nVolume=/usr/etc/profile.d/brew.sh:/etc/profile.d/brew.sh:ro\nVolume=/usr/share/fish/vendor_conf.d/brew.fish:/usr/share/fish/vendor_conf.d/brew.fish:ro\n" >> /usr/etc/containers/systemd/users/ubuntu-toolbox.container
-printf "\nVolume=/home/linuxbrew:/home/linuxbrew:rslave\nVolume=/usr/etc/profile.d/brew.sh:/etc/profile.d/brew.sh:ro\nVolume=/usr/share/fish/vendor_conf.d/brew.fish:/usr/share/fish/vendor_conf.d/brew.fish:ro\n" >> /usr/etc/containers/systemd/users/fedora-toolbox.container
+printf "\nVolume=/home/linuxbrew:/home/linuxbrew:rslave\nVolume=/usr/etc/profile.d/brew.sh:/etc/profile.d/brew.sh:ro\nVolume=/usr/share/fish/vendor_conf.d/brew.fish:/usr/share/fish/vendor_conf.d/brew.fish:ro\n" >>/usr/etc/containers/systemd/users/ubuntu-toolbox.container
+printf "\nVolume=/home/linuxbrew:/home/linuxbrew:rslave\nVolume=/usr/etc/profile.d/brew.sh:/etc/profile.d/brew.sh:ro\nVolume=/usr/share/fish/vendor_conf.d/brew.fish:/usr/share/fish/vendor_conf.d/brew.fish:ro\n" >>/usr/etc/containers/systemd/users/fedora-toolbox.container
 
-# Make systemd targets 
+# Make systemd targets
 mkdir -p /usr/lib/systemd/user
 QUADLET_TARGETS=(
-    "fedora-toolbox"
-    "ubuntu-toolbox"
-    "wolfi-toolbox"
-    "wolfi-dx-toolbox"
+	"fedora-toolbox"
+	"ubuntu-toolbox"
+	"wolfi-toolbox"
+	"wolfi-dx-toolbox"
 )
-for i in "${QUADLET_TARGETS[@]}"
-do
-cat > "/usr/lib/systemd/user/${i}.target" <<EOF
+for i in "${QUADLET_TARGETS[@]}"; do
+	cat >"/usr/lib/systemd/user/${i}.target" <<EOF
 [Unit]
 Description=${i}"target for ${i} quadlet
 
@@ -43,7 +42,7 @@ Description=${i}"target for ${i} quadlet
 WantedBy=default.target
 EOF
 
-# Add ptyxis integration and have autostart tied to systemd targets
-cat /usr/share/ublue-os/sarkinite-cli/ptyxis-integration >> /usr/etc/containers/systemd/users/"$i".container
-printf "\n\n[Install]\nWantedBy=%s.target" "$i" >> /usr/etc/containers/systemd/users/"$i".container
+	# Add ptyxis integration and have autostart tied to systemd targets
+	cat /usr/share/ublue-os/sarkinite-cli/ptyxis-integration >>/usr/etc/containers/systemd/users/"${i}".container
+	printf "\n\n[Install]\nWantedBy=%s.target" "${i}" >>/usr/etc/containers/systemd/users/"${i}".container
 done

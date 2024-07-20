@@ -11,13 +11,13 @@ CURRENT_VALUE=${CURRENT_VALUE:1:-1}
 CURRENT_VALUE=${CURRENT_VALUE// /}
 
 # split the string into an array
-IFS=',' read -r -a array <<<"$CURRENT_VALUE"
+IFS=',' read -r -a array <<<"${CURRENT_VALUE}"
 
 # Exit if the guid already is in the array
-[[ $CURRENT_VALUE =~ $guid ]] && exit 0
+[[ ${CURRENT_VALUE} =~ ${guid} ]] && exit 0
 
 # add the new value
-array+=("'$guid'")
+array+=("'${guid}'")
 
 # join the array back into a string
 UPDATED_VALUE=$(printf "%s," "${array[@]}")
@@ -26,7 +26,7 @@ UPDATED_VALUE=$(printf "%s," "${array[@]}")
 UPDATED_VALUE=${UPDATED_VALUE%?}
 
 # add the leading and trailing brackets
-UPDATED_VALUE="[$UPDATED_VALUE]"
+UPDATED_VALUE="[${UPDATED_VALUE}]"
 
 # Write the updated array back to dconf
-dconf write /org/gnome/Ptyxis/profile-uuids "$UPDATED_VALUE"
+dconf write /org/gnome/Ptyxis/profile-uuids "${UPDATED_VALUE}"
