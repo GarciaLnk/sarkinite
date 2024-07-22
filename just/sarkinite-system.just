@@ -19,16 +19,6 @@ benchmark:
 sarkinite-cli:
     @/usr/libexec/ublue-bling.sh
 
-# Configure Sarkinite-CLI Terminal Experience
-[private]
-sarkinite-cli-container:
-    @/usr/libexec/enable-sarkinite-cli.sh
-
-# Configure Terminal Experience
-[private]
-configure-terminal:
-    @/usr/libexec/configure-terminal.sh
-
 # Toggle between Sarkinite and the Developer Experience
 devmode:
     #!/usr/bin/env bash
