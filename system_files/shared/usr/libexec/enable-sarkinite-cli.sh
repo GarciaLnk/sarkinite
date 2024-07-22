@@ -20,27 +20,7 @@ function get_status() {
 	else
 		sarkinite_cli[1]="${red}Inactive${n}"
 	fi
-	get_default=$(dconf read /org/gnome/Ptyxis/default-profile-uuid)
-	if test "${get_default}" = "'a21a910811504857bea4c96b3d937b93'"; then
-		sarkinite_cli[2]="${green}Default${n}"
-	else
-		sarkinite_cli[2]="${red}Not-Default${n}"
-	fi
-	echo "Sarkinite-cli is currently ${b}${sarkinite_cli[0]}${n} (run status), ${b}${sarkinite_cli[1]}${n} (on boot status), and ${b}${sarkinite_cli[2]}${n} (terminal profile)."
-}
-
-function default_login() {
-	toggle=$(Choose Default Not-Default Cancel)
-	if test "${toggle}" = "Default"; then
-		echo "Setting Sarkinite-CLI to default Ptyxis Profile"
-		/usr/libexec/ptyxis-create-profile.sh sarkinite-cli default
-	elif test "${toggle}" = "Not-Default"; then
-		echo "Setting Host back to default Ptyxis Profile"
-		/usr/libexec/ptyxis-create-profile.sh Host default
-	else
-		dconf write /or
-		echo "Not Changing"
-	fi
+	echo "Sarkinite-cli is currently ${b}${sarkinite_cli[0]}${n} (run status), and ${b}${sarkinite_cli[1]}${n} (on boot status)."
 }
 
 function logic() {
@@ -52,7 +32,6 @@ function logic() {
 			echo "${b}${green}Starting${n} Sarkinite-CLI"
 			systemctl --user start sarkinite-cli.service
 		fi
-		default_login
 	elif test "${toggle}" = "Disable"; then
 		echo "${b}${red}Disabling${n} Sarkinite-CLI"
 		systemctl --user disable --now sarkinite-cli.target >/dev/null 2>&1
@@ -64,8 +43,6 @@ function logic() {
 				systemctl --user reset-failed sarkinite-cli.service >/dev/null 2>&1 || true
 			fi
 		fi
-		echo "Setting Host back to default Ptyxis Profile"
-		/usr/libexec/ptyxis-create-profile.sh Host default
 	else
 		echo "Not Changing"
 	fi

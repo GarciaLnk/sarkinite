@@ -42,7 +42,4 @@ Description=${i}"target for ${i} quadlet
 WantedBy=default.target
 EOF
 
-	# Add ptyxis integration and have autostart tied to systemd targets
-	cat /usr/share/ublue-os/sarkinite-cli/ptyxis-integration >>/usr/etc/containers/systemd/users/"${i}".container
-	printf "\n\n[Install]\nWantedBy=%s.target" "${i}" >>/usr/etc/containers/systemd/users/"${i}".container
 done

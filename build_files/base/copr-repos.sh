@@ -8,26 +8,6 @@ curl -Lo /etc/yum.repos.d/ublue-os-staging-fedora-"${FEDORA_MAJOR_VERSION}".repo
 # Add Bling repo
 curl -Lo /etc/yum.repos.d/ublue-os-bling-fedora-"${FEDORA_MAJOR_VERSION}".repo https://copr.fedorainfracloud.org/coprs/ublue-os/bling/repo/fedora-"${FEDORA_MAJOR_VERSION}"/ublue-os-bling-fedora-"${FEDORA_MAJOR_VERSION}".repo
 
-# 39 Ptyxis
-if [[ ${FEDORA_MAJOR_VERSION} -eq "39" ]]; then
-	rpm-ostree override replace \
-		--experimental \
-		--from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
-		gtk4 \
-		vte291 \
-		libadwaita \
-		mutter \
-		mutter-common \
-		gnome-control-center \
-		gnome-control-center-filesystem
-	rpm-ostree install ptyxis
-fi
-
-# 40 Ptyxis
-if [[ ${FEDORA_MAJOR_VERSION} -eq "40" ]]; then
-	rpm-ostree install ptyxis
-fi
-
 # Patched switcheroo
 # Add repo
 curl -Lo /etc/yum.repos.d/_copr_sentry-switcheroo-control_discrete.repo https://copr.fedorainfracloud.org/coprs/sentry/switcheroo-control_discrete/repo/fedora-"${FEDORA_MAJOR_VERSION}"/sentry-switcheroo-control_discrete-fedora-"${FEDORA_MAJOR_VERSION}".repo
