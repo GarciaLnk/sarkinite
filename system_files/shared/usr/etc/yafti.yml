@@ -73,7 +73,6 @@ screens:
           packages:
             - Font Downloader: org.gustavoperedo.FontDownloader
             - PinApp Menu Editor: io.github.fabrialberio.pinapp
-            - Backup: org.gnome.DejaDup
             - LocalSend (Easily send files across your network): org.localsend.localsend_app
             - Peek (Simple Screen Recorder): com.uploadedlobster.peek
             - Syncthing: com.github.zocker_160.SyncThingy
