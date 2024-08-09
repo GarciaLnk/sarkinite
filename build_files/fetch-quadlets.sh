@@ -3,27 +3,27 @@
 set -ouex pipefail
 
 # Make Directory
-mkdir -p /usr/etc/containers/systemd/users
+mkdir -p /etc/containers/systemd/users
 
 # fedora-toolbox
-curl -Lo /usr/etc/containers/systemd/users/fedora-toolbox.container https://raw.githubusercontent.com/ublue-os/toolboxes/main/quadlets/fedora-toolbox/fedora-distrobox-quadlet.container
-sed -i 's/ContainerName=fedora-distrobox-quadlet/ContainerName=fedora-toolbox/' /usr/etc/containers/systemd/users/fedora-toolbox.container
+curl -Lo /etc/containers/systemd/users/fedora-toolbox.container https://raw.githubusercontent.com/ublue-os/toolboxes/main/quadlets/fedora-toolbox/fedora-distrobox-quadlet.container
+sed -i 's/ContainerName=fedora-distrobox-quadlet/ContainerName=fedora-toolbox/' /etc/containers/systemd/users/fedora-toolbox.container
 
 # ubuntu-toolbox
-curl -Lo /usr/etc/containers/systemd/users/ubuntu-toolbox.container https://raw.githubusercontent.com/ublue-os/toolboxes/main/quadlets/ubuntu-toolbox/ubuntu-distrobox-quadlet.container
-sed -i 's/ContainerName=ubuntu-distrobox-quadlet/ContainerName=ubuntu-toolbox/' /usr/etc/containers/systemd/users/ubuntu-toolbox.container
+curl -Lo /etc/containers/systemd/users/ubuntu-toolbox.container https://raw.githubusercontent.com/ublue-os/toolboxes/main/quadlets/ubuntu-toolbox/ubuntu-distrobox-quadlet.container
+sed -i 's/ContainerName=ubuntu-distrobox-quadlet/ContainerName=ubuntu-toolbox/' /etc/containers/systemd/users/ubuntu-toolbox.container
 
 # wolfi-toolbox
-curl -Lo /usr/etc/containers/systemd/users/wolfi-toolbox.container https://raw.githubusercontent.com/ublue-os/toolboxes/main/quadlets/wolfi-toolbox/wolfi-distrobox-quadlet.container
-sed -i 's/ContainerName=wolfi-quadlet/ContainerName=wolfi-toolbox/' /usr/etc/containers/systemd/users/wolfi-toolbox.container
+curl -Lo /etc/containers/systemd/users/wolfi-toolbox.container https://raw.githubusercontent.com/ublue-os/toolboxes/main/quadlets/wolfi-toolbox/wolfi-distrobox-quadlet.container
+sed -i 's/ContainerName=wolfi-quadlet/ContainerName=wolfi-toolbox/' /etc/containers/systemd/users/wolfi-toolbox.container
 
 # wolfi-dx-toolbox
-curl -Lo /usr/etc/containers/systemd/users/wolfi-dx-toolbox.container https://raw.githubusercontent.com/ublue-os/toolboxes/main/quadlets/wolfi-toolbox/wolfi-dx-distrobox-quadlet.container
-sed -i 's/ContainerName=wolfi-quadlet/ContainerName=wolfi-dx-toolbox/' /usr/etc/containers/systemd/users/wolfi-dx-toolbox.container
+curl -Lo /etc/containers/systemd/users/wolfi-dx-toolbox.container https://raw.githubusercontent.com/ublue-os/toolboxes/main/quadlets/wolfi-toolbox/wolfi-dx-distrobox-quadlet.container
+sed -i 's/ContainerName=wolfi-quadlet/ContainerName=wolfi-dx-toolbox/' /etc/containers/systemd/users/wolfi-dx-toolbox.container
 
 # Brew Integration for Fedora and Ubuntu Toolboxes
-printf "\nVolume=/home/linuxbrew:/home/linuxbrew:rslave\nVolume=/usr/etc/profile.d/brew.sh:/etc/profile.d/brew.sh:ro\nVolume=/usr/share/fish/vendor_conf.d/brew.fish:/usr/share/fish/vendor_conf.d/brew.fish:ro\n" >>/usr/etc/containers/systemd/users/ubuntu-toolbox.container
-printf "\nVolume=/home/linuxbrew:/home/linuxbrew:rslave\nVolume=/usr/etc/profile.d/brew.sh:/etc/profile.d/brew.sh:ro\nVolume=/usr/share/fish/vendor_conf.d/brew.fish:/usr/share/fish/vendor_conf.d/brew.fish:ro\n" >>/usr/etc/containers/systemd/users/fedora-toolbox.container
+printf "\nVolume=/home/linuxbrew:/home/linuxbrew:rslave\nVolume=/etc/profile.d/brew.sh:/etc/profile.d/brew.sh:ro\nVolume=/usr/share/fish/vendor_conf.d/brew.fish:/usr/share/fish/vendor_conf.d/brew.fish:ro\n" >>/etc/containers/systemd/users/ubuntu-toolbox.container
+printf "\nVolume=/home/linuxbrew:/home/linuxbrew:rslave\nVolume=/etc/profile.d/brew.sh:/etc/profile.d/brew.sh:ro\nVolume=/usr/share/fish/vendor_conf.d/brew.fish:/usr/share/fish/vendor_conf.d/brew.fish:ro\n" >>/etc/containers/systemd/users/fedora-toolbox.container
 
 # Make systemd targets
 mkdir -p /usr/lib/systemd/user
