@@ -141,12 +141,7 @@
 			]
 		},
 		"exclude": {
-			"all": [
-				"firefox-langpacks",
-				"firefox",
-				"podman-docker",
-				"ublue-os-update-services"
-			],
+			"all": ["podman-docker", "ublue-os-update-services"],
 			"silverblue": [
 				"gnome-extensions-app",
 				"gnome-software-rpm-ostree",
