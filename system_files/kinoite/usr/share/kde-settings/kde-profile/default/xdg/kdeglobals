@@ -1,6 +1,10 @@
-[KDE]
-SingleClick=false
+[General]
 ColorScheme=BreezeDark
+
+[Icons]
+Theme=breeze-dark
+
+[KDE]
 widgetStyle=Breeze
 
 [KDE Control Module Restrictions][$i]
