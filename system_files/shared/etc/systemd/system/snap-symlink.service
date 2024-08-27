@@ -1,0 +1,12 @@
+[Unit]
+Description=Creates /snap symlink for OSTree
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+ExecStartPre=chattr -i /
+ExecStart=/usr/bin/ln -sf var/lib/snapd/snap /
+ExecStartPost=chattr +i /
+
+[Install]
+WantedBy=snapd.socket

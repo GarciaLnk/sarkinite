@@ -41,6 +41,7 @@
 				"samba-winbind-clients",
 				"samba-winbind-modules",
 				"samba",
+				"snapd",
 				"solaar",
 				"steam",
 				"stress-ng",
