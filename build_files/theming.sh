@@ -12,9 +12,11 @@ git clone https://github.com/vinceliuice/Fluent-gtk-theme /tmp/fluent-gtk-theme
 cd /tmp/fluent-gtk-theme || exit
 ./install.sh -s compact -i fedora -l
 
-# Fluent KDE Theme
-git clone https://github.com/vinceliuice/Fluent-kde /tmp/fluent-kde
-cd /tmp/fluent-kde || exit
-rm -rf plasma/look-and-feel/*
-rm -rf plasma/plasmoids/org.kde.plasma.splitdigitalclock
-./install.sh -c
+if test "${BASE_IMAGE_NAME}" = "kinoite"; then
+	# Fluent KDE Theme
+	git clone https://github.com/vinceliuice/Fluent-kde /tmp/fluent-kde
+	cd /tmp/fluent-kde || exit
+	rm -rf plasma/look-and-feel/*
+	rm -rf plasma/plasmoids/org.kde.plasma.splitdigitalclock
+	./install.sh -c
+fi
