@@ -62,6 +62,9 @@ if [[ ${base_image} =~ "silverblue" ]]; then
 elif [[ ${base_image} =~ "kinoite" ]]; then
 	variant=Kinoite
 	flatpak_dir_shortname="flatpaks_kde"
+elif [[ ${base_image} =~ "sericea" ]]; then
+	variant=Sericea
+	flatpak_dir_shortname="flatpaks_sway"
 else
 	exit 1
 fi

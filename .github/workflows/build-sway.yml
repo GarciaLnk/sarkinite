@@ -1,4 +1,4 @@
-name: Sarkinite (KDE)
+name: Sarkinite (Sway)
 on:
   pull_request:
     branches:
@@ -7,7 +7,7 @@ on:
     paths-ignore:
       - "**.md"
       - "system_files/silverblue/**"
-      - "system_files/sericea/**"
+      - "system_files/kinoite/**"
   schedule:
     - cron: "41 5 * * 2" # 5:41 UTC every Tuesday
   workflow_dispatch:
@@ -20,5 +20,5 @@ jobs:
     uses: ./.github/workflows/reusable-build.yml
     secrets: inherit
     with:
-      brand_name: kde
+      brand_name: sway
       fedora_version: stable

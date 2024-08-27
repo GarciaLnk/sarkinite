@@ -1,16 +1,14 @@
-name: Sarkinite (GNOME) ISO
+name: Sarkinite (Sway) ISO
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: '41 6 * * 2'  # 6:41 UTC every Tuesday
 
 permissions: read-all
 
 jobs:
-  build-latest:
-    name: Sarkinite (GNOME)
+  build:
+    name: Sarkinite (Sway)
     uses: ./.github/workflows/reusable-build-iso.yml
     secrets: inherit
     with:
-      brand_name: gnome
+      brand_name: sway
       fedora_version: stable

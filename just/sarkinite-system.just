@@ -226,6 +226,8 @@ install-system-flatpaks:
         FLATPAKS="flatpaks_gnome/flatpaks"
     elif [[ ${BASE_IMAGE_NAME} == 'kinoite' ]]; then
         FLATPAKS="flatpaks_kde/flatpaks"
+    elif [[ ${BASE_IMAGE_NAME} == 'sericea' ]]; then
+        FLATPAKS="flatpaks_sway/flatpaks"
     fi
     FLATPAK_LIST="$(curl https://raw.githubusercontent.com/GarciaLnk/sarkinite/main/${FLATPAKS} | tr '\n' ' ')"
     flatpak --system -y install --or-update ${FLATPAK_LIST}

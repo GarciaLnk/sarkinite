@@ -3,7 +3,7 @@ on:
   workflow_call:
     inputs:
       brand_name:
-        description: "'kde' or 'gnome'"
+        description: "'kde', 'gnome' or 'sway'"
         required: true
         type: string
       fedora_version:
@@ -71,6 +71,8 @@ jobs:
             echo "VARIANT=Silverblue" >> $GITHUB_ENV
           elif [[ ${{ inputs.brand_name }} == "kde" ]]; then
             echo "VARIANT=Kinoite" >> $GITHUB_ENV
+          elif [[ ${{ inputs.brand_name }} == "sway" ]]; then
+            echo "VARIANT=Sericea" >> $GITHUB_ENV
           fi
 
       - name: Get Current Fedora Version
@@ -114,6 +116,8 @@ jobs:
             FLATPAK_DIR_SHORTNAME="flatpaks_gnome"
           elif [[ ${{ inputs.brand_name }} = "kde" ]]; then
             FLATPAK_DIR_SHORTNAME="flatpaks_kde"
+          elif [[ ${{ inputs.brand_name }} = "sway" ]]; then
+            FLATPAK_DIR_SHORTNAME="flatpaks_sway"
           fi
           echo "flatpak-dir-shortname=${FLATPAK_DIR_SHORTNAME}" >> $GITHUB_OUTPUT
 
