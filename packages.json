@@ -52,6 +52,7 @@
 				"winetricks",
 				"wireguard-tools",
 				"xprop",
+				"webapp-manager",
 				"wl-clipboard",
 				"zsh"
 			],
