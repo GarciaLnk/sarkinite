@@ -74,6 +74,7 @@
 				"libadwaita-qt6",
 				"kde-runtime-docs",
 				"kdenetwork-filesharing",
+				"kvantum",
 				"plasma-wallpapers-dynamic"
 			],
 			"dx": [

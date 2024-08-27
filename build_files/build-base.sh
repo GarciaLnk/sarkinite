@@ -25,6 +25,7 @@ rsync -rvK /ctx/system_files/"${BASE_IMAGE_NAME}"/ /
 /ctx/build_files/changes-gnome.sh
 /ctx/build_files/changes-kde.sh
 /ctx/build_files/branding.sh
+/ctx/build_files/theming.sh
 /ctx/build_files/initramfs.sh
 /ctx/build_files/bootc.sh
 /ctx/build_files/cleanup.sh
