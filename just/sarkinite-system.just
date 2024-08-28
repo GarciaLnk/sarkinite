@@ -304,3 +304,35 @@ toggle-tailscale:
         fi
       fi
     fi
+
+# Install nix and Devbox
+nix-devbox:
+    echo 'Installing nix.'
+    curl -Lo /tmp/nix-installer https://install.determinate.systems/nix/nix-installer-x86_64-linux
+    chmod +x /tmp/nix-installer
+    sudo /tmp/nix-installer install ostree --no-confirm
+    rm -f /tmp/nix-installer
+    systemctl enable nix-gc.timer
+    echo 'Installing devbox!'
+    curl -Lo /tmp/devbox-installer https://get.jetify.com/devbox
+    chmod +x /tmp/devbox-installer
+    /tmp/devbox-installer -f
+    rm -f /tmp/devbox-installer
+    echo 'eval "$(devbox global shellenv)"' | sudo tee -a /etc/bashrc > /dev/null
+    systemctl enable devbox-update.timer
+    echo 'Open a new shell to continue'
+
+alias install-nix := nix-devbox
+alias setup-nix := nix-devbox
+
+# Update nix
+update-nix:
+    echo 'Updating nix.'
+    sudo -i /nix/var/nix/profiles/default/bin/nix upgrade-nix --nix-store-paths-url \
+    https://releases.nixos.org/nix/nix-$(curl -s https://api.github.com/repos/DeterminateSystems/nix/tags | \
+    jq -r '.[0].name' | cut -c2-)/fallback-paths.nix
+
+# Remove nix
+remove-nix:
+    echo 'Removing nix.'
+    /nix/nix-installer uninstall

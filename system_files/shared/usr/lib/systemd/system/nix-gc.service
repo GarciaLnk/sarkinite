@@ -1,0 +1,10 @@
+[Unit]
+Description=Nix Garbage Collection
+After=local-fs.target
+ConditionPathExists=/nix/var/nix/profiles/default/bin/nix
+
+[Service]
+# Override the user if different UID/User
+User=1000
+Type=oneshot
+ExecStart=/nix/var/nix/profiles/default/bin/nix-collect-garbage -d
