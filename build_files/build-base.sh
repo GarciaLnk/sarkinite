@@ -12,6 +12,7 @@ rsync -rvK /ctx/system_files/"${BASE_IMAGE_NAME}"/ /
 
 /ctx/build_files/firmware.sh
 /ctx/build_files/cache_kernel.sh
+/ctx/build_files/update.sh
 /ctx/build_files/copr-repos.sh
 /ctx/build_files/install-akmods.sh
 /ctx/build_files/packages.sh
