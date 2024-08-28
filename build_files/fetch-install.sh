@@ -24,3 +24,11 @@ find /tmp/just -iname '*.just' -exec printf "\n\n" \; -exec cat {} \; >>/usr/sha
 
 # Move over ublue-update config
 mv -f /tmp/ublue-update.toml /usr/etc/ublue-update/ublue-update.toml
+
+# Waydroid
+sed -i~ -E 's/=.\$\(command -v (nft|ip6?tables-legacy).*/=/g' /usr/lib/waydroid/data/scripts/waydroid-net.sh
+curl -Lo /usr/bin/waydroid-choose-gpu https://raw.githubusercontent.com/KyleGospo/waydroid-scripts/main/waydroid-choose-gpu.sh
+chmod +x /usr/bin/waydroid-choose-gpu
+if [[ -f "/var/lib/waydroid/lxc/waydroid/config" ]]; then
+	sed -i '/lxc\.apparmor\.profile\s*=\s*unconfined/d' "/var/lib/waydroid/lxc/waydroid/config"
+fi

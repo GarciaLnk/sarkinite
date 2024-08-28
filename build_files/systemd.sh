@@ -15,3 +15,4 @@ systemctl enable brew-update.timer
 systemctl --global enable ublue-user-setup.service
 systemctl --global enable podman-auto-update.timer
 systemctl enable snap-symlink.service
+systemctl disable waydroid-container.service
