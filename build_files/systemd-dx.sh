@@ -10,3 +10,4 @@ systemctl enable sarkinite-dx-groups.service
 systemctl enable --global sarkinite-dx-user-vscode.service
 systemctl disable pmie.service
 systemctl disable pmlogger.service
+systemctl enable docker-prune.timer

@@ -1,0 +1,9 @@
+[Unit]
+Description=Docker Prune
+After=local-fs.target
+
+[Service]
+# Override the user if different UID/User
+User=1000
+Type=oneshot
+ExecStart=/usr/bin/docker system prune --volumes -f
