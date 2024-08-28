@@ -35,10 +35,7 @@ screens:
           packages:
             - Bottles: com.usebottles.bottles
             - Heroic Games Launcher: com.heroicgameslauncher.hgl
-            - Lutris: net.lutris.Lutris
             - MangoHUD: org.freedesktop.Platform.VulkanLayer.MangoHud//22.08
-            - Steam: com.valvesoftware.Steam
-            - Proton Plus for Steam: com.vysp3r.ProtonPlus
         Office:
           description: Work apps, Bow to Capitalism
           default: false
