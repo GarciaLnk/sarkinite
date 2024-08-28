@@ -312,14 +312,14 @@ nix-devbox:
     chmod +x /tmp/nix-installer
     sudo /tmp/nix-installer install ostree --no-confirm
     rm -f /tmp/nix-installer
-    systemctl enable nix-gc.timer
+    sudo systemctl enable nix-gc.timer
     echo 'Installing devbox!'
     curl -Lo /tmp/devbox-installer https://get.jetify.com/devbox
     chmod +x /tmp/devbox-installer
     /tmp/devbox-installer -f
     rm -f /tmp/devbox-installer
     echo 'eval "$(devbox global shellenv)"' | sudo tee -a /etc/bashrc > /dev/null
-    systemctl enable devbox-update.timer
+    sudo systemctl enable devbox-update.timer
     echo 'Open a new shell to continue'
 
 alias install-nix := nix-devbox
