@@ -336,6 +336,8 @@ update-nix:
 remove-nix:
     echo 'Removing nix.'
     /nix/nix-installer uninstall
+    sudo systemctl disable nix-gc.timer
+    sudo systemctl disable devbox-update.timer
 
 alias configure-waydroid := setup-waydroid
 
