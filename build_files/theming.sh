@@ -16,7 +16,7 @@ if test "${BASE_IMAGE_NAME}" = "kinoite"; then
 	# Fluent KDE Theme
 	git clone https://github.com/vinceliuice/Fluent-kde /tmp/fluent-kde
 	cd /tmp/fluent-kde || exit
-	rm -rf plasma/look-and-feel/*
-	rm -rf plasma/plasmoids/org.kde.plasma.splitdigitalclock
 	./install.sh -c
+	rm -rf /usr/share/plasma/look-and-feel/com.github.vinceliuice.Fluent*
+	rm -rf /usr/share/plasma/plasmoids/org.kde.plasma.splitdigitalclock
 fi

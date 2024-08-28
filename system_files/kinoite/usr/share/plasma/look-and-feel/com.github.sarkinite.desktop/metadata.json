@@ -1,0 +1,19 @@
+{
+	"KPackageStructure": "Plasma/LookAndFeel",
+	"KPlugin": {
+		"Authors": [
+			{
+				"Email": "",
+				"Name": "Universal Blue"
+			}
+		],
+		"Category": "",
+		"Description": "Sarkinite - Theme variant of Fluent",
+		"Id": "com.github.sarkinite.desktop",
+		"License": "GPLv2+",
+		"Name": "Sarkinite",
+		"ServiceTypes": ["Plasma/LookAndFeel"]
+	},
+	"X-KDE-ParentApp": "",
+	"X-Plasma-MainScript": "defaults"
+}
