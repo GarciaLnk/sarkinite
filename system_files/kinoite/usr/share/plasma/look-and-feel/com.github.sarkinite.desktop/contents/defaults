@@ -8,7 +8,7 @@ ColorScheme=FluentDark
 Theme=Tela-dark
 
 [plasmarc][Theme]
-name=Fluent-dark
+name=Fluent
 
 [Wallpaper]
 Image=Next
@@ -25,13 +25,8 @@ LayoutName=org.kde.breeze.desktop
 [kwinrc][org.kde.kdecoration2]
 ButtonsOnLeft=
 ButtonsOnRight=IAX
-BorderSize=None
-BorderSizeAuto=false
 library=org.kde.kwin.aurorae
 theme=__aurorae__svg__Fluent-dark
 
 [KSplash]
 Theme=org.kde.Breeze
-
-[Sounds]
-Enable=false
