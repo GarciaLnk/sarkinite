@@ -27,3 +27,7 @@ done
 if [[ -f /etc/yum.repos.d/fedora-coreos-pool.repo ]]; then
 	sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/fedora-coreos-pool.repo
 fi
+
+# Initialize etckeeper
+etckeeper init
+etckeeper commit "Initial base setup"
