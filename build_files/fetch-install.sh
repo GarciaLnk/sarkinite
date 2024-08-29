@@ -33,14 +33,6 @@ if [[ -f "/var/lib/waydroid/lxc/waydroid/config" ]]; then
 	sed -i '/lxc\.apparmor\.profile\s*=\s*unconfined/d' "/var/lib/waydroid/lxc/waydroid/config"
 fi
 
-# Cloudflare WARP Plasmoid
-if test "${BASE_IMAGE_NAME}" = "kinoite"; then
-	git clone https://github.com/korapp/plasma-cloudflare-warp.git /tmp/plasma-cloudflare-warp
-	cd /tmp/plasma-cloudflare-warp
-	kpackagetool6 -i package
-	rm -rf /tmp/plasma-cloudflare-warp
-fi
-
 # Pull in just recipes
 curl -Lo /usr/share/ublue-os/just/82-waydroid.just https://raw.githubusercontent.com/ublue-os/bazzite/main/system_files/desktop/shared/usr/share/ublue-os/just/82-bazzite-waydroid.just
 curl -Lo /usr/share/ublue-os/just/83-audio.just https://raw.githubusercontent.com/ublue-os/bazzite/main/system_files/desktop/shared/usr/share/ublue-os/just/83-bazzite-audio.just
