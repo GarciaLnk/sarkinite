@@ -25,7 +25,7 @@ screens:
           description: Tools to communicate and collaborate
           packages:
             - Briar: org.briarproject.Briar
-            - Discord: com.discordapp.Discord
+            - Vesktop (Discord): dev.vencord.Vesktop
             - Session: network.loki.Session
             - SimpleX Chat: chat.simplex.simplex
             - Slack: com.slack.Slack
@@ -143,6 +143,7 @@ screens:
             - Stremio: com.stremio.Stremio
             - Syncthing: com.github.zocker_160.SyncThingy
             - VLC: org.videolan.VLC
+            - Warp: app.drey.Warp
   final-screen:
     source: yafti.screen.title
     values:
