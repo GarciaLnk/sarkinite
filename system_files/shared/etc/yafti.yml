@@ -135,6 +135,7 @@ screens:
             - Metadata Cleaner: fr.romainvigier.MetadataCleaner
             - Mpv: io.mpv.Mpv
             - OnionShare: org.onionshare.OnionShare
+            - OpenRGB: org.openrgb.OpenRGB
             - qBitTorrent: org.qbittorrent.qBittorrent
             - Resources: net.nokyan.Resources
             - SaveDesktop: io.github.vikdevelop.SaveDesktop
