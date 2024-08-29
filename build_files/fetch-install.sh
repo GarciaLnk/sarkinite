@@ -32,3 +32,11 @@ chmod +x /usr/bin/waydroid-choose-gpu
 if [[ -f "/var/lib/waydroid/lxc/waydroid/config" ]]; then
 	sed -i '/lxc\.apparmor\.profile\s*=\s*unconfined/d' "/var/lib/waydroid/lxc/waydroid/config"
 fi
+
+# Cloudflare WARP Plasmoid
+if test "${BASE_IMAGE_NAME}" = "kinoite"; then
+	git clone https://github.com/korapp/plasma-cloudflare-warp.git /tmp/plasma-cloudflare-warp
+	cd /tmp/plasma-cloudflare-warp
+	kpackagetool6 -i package
+	rm -rf /tmp/plasma-cloudflare-warp
+fi
