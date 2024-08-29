@@ -148,6 +148,7 @@
 				"qemu-user-binfmt",
 				"qemu-user-static",
 				"qemu",
+				"rocm-clinfo",
 				"rocm-hip",
 				"rocm-opencl",
 				"rocm-smi",

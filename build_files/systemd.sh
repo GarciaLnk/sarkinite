@@ -16,6 +16,7 @@ systemctl --global enable ublue-user-setup.service
 systemctl --global enable podman-auto-update.timer
 systemctl enable snap-symlink.service
 systemctl disable waydroid-container.service
+systemctl enable waydroid-workaround.service
 systemctl enable etckeeper.timer
 systemctl enable coolercontrold.service
 systemctl enable flatpak-cleanup.timer
