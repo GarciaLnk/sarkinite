@@ -40,3 +40,7 @@ if test "${BASE_IMAGE_NAME}" = "kinoite"; then
 	kpackagetool6 -i package
 	rm -rf /tmp/plasma-cloudflare-warp
 fi
+
+# Pull in just recipes
+curl -Lo /usr/share/ublue-os/just/82-waydroid.just https://raw.githubusercontent.com/ublue-os/bazzite/main/system_files/desktop/shared/usr/share/ublue-os/just/82-bazzite-waydroid.just
+curl -Lo /usr/share/ublue-os/just/83-audio.just https://raw.githubusercontent.com/ublue-os/bazzite/main/system_files/desktop/shared/usr/share/ublue-os/just/83-bazzite-audio.just
