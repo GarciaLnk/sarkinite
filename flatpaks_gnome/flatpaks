@@ -6,6 +6,7 @@ app/io.missioncenter.MissionCenter/x86_64/stable
 app/it.mijorus.gearlever/x86_64/stable
 app/io.github.fastrizwaan.WineZGUI/x86_64/stable
 app/com.vysp3r.ProtonPlus/x86_64/stable
+app/com.github.wwmm.easyeffects/x86_64/stable
 app/org.gnome.World.PikaBackup/x86_64/stable
 app/com.github.rafostar.Clapper/x86_64/stable
 app/com.mattjakeman.ExtensionManager/x86_64/stable
@@ -24,3 +25,5 @@ app/org.gnome.Maps/x86_64/stable
 app/org.gnome.NautilusPreviewer/x86_64/stable
 app/org.gnome.TextEditor/x86_64/stable
 app/org.gnome.Weather/x86_64/stable
+app/org.gnome.Evolution/x86_64/stable
+app/io.gitlab.news_flash.NewsFlash/x86_64/stable

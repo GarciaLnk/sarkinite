@@ -6,6 +6,7 @@ app/io.missioncenter.MissionCenter/x86_64/stable
 app/it.mijorus.gearlever/x86_64/stable
 app/io.github.fastrizwaan.WineZGUI/x86_64/stable
 app/com.vysp3r.ProtonPlus/x86_64/stable
+app/com.github.wwmm.easyeffects/x86_64/stable
 app/com.borgbase.Vorta/x86_64/stable
 app/org.kde.kcalc/x86_64/stable
 app/org.kde.gwenview/x86_64/stable
@@ -15,3 +16,6 @@ app/org.kde.kweather/x86_64/stable
 app/org.kde.kclock/x86_64/stable
 app/org.kde.haruna/x86_64/stable
 app/org.kde.filelight/x86_64/stable
+app/org.kde.akregator/x86_64/stable
+app/org.kde.kolourpaint/x86_64/stable
+app/app.organicmaps.desktop/x86_64/stable

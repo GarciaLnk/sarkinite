@@ -36,6 +36,7 @@
 				"protontricks",
 				"pulseaudio-utils",
 				"python3-pip",
+				"qdirstat",
 				"rclone",
 				"restic",
 				"samba-dcerpc",
