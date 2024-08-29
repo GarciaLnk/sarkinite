@@ -18,3 +18,4 @@ systemctl enable snap-symlink.service
 systemctl disable waydroid-container.service
 systemctl enable etckeeper.timer
 systemctl enable coolercontrold.service
+systemctl enable flatpak-cleanup.timer
