@@ -1,8 +1,9 @@
 [Desktop Entry]
 Name=Sarkinite First Boot Setup
-Comment=Sets up Ublue Desktop Correctly On FirstBoot
-Exec=/usr/bin/yafti /etc/yafti.yml
-Icon=org.gnome.Terminal
-Type=Application
+Comment=Sets up Sarkinite Correctly On FirstBoot
+GenericName=Launcher
 Categories=Utility;System;
-Name[en_US]=startup
+Exec=/usr/bin/yafti /etc/yafti.yml
+Icon=application-x-executable
+Terminal=false
+Type=Application

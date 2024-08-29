@@ -1,12 +1,13 @@
 title: Welcome to Sarkinite
 properties:
   mode: "run-once"
+  save_state: "always"
 screens:
   first-screen:
     source: yafti.screen.title
     values:
       title: "Welcome to Sarkinite"
-      icon: "/path/to/icon"
+      icon: "/usr/share/icons/Tela/scalable/apps/fedora-logo-icon.svg"
       description: |
         Applications are also installing in the background, the system will notify you when it is finished.
   applications:
@@ -15,52 +16,106 @@ screens:
       title: Application Installation
       show_terminal: true
       package_manager: yafti.plugin.flatpak
+      package_manager_defaults:
+        user: true
+        system: false
       groups:
         Communication:
           default: false
           description: Tools to communicate and collaborate
           packages:
+            - Briar: org.briarproject.Briar
             - Discord: com.discordapp.Discord
+            - Session: network.loki.Session
+            - SimpleX Chat: chat.simplex.simplex
             - Slack: com.slack.Slack
-        Cloud Native Development Tools:
-          description: Start your cloud-native journey here!
+            - Teams: com.github.IsmaelMartinez.teams_for_linux
+            - Telegram: org.telegram.desktop
+            - ZapZap (WhatsApp): com.rtosta.zapzap
+            - Zoom: us.zoom.Zoom
+        Development Tools:
+          description: Start your dev journey here!
           default: false
           packages:
-            - Podman Desktop: io.podman_desktop.PodmanDesktop
-            - Headlamp: io.kinvolk.Headlamp
+            - Alpaca: com.jeffser.Alpaca
+            - Bruno: com.usebruno.Bruno
             - Cockpit Client: org.cockpit_project.CockpitClient
+            - DBeaver: io.dbeaver.DBeaverCommunity
+            - GitHub Desktop: io.github.shiftey.Desktop
+            - Headlamp: io.kinvolk.Headlamp
+            - JupyterLab Desktop: org.jupyter.JupyterLab
+            - Meld: org.gnome.meld
+            - Podman Desktop: io.podman_desktop.PodmanDesktop
+            - Zed: dev.zed.Zed
         Gaming:
           description: "Rock and Stone!"
           default: false
           packages:
+            - Ares: dev.ares.ares
             - Bottles: com.usebottles.bottles
+            - Cemu: info.cemu.Cemu
+            - Dolphin: org.DolphinEmu.dolphin-emu
+            - DuckStation: org.duckstation.DuckStation
             - Heroic Games Launcher: com.heroicgameslauncher.hgl
-            - MangoHUD: org.freedesktop.Platform.VulkanLayer.MangoHud//22.08
-        Office:
-          description: Work apps, Bow to Capitalism
+            - Lime3DS: io.github.lime3ds.Lime3DS
+            - MangoHUD: org.freedesktop.Platform.VulkanLayer.MangoHud
+            - melonDS: net.kuribo64.melonDS
+            - mGBA: io.mgba.mGBA
+            - Moonlight: com.moonlight_stream.Moonlight
+            - PokeMMO: com.pokemmo.PokeMMO
+            - Prism Launcher (Minecraft): org.prismlauncher.PrismLauncher
+            - PPSSPP: org.ppsspp.PPSSPP
+            - RetroArch: org.libretro.RetroArch
+            - Ryujinx: org.ryujinx.Ryujinx
+            - SameBoy: io.github.sameboy.SameBoy
+            - Space Cadet Pinball: com.github.k4zmu2a.spacecadetpinball
+        Music:
+          description: "Rock and Roll!"
           default: false
           packages:
-            - OnlyOffice: org.onlyoffice.desktopeditors
+            - Cider (Apple Music): sh.cider.Cider
+            - Spotify: com.spotify.Client
+            - Strawberry Music Player: org.strawberrymusicplayer.strawberry
+        Office and Productivity:
+          description: Productivity apps, Bow to Capitalism
+          default: false
+          packages:
+            - AppFlowy: io.appflowy.AppFlowy
+            - Blender: org.blender.Blender
+            - GIMP: org.gimp.GIMP
+            - Inkscape: org.inkscape.Inkscape
+            - Kdenlive: org.kde.kdenlive
+            - Krita: org.kde.krita
             - LibreOffice: org.libreoffice.LibreOffice
-            - LogSeq: com.logseq.Logseq
+            - LosslessCut: no.mifi.losslesscut
+            - Notesnook: com.notesnook.Notesnook
             - Obsidian: md.obsidian.Obsidian
-            - Standard Notes: org.standardnotes.standardnotes
-            - Todoist: com.todoist.Todoist
+            - OnlyOffice: org.onlyoffice.desktopeditors
+            - Planify: io.github.alainm23.planify
+            - Portfolio Performance: info.portfolio_performance.PortfolioPerformance
+            - Tenacity: org.tenacityaudio.Tenacity
+            - Thunderbird: org.mozilla.Thunderbird
+            - Tuta: com.tutanota.Tutanota
+            - Xournal++: com.github.xournalpp.xournalpp
+            - Zotero: org.zotero.Zotero
         Other Web Browsers:
           description: Additional browsers to complement Firefox
           default: false
           packages:
             - Brave: com.brave.Browser
             - Google Chrome: com.google.Chrome
+            - LibreWolf: io.gitlab.librewolf-community
             - Microsoft Edge: com.microsoft.Edge
             - Opera: com.opera.Opera
+            - Tor Browser: org.torproject.torbrowser-launcher
             - Vivaldi: com.vivaldi.Vivaldi
+            - Zen: io.github.zen_browser.zen
         Streaming:
           description: Stream to the Internet
           default: false
           packages:
             - OBS Studio: com.obsproject.Studio
-            - VkCapture for OBS: com.obsproject.Studio.OBSVkCapture
+            - VkCapture for OBS: com.obsproject.Studio.Plugin.OBSVkCapture
             - Gstreamer for OBS: com.obsproject.Studio.Plugin.Gstreamer
             - Gstreamer VAAPI for OBS: com.obsproject.Studio.Plugin.GStreamerVaapi
             - Boatswain for Streamdeck: com.feaneron.Boatswain
@@ -68,15 +123,29 @@ screens:
           description: Useful Utilities
           default: true
           packages:
-            - Font Downloader: org.gustavoperedo.FontDownloader
-            - PinApp Menu Editor: io.github.fabrialberio.pinapp
-            - LocalSend (Easily send files across your network): org.localsend.localsend_app
-            - Peek (Simple Screen Recorder): com.uploadedlobster.peek
+            - Bitwarden: com.bitwarden.desktop
+            - BleachBit: org.bleachbit.BleachBit
+            - Calibre: com.calibre_ebook.calibre
+            - Cryptomator: org.cryptomator.Cryptomator
+            - DejaDup: org.gnome.DejaDup
+            - FreeTube: io.freetubeapp.FreeTube
+            - JamesDSP: me.timschneeberger.jdsp4linux
+            - KeePassXC: org.keepassxc.KeePassXC
+            - Main Menu: page.codeberg.libre_menu_editor.LibreMenuEditor
+            - Metadata Cleaner: fr.romainvigier.MetadataCleaner
+            - Mpv: io.mpv.Mpv
+            - OnionShare: org.onionshare.OnionShare
+            - qBitTorrent: org.qbittorrent.qBittorrent
+            - Resources: net.nokyan.Resources
+            - SaveDesktop: io.github.vikdevelop.SaveDesktop
+            - Solaar: io.github.pwr_solaar.solaar
+            - Stremio: com.stremio.Stremio
             - Syncthing: com.github.zocker_160.SyncThingy
+            - VLC: org.videolan.VLC
   final-screen:
     source: yafti.screen.title
     values:
       title: "All done!"
-      icon: "/path/to/icon"
+      icon: "/usr/share/icons/Tela/scalable/apps/fedora-logo-icon.svg"
       description: |
         Thanks for trying Sarkinite, we hope you enjoy it!

@@ -55,10 +55,11 @@
 				"wine-pulseaudio",
 				"winetricks",
 				"wireguard-tools",
-				"xprop",
 				"webapp-manager",
 				"wl-clipboard",
 				"wlr-randr",
+				"xprop",
+				"yafti",
 				"zsh"
 			],
 			"silverblue": [
