@@ -7,6 +7,10 @@ if [[ -z ${git_branch} ]]; then
 	git_branch=$(git branch --show-current)
 fi
 
+find system_files -type d -exec chmod u+rwx,g+rx,o+rx {} +
+find system_files -type f -exec chmod u+rw,g+r,o+r {} +
+find system_files -type f -executable -exec chmod a+x {} +
+
 # Get Inputs
 image=$1
 target=$2
