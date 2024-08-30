@@ -37,6 +37,10 @@ if [[ -f "/var/lib/waydroid/lxc/waydroid/config" ]]; then
 	sed -i '/lxc\.apparmor\.profile\s*=\s*unconfined/d' "/var/lib/waydroid/lxc/waydroid/config"
 fi
 
+# Chezmoi
+curl -Lo /usr/bin/chezmoi https://github.com/twpayne/chezmoi/releases/latest/download/chezmoi-linux-amd64
+chmod +x /usr/bin/chezmoi
+
 # Pull in just recipes
 curl -Lo /usr/share/ublue-os/just/82-waydroid.just https://raw.githubusercontent.com/ublue-os/bazzite/main/system_files/desktop/shared/usr/share/ublue-os/just/82-bazzite-waydroid.just
 curl -Lo /usr/share/ublue-os/just/83-audio.just https://raw.githubusercontent.com/ublue-os/bazzite/main/system_files/desktop/shared/usr/share/ublue-os/just/83-bazzite-audio.just
