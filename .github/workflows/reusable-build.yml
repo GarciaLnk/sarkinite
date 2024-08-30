@@ -25,6 +25,10 @@ jobs:
   build_container:
     name: image
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
     continue-on-error: false
     strategy:
       fail-fast: false
@@ -320,11 +324,11 @@ jobs:
           command: |
             # pull the base image used for FROM in containerfile so
             # we can retry on that unfortunately common failure case
-            podman pull ${{ steps.registry_case.outputs.lowercase }}/${{ env.BASE_IMAGE_NAME }}-${{ env.image_flavor }}:${{ env.fedora_version }}
-            podman pull ${{ steps.registry_case.outputs.lowercase }}/akmods:${{ env.AKMODS_FLAVOR }}-${{ env.fedora_version }}
-            podman pull ${{ steps.registry_case.outputs.lowercase }}/akmods-nvidia:${{ env.AKMODS_FLAVOR }}-${{ env.fedora_version }}
-            podman pull ${{ steps.registry_case.outputs.lowercase }}/akmods-zfs:coreos-stable-${{ env.fedora_version }}
-            podman pull ${{ steps.registry_case.outputs.lowercase }}/${{ env.AKMODS_FLAVOR }}-kernel:${{ env.kernel_release }}
+            podman pull ghcr.io/ublue-os/${{ env.BASE_IMAGE_NAME }}-${{ env.image_flavor }}:${{ env.fedora_version }}
+            podman pull ghcr.io/ublue-os/akmods:${{ env.AKMODS_FLAVOR }}-${{ env.fedora_version }}
+            podman pull ghcr.io/ublue-os/akmods-nvidia:${{ env.AKMODS_FLAVOR }}-${{ env.fedora_version }}
+            podman pull ghcr.io/ublue-os/akmods-zfs:coreos-stable-${{ env.fedora_version }}
+            podman pull ghcr.io/ublue-os/${{ env.AKMODS_FLAVOR }}-kernel:${{ env.kernel_release }}
 
       # Build image using Buildah action
       - name: Build Image
