@@ -307,6 +307,7 @@ toggle-tailscale:
 
 # Install nix and Devbox
 nix-devbox:
+    #!/usr/bin/bash
     echo 'Installing nix.'
     curl -Lo /tmp/nix-installer https://install.determinate.systems/nix/nix-installer-x86_64-linux
     chmod +x /tmp/nix-installer
@@ -327,6 +328,7 @@ alias setup-nix := nix-devbox
 
 # Update nix
 update-nix:
+    #!/usr/bin/bash
     echo 'Updating nix.'
     sudo -i /nix/var/nix/profiles/default/bin/nix upgrade-nix --nix-store-paths-url \
     https://releases.nixos.org/nix/nix-$(curl -s https://api.github.com/repos/DeterminateSystems/nix/tags | \
@@ -334,7 +336,19 @@ update-nix:
 
 # Remove nix
 remove-nix:
+    #!/usr/bin/bash
     echo 'Removing nix.'
     /nix/nix-installer uninstall
     sudo systemctl disable nix-gc.timer
     sudo systemctl disable devbox-update.timer
+
+change-hostname:
+    #!/usr/bin/bash
+    source /usr/lib/ujust/ujust.sh
+    echo "Current hostname: $(hostname)"
+    echo "Enter the new hostname:"
+    read NEW_HOSTNAME
+    sudo hostnamectl set-hostname $NEW_HOSTNAME
+    echo "Hostname changed to $NEW_HOSTNAME"
+
+alias hostname := change-hostname
