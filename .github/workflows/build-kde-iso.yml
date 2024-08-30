@@ -10,5 +10,5 @@ jobs:
     uses: ./.github/workflows/reusable-build-iso.yml
     secrets: inherit
     with:
-      brand_name: kde
+      brand_name: sarkinite-kde
       fedora_version: stable

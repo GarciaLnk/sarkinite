@@ -8,5 +8,5 @@ jobs:
     uses: ./.github/workflows/reusable-build-iso.yml
     secrets: inherit
     with:
-      brand_name: sway
+      brand_name: sarkinite-sway
       fedora_version: stable

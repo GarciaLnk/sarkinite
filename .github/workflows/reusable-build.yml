@@ -7,7 +7,7 @@ on:
         required: true
         type: string
       brand_name:
-        description: "'kde' or 'gnome'"
+        description: "'sarkinite-kde', 'sarkinite-gnome' or 'sarkinite-sway'"
         required: true
         type: string
     outputs:
