@@ -4,11 +4,6 @@ on:
   # schedule:
   #   - cron: '41 6 * * 2'  # 6:41 UTC every Tuesday
 
-permissions:
-  contents: read
-  packages: write
-  id-token: write
-
 jobs:
   build-latest:
     name: Sarkinite (GNOME)

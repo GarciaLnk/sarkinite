@@ -11,11 +11,6 @@ on:
         required: true
         type: string
 
-permissions:
-  contents: read
-  packages: write
-  id-token: write
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}-iso
   cancel-in-progress: true
