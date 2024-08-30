@@ -8,8 +8,6 @@ on:
       - "**.md"
       - "system_files/kinoite/**"
       - "system_files/sericea/**"
-  schedule:
-    - cron: "41 5 * * 2" # 5:41 UTC every Tuesday
   workflow_dispatch:
 
 jobs:

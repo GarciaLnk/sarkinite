@@ -1,6 +1,8 @@
 name: Sarkinite (KDE) ISO
 on:
   workflow_dispatch:
+  # schedule:
+  #     - cron: "41 6 1-7 * 2" # 6:41 UTC every first Tuesday of the month
 
 jobs:
   build:
