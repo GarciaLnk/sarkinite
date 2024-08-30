@@ -2,7 +2,10 @@ name: Sarkinite (Sway) ISO
 on:
   workflow_dispatch:
 
-permissions: read-all
+permissions:
+  contents: read
+  packages: write
+  id-token: write
 
 jobs:
   build:
