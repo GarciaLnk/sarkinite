@@ -2,6 +2,10 @@
 
 set -ouex pipefail
 
+# Flahub repo
+mkdir -p /etc/flatpak/remotes.d
+curl -Lo /etc/flatpak/remotes.d/flathub.flatpakrepo https://dl.flathub.org/repo/flathub.flatpakrepo
+
 # Starship Shell Prompt
 curl -Lo /tmp/starship.tar.gz "https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz"
 tar -xzf /tmp/starship.tar.gz -C /tmp

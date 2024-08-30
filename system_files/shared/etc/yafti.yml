@@ -9,7 +9,7 @@ screens:
       title: "Welcome to Sarkinite"
       icon: "/usr/share/icons/Tela/scalable/apps/fedora-logo-icon.svg"
       description: |
-        Applications are also installing in the background, the system will notify you when it is finished.
+        You are about to install a curated selection of applications to get you started with your new installation.
   applications:
     source: yafti.screen.package
     values:
@@ -121,7 +121,7 @@ screens:
             - Boatswain for Streamdeck: com.feaneron.Boatswain
         Utilities:
           description: Useful Utilities
-          default: true
+          default: false
           packages:
             - Bitwarden: com.bitwarden.desktop
             - BleachBit: org.bleachbit.BleachBit

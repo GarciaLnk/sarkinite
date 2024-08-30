@@ -30,6 +30,10 @@ if [[ -f ${USER_SETUP_VER_FILE} && ${USER_SETUP_VER} == "${USER_SETUP_VER_RAN}" 
 	exit 0
 fi
 
+# Enable Flathub
+flatpak remote-add --if-not-exists --user flathub /etc/flatpak/remotes.d/flathub.flatpakrepo
+flatpak remote-modify --user --enable flathub
+
 # Currently unused
 # IMAGE_INFO="/usr/share/ublue-os/image-info.json"
 # IMAGE_NAME=$(jq -r '."image-name"' < $IMAGE_INFO)
