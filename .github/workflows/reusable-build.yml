@@ -326,6 +326,7 @@ jobs:
             # we can retry on that unfortunately common failure case
             podman pull ghcr.io/ublue-os/${{ env.BASE_IMAGE_NAME }}-${{ env.image_flavor }}:${{ env.fedora_version }}
             podman pull ghcr.io/ublue-os/akmods:${{ env.AKMODS_FLAVOR }}-${{ env.fedora_version }}
+            podman pull ghcr.io/ublue-os/akmods-extra:${{ env.AKMODS_FLAVOR }}-${{ env.fedora_version }}
             podman pull ghcr.io/ublue-os/akmods-nvidia:${{ env.AKMODS_FLAVOR }}-${{ env.fedora_version }}
             podman pull ghcr.io/ublue-os/akmods-zfs:coreos-stable-${{ env.fedora_version }}
             podman pull ghcr.io/ublue-os/${{ env.AKMODS_FLAVOR }}-kernel:${{ env.kernel_release }}
