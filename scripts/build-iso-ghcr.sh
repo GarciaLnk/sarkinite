@@ -21,7 +21,7 @@ ${container_mgr} run --rm --privileged \
 	ENROLLMENT_PASSWORD="sarkinite" \
 	FLATPAK_REMOTE_REFS_DIR="${flatpak_dir_shortname}" \
 	IMAGE_NAME="${ghcr_tag}" \
-	IMAGE_REPO="ghcr.io/ublue-os" \
+	IMAGE_REPO="ghcr.io/garcialnk" \
 	IMAGE_TAG="${version}" \
 	ISO_NAME="build/${ghcr_tag}-${version}-ghcr.iso" \
 	SECURE_BOOT_KEY_URL='https://github.com/ublue-os/akmods/raw/main/certs/public_key.der' \

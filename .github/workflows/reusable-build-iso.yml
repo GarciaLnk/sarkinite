@@ -166,7 +166,7 @@ jobs:
         with:
           arch: x86_64
           image_name: ${{ env.IMAGE_NAME }}
-          image_repo: ghcr.io/ublue-os
+          image_repo: ghcr.io/garcialnk
           variant: ${{ env.VARIANT }}
           version: ${{ steps.labels.outputs.fedora_version }}
           image_tag: ${{ steps.generate-tag.outputs.tag }}
