@@ -352,3 +352,15 @@ change-hostname:
     echo "Hostname changed to $NEW_HOSTNAME"
 
 alias hostname := change-hostname
+
+setup-ssh:
+    #!/usr/bin/bash
+    SSH_DIR="$HOME/.ssh"
+    if ! [[ -f "$SSH_DIR/authorized_keys" ]]; then
+      mkdir -p "$SSH_DIR"
+      chmod 700 "$SSH_DIR"
+      ssh-keygen -t ed25519 -f "$SSH_DIR/id_ed25519" -N "" -C "$USER@$HOSTNAME"
+      cat "$SSH_DIR/id_ed25519.pub" >> "$SSH_DIR/authorized_keys"
+      eval "$(ssh-agent -s)"
+      ssh-add ~/.ssh/id_ed25519
+    fi
