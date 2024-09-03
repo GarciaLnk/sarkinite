@@ -23,7 +23,9 @@ if [ "$(basename "${SHELL}")" = "bash" ]; then
 	. /usr/share/bash-prexec
 	[ -n "$(command -v atuin)" ] && eval "$(atuin init bash)"
 	[ -n "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
+	[ -n "$(command -v direnv)" ] && eval "$(direnv hook bash)"
 elif [ "$(basename "${SHELL}")" = "zsh" ]; then
 	[ -n "$(command -v atuin)" ] && eval "$(atuin init zsh)"
 	[ -n "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
+	[ -n "$(command -v direnv)" ] && eval "$(direnv hook zsh)"
 fi

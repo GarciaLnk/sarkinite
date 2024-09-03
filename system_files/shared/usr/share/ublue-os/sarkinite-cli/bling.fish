@@ -21,4 +21,5 @@ end
 if status is-interactive
     [ "$(command -v atuin)" ] && eval "$(atuin init fish)"
     [ "$(command -v zoxide)" ] && eval "$(zoxide init fish)"
+	[ "$(command -v direnv)" ] && eval "$(direnv hook fish)"
 end
