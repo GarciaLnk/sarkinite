@@ -1,0 +1,9 @@
+[edit]
+    command = "code"
+    args = ["--wait"]
+
+[update]
+    args = ["--no-tty", "--keep-going"]
+
+[git]
+    autoCommit = true
