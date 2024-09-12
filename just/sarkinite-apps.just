@@ -106,7 +106,7 @@ install-incus:
 alias spotify := spice-spotify
 
 # Configure Spotify with Spicetify
-spice-spotify:
+setup-spotify:
     #!/usr/bin/env bash
     if ! flatpak list | grep -q "com.spotify.Client"; then
         echo "Installing Spotify Flatpak"
@@ -117,9 +117,9 @@ spice-spotify:
     chmod a+x /tmp/spicetify-install.sh
     sed -i 's/read -r choice < \/dev\/tty/choice=n/' /tmp/spicetify-install.sh
     /tmp/spicetify-install.sh
-    source ~/.bashrc
+    source "$HOME/.bashrc"
     spicetify backup apply
-    sed -i "/prefs_path/c\prefs_path             = $HOME/.var/app/com.spotify.Client/config/spotify/prefs" ~/.config/spicetify/config-xpui.ini
+    sed -i "/prefs_path/c\prefs_path             = $HOME/.var/app/com.spotify.Client/config/spotify/prefs" "$HOME/.config/spicetify/config-xpui.ini"
     sudo chmod a+wr /var/lib/flatpak/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify
     sudo chmod a+wr -R /var/lib/flatpak/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify/Apps
     curl -Lo /tmp/spicetify-marketplace.sh https://raw.githubusercontent.com/spicetify/marketplace/main/resources/install.sh
@@ -127,6 +127,6 @@ spice-spotify:
     /tmp/spicetify-marketplace.sh
     spicetify config extensions popupLyrics.js
     spicetify config extensions shuffle+.js
-    curl -Lo ~/.config/spicetify/Extensions/adblock.js https://raw.githubusercontent.com/rxri/spicetify-extensions/main/adblock/adblock.js
+    curl -Lo "$HOME/.config/spicetify/Extensions/adblock.js https://raw.githubusercontent.com/rxri/spicetify-extensions/main/adblock/adblock.js"
     spicetify config extensions adblock.js
     spicetify apply

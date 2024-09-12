@@ -306,7 +306,7 @@ toggle-tailscale:
     fi
 
 # Install nix and Devbox
-nix-devbox:
+install-nix-devbox:
     #!/usr/bin/bash
     echo 'Installing nix.'
     curl -Lo /tmp/nix-installer https://install.determinate.systems/nix/nix-installer-x86_64-linux
@@ -323,8 +323,8 @@ nix-devbox:
     sudo systemctl enable devbox-update.timer
     echo 'Open a new shell to continue'
 
-alias install-nix := nix-devbox
-alias setup-nix := nix-devbox
+alias install-nix := install-nix-devbox
+alias setup-nix := install-nix-devbox
 
 # Update nix
 update-nix:
@@ -342,7 +342,7 @@ remove-nix:
     sudo systemctl disable nix-gc.timer
     sudo systemctl disable devbox-update.timer
 
-change-hostname:
+configure-hostname:
     #!/usr/bin/bash
     source /usr/lib/ujust/ujust.sh
     echo "Current hostname: $(hostname)"
@@ -351,7 +351,7 @@ change-hostname:
     sudo hostnamectl set-hostname $NEW_HOSTNAME
     echo "Hostname changed to $NEW_HOSTNAME"
 
-alias hostname := change-hostname
+alias hostname := configure-hostname
 
 setup-ssh:
     #!/usr/bin/bash
@@ -362,5 +362,5 @@ setup-ssh:
       ssh-keygen -t ed25519 -f "$SSH_DIR/id_ed25519" -N "" -C "$USER@$HOSTNAME"
       cat "$SSH_DIR/id_ed25519.pub" >> "$SSH_DIR/authorized_keys"
       eval "$(ssh-agent -s)"
-      ssh-add ~/.ssh/id_ed25519
+      ssh-add "$SSH_DIR/id_ed25519"
     fi
