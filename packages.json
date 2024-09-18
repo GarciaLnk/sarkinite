@@ -31,7 +31,6 @@
 				"libxcrypt-compat",
 				"liquidctl",
 				"libsss_autofs",
-				"libssd_sudo", 
 				"lm_sensors",
 				"lutris",
 				"make",
