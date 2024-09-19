@@ -1,4 +1,3 @@
-brew "atuin"
 brew "bat"
 brew "direnv"
 brew "dysk"

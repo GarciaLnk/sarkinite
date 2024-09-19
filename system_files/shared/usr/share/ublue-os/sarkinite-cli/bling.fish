@@ -19,7 +19,7 @@ if [ "$(command -v ug)" ]
 end
 
 if status is-interactive
-    [ "$(command -v atuin)" ] && eval "$(atuin init fish --disable-up-arrow)"
+    [ "$(command -v fzf)" ] && fzf --fish | source
     [ "$(command -v zoxide)" ] && eval "$(zoxide init fish)"
 	[ "$(command -v direnv)" ] && eval "$(direnv hook fish)"
 end 

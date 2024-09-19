@@ -21,11 +21,11 @@ fi
 if [ "$(basename "${SHELL}")" = "bash" ]; then
 	#shellcheck disable=SC1091
 	. /usr/share/bash-prexec
-	[ -n "$(command -v atuin)" ] && eval "$(atuin init bash --disable-up-arrow)"
+	[ -n "$(command -v fzf)" ] && eval "$(fzf --bash)"
 	[ -n "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
 	[ -n "$(command -v direnv)" ] && eval "$(direnv hook bash)"
 elif [ "$(basename "${SHELL}")" = "zsh" ]; then
-	[ -n "$(command -v atuin)" ] && eval "$(atuin init zsh --disable-up-arrow)"
+	[ -n "$(command -v fzf)" ] && source <(fzf --zsh)
 	[ -n "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
 	[ -n "$(command -v direnv)" ] && eval "$(direnv hook zsh)"
 fi
