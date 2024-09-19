@@ -27,7 +27,7 @@ rpm-ostree install \
 	/tmp/akmods/kmods/*v4l2loopback*.rpm \
 	/tmp/akmods-extra-rpms/kmods/*zenergy*.rpm \
 	/tmp/akmods-extra-rpms/kmods/*ryzen-smu*.rpm \
-    /tmp/akmods-extra-rpms/kmods/*evdi*.rpm
+	/tmp/akmods-extra-rpms/kmods/*evdi*.rpm
 # /tmp/akmods-rpms/kmods/*framework-laptop*.rpm
 
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/negativo17-fedora-multimedia.repo
