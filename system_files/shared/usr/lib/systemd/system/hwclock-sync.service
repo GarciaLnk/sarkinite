@@ -1,0 +1,11 @@
+[Unit]
+Description=Set the Hardware Clock from the System Clock (UTC)
+DefaultDependencies=no
+Before=shutdown.target
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/hwclock --systohc --utc
+
+[Install]
+WantedBy=shutdown.target

@@ -20,3 +20,4 @@ systemctl enable waydroid-workaround.service
 systemctl enable etckeeper.timer
 systemctl enable coolercontrold.service
 systemctl enable flatpak-cleanup.timer
+systemctl enable hwclock-sync.service
