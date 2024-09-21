@@ -85,3 +85,6 @@ sed -i '0,/enabled=0/s//enabled=1/' /etc/yum.repos.d/rpmfusion-nonfree-updates-t
 
 # Add CoolerControl
 curl -Lo /etc/yum.repos.d/_copr_codifryed-CoolerControl.repo https://copr.fedorainfracloud.org/coprs/codifryed/CoolerControl/repo/fedora-"${FEDORA_MAJOR_VERSION}"/codifryed-CoolerControl-fedora-"${FEDORA_MAJOR_VERSION}".repo
+
+# Add FirefoxPWA
+echo -e "[firefoxpwa]\nname=FirefoxPWA\nmetadata_expire=300\nbaseurl=https://packagecloud.io/filips/FirefoxPWA/rpm_any/rpm_any/\$basearch\ngpgkey=https://packagecloud.io/filips/FirefoxPWA/gpgkey\nrepo_gpgcheck=1\ngpgcheck=0\nenabled=1" | tee /etc/yum.repos.d/firefoxpwa.repo
