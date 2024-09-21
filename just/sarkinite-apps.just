@@ -103,7 +103,7 @@ install-incus:
         exit
     fi
 
-alias spotify := spice-spotify
+alias spotify := setup-spotify
 
 # Configure Spotify with Spicetify
 setup-spotify:
