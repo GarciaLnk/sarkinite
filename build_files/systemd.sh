@@ -21,3 +21,4 @@ systemctl enable etckeeper.timer
 systemctl enable coolercontrold.service
 systemctl enable flatpak-cleanup.timer
 systemctl enable hwclock-sync.service
+systemctl enable check-sb-key.service

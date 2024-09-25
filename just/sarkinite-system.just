@@ -245,7 +245,7 @@ toggle-tailscale:
       echo "Enable or disable Tailscale?"
       TS_OPTION=$(ugum choose Enable Disable)
 
-      # gnome-extensions is only available on Bluefin (Gnome)
+      # gnome-extensions is only available on Gnome
       if [ "$VARIANT" == "silverblue" ]; then
         TAILSCALE_QS="$(gnome-extensions list | grep -q "tailscale@joaophi.github.com"; echo $?)"
         if [ "$TAILSCALE_QS" == 0 ]; then
