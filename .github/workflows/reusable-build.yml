@@ -378,7 +378,6 @@ jobs:
           echo "image=${{ env.IMAGE_NAME }}" >> $GITHUB_OUTPUT
           echo "tags=${{ steps.generate-tags.outputs.alias_tags }}" >> $GITHUB_OUTPUT
 
-
       - name: Check Secureboot
         if: github.event_name == 'pull_request' && ( matrix.image_flavor == 'main' || matrix.image_flavor == 'nvidia' ) || github.event_name != 'pull_request'
         shell: bash
@@ -407,7 +406,7 @@ jobs:
         with:
           rechunk: ghcr.io/hhd-dev/rechunk:v0.8.6
           ref: ${{ steps.build_image.outputs.image }}:${{ env.DEFAULT_TAG }}
-          skip_compression: 'true'
+          skip_compression: "true"
           labels: ${{ steps.meta.outputs.labels }}
           prev-ref: ${{ steps.registry_case.outputs.lowercase }}/${{ steps.build_image.outputs.image }}:${{ env.DEFAULT_TAG }}
 
