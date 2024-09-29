@@ -123,6 +123,6 @@ setup-spotify:
     /tmp/spicetify-marketplace.sh
     spicetify config extensions popupLyrics.js
     spicetify config extensions shuffle+.js
-    curl -Lo "$HOME/.config/spicetify/Extensions/adblock.js https://raw.githubusercontent.com/rxri/spicetify-extensions/main/adblock/adblock.js"
+    curl -Lo "$HOME/.config/spicetify/Extensions/adblock.js" "https://raw.githubusercontent.com/rxri/spicetify-extensions/main/adblock/adblock.js"
     spicetify config extensions adblock.js
     spicetify apply
