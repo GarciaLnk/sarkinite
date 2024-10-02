@@ -18,3 +18,4 @@ jobs:
     with:
       brand_name: sarkinite-sway
       fedora_version: stable
+      rechunk: true

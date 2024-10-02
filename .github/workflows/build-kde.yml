@@ -20,3 +20,4 @@ jobs:
     with:
       brand_name: sarkinite-kde
       fedora_version: stable
+      rechunk: true
