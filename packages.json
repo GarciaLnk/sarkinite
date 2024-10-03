@@ -52,6 +52,7 @@
 				"samba-winbind-clients",
 				"samba-winbind-modules",
 				"samba",
+				"setools-console",
 				"snapd",
 				"sssd-ad",
 				"sssd-ipa",
