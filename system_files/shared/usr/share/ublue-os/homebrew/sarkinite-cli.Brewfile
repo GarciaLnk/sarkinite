@@ -17,3 +17,5 @@ brew "trash-cli"
 brew "ugrep"
 brew "yq"
 brew "zoxide"
+
+tap "homebrew/command-not-found"

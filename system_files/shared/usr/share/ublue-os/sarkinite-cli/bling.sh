@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-# shellcheck disable=SC1091
+# shellcheck disable=SC1091,SC1090
 
 # ls aliases
 if [ -n "$(command -v eza)" ]; then
@@ -31,4 +31,9 @@ elif [ "$(basename "${SHELL}")" = "zsh" ]; then
 	[ -n "$(command -v fzf)" ] && fzf --zsh >/tmp/fzf.zsh && . /tmp/fzf.zsh && rm /tmp/fzf.zsh
 	[ -n "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
 	[ -n "$(command -v direnv)" ] && eval "$(direnv hook zsh)"
+fi
+
+HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
+if [ -f "${HB_CNF_HANDLER}" ]; then
+	. "${HB_CNF_HANDLER}";
 fi

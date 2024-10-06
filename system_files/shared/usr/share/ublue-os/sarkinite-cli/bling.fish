@@ -23,4 +23,9 @@ if status is-interactive
     [ "$(command -v fzf)" ] && fzf --fish | source
     [ "$(command -v zoxide)" ] && eval "$(zoxide init fish)"
 	[ "$(command -v direnv)" ] && eval "$(direnv hook fish)"
-end 
+end
+
+set HB_CNF_HANDLER (brew --repository)"/Library/Taps/homebrew/homebrew-command-not-found/handler.fish"
+if test -f $HB_CNF_HANDLER
+   source $HB_CNF_HANDLER
+end
