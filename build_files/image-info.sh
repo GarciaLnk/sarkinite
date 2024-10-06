@@ -29,7 +29,7 @@ EOF
 
 # OS Release File
 sed -i "s/^VARIANT_ID=.*/VARIANT_ID=${IMAGE_NAME}/" /usr/lib/os-release
-sed -i "s/^PRETTY_NAME=.*/PRETTY_NAME=\"Bluefin ${FEDORA_MAJOR_VERSION} (FROM Fedora ${BASE_IMAGE_NAME^})\"/" /usr/lib/os-release
+sed -i "s/^PRETTY_NAME=.*/PRETTY_NAME=\"Sarkinite ${FEDORA_MAJOR_VERSION}\"/" /usr/lib/os-release
 sed -i "s/^NAME=.*/NAME=\"${IMAGE_PRETTY_NAME}\"/" /usr/lib/os-release
 sed -i "s|^CPE_NAME=\"cpe:/o:fedoraproject:fedora|CPE_NAME=\"cpe:/o:universal-blue:${IMAGE_PRETTY_NAME,}|" /usr/lib/os-release
 sed -i "s/^DEFAULT_HOSTNAME=.*/DEFAULT_HOSTNAME=\"${IMAGE_PRETTY_NAME,}\"/" /usr/lib/os-release
