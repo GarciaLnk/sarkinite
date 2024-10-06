@@ -10,11 +10,13 @@ ignore_failures = [
   "node",
   "pip3",
   "git_repos",
+  "chezmoi",
   "helm",
   "home_manager",
   "firmware",
   "shell",
   "snap",
+  "spicetify",
   "waydroid",
 ]
 assume_yes = true
