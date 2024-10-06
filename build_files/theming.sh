@@ -10,7 +10,7 @@ cd /tmp/tela-icon-theme || exit
 # Fluent GTK Theme
 git clone https://github.com/vinceliuice/Fluent-gtk-theme /tmp/fluent-gtk-theme
 cd /tmp/fluent-gtk-theme || exit
-./install.sh -s compact -i fedora -l
+./install.sh -s compact -l
 
 if test "${BASE_IMAGE_NAME}" = "kinoite"; then
 	# Fluent KDE Theme
