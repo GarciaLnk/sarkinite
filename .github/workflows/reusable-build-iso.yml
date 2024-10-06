@@ -181,6 +181,7 @@ jobs:
           enable_cache_skopeo: "false"
           flatpak_remote_refs_dir: ${{ steps.generate-flatpak-dir-shortname.outputs.flatpak-dir-shortname }}
           enable_flatpak_dependencies: "false"
+          web_ui: "true"
 
       - name: Move ISOs to Upload Directory
         id: upload-directory
