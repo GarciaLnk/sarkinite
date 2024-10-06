@@ -93,7 +93,7 @@ install-incus:
     #!/usr/bin/env bash
     source /usr/lib/ujust/ujust.sh
     CURRENT_IMAGE=$(rpm-ostree status -b --json | jq -r '.deployments[0]."container-image-reference"')
-    if grep -Eq "sarkinite-dx" <<< $CURRENT_IMAGE
+    if grep -Eq "dx" <<< $CURRENT_IMAGE
     then
         echo 'Installing and configuring Incus.'
         /usr/libexec/sarkinite-incus
@@ -110,7 +110,8 @@ setup-spotify:
     #!/usr/bin/env bash
     if ! flatpak list | grep -q "com.spotify.Client"; then
         echo "Installing Spotify Flatpak"
-        flatpak install -y flathub com.spotify.Client
+        flatpak install --user -y flathub com.spotify.Client
+        flatpak run com.spotify.Client & disown > /dev/null 2>&1 & sleep 5
     fi
     echo "Configuring Spotify with Spicetify"
     brew install spicetify-cli
