@@ -30,6 +30,16 @@ flatpak override \
 	--socket=session-bus \
 	org.libreoffice.LibreOffice
 
+# Fixes too many flatpaks to list
+flatpak override \
+	--system \
+	--socket=session-bus \
+	--socket=system-bus
+flatpak override \
+	--user \
+	--socket=session-bus \
+	--socket=system-bus
+
 # Use until yafti rework is done
 flatpak --system update -y
 
