@@ -119,7 +119,7 @@ setup-spotify:
     sudo chmod a+wr "$HOME/.var/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify"
     sudo chmod a+wr -R "$HOME/.var/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify/Apps"
     curl -Lo /tmp/spicetify-marketplace.sh https://raw.githubusercontent.com/spicetify/marketplace/main/resources/install.sh
-    chmod a+x /tmp/spicetify-marketplace.sh
+    chmod +x /tmp/spicetify-marketplace.sh
     /tmp/spicetify-marketplace.sh
     spicetify config extensions popupLyrics.js
     spicetify config extensions shuffle+.js

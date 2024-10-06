@@ -32,5 +32,6 @@ if [[ -f "/var/lib/waydroid/lxc/waydroid/config" ]]; then
 fi
 
 # Chezmoi
-curl -Lo /usr/bin/chezmoi https://github.com/twpayne/chezmoi/releases/latest/download/chezmoi-linux-amd64
-chmod +x /usr/bin/chezmoi
+curl -Lo ./chezmoi "https://github.com/twpayne/chezmoi/releases/latest/download/chezmoi-$(uname)-amd64"
+chmod +x ./chezmoi
+mv ./chezmoi /usr/bin/chezmoi
