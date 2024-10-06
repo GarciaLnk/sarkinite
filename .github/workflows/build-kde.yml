@@ -9,7 +9,7 @@ on:
       - "system_files/silverblue/**"
       - "system_files/sericea/**"
   schedule:
-    - cron: "41 5 * * 2" # 5:41 UTC every Tuesday
+    - cron: "41 5 * * *" # 5:41 UTC every day
   workflow_dispatch:
 
 jobs:
