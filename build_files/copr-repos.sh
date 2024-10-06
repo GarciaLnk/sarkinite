@@ -83,16 +83,8 @@ curl -Lo /etc/yum.repos.d/_copr_kylegospo-webapp-manager.repo https://copr.fedor
 # Add etckeeper (won't be needed in F41)
 curl -Lo /etc/yum.repos.d/_copr_garcia-etckeeper.repo https://copr.fedorainfracloud.org/coprs/garcia/etckeeper/repo/fedora-"${FEDORA_MAJOR_VERSION}"/garcia-etckeeper-fedora-"${FEDORA_MAJOR_VERSION}".repo
 
-# Install Steam
-sed -i '0,/enabled=0/s//enabled=1/' /etc/yum.repos.d/rpmfusion-nonfree-steam.repo
-sed -i '0,/enabled=1/s//enabled=0/' /etc/yum.repos.d/rpmfusion-nonfree.repo
-sed -i '0,/enabled=1/s//enabled=0/' /etc/yum.repos.d/rpmfusion-nonfree-updates.repo
-sed -i '0,/enabled=1/s//enabled=0/' /etc/yum.repos.d/rpmfusion-nonfree-updates-testing.repo
-rpm-ostree install steam
-sed -i '0,/enabled=1/s//enabled=0/' /etc/yum.repos.d/rpmfusion-nonfree-steam.repo
-sed -i '0,/enabled=0/s//enabled=1/' /etc/yum.repos.d/rpmfusion-nonfree.repo
-sed -i '0,/enabled=0/s//enabled=1/' /etc/yum.repos.d/rpmfusion-nonfree-updates.repo
-sed -i '0,/enabled=0/s//enabled=1/' /etc/yum.repos.d/rpmfusion-nonfree-updates-testing.repo
+# Add Steam
+curl -Lo /etc/yum.repos.d/negativo17-fedora-steam.repo https://negativo17.org/repos/fedora-steam.repo
 
 # Add CoolerControl
 curl -Lo /etc/yum.repos.d/_copr_codifryed-CoolerControl.repo https://copr.fedorainfracloud.org/coprs/codifryed/CoolerControl/repo/fedora-"${FEDORA_MAJOR_VERSION}"/codifryed-CoolerControl-fedora-"${FEDORA_MAJOR_VERSION}".repo

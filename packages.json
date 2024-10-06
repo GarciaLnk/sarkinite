@@ -58,6 +58,7 @@
 				"sssd-ipa",
 				"sssd-krb5",
 				"sssd-nfs-idmap",
+				"steam",
 				"stress-ng",
 				"tailscale",
 				"tmux",
