@@ -20,4 +20,9 @@ enable-supergfxctl:
     systemctl enable --now supergfxd.service
 EOF
 
+	# Use OpenGL renderer for GSK
+	cat <<EOF >/etc/environment.d/99-gsk-renderer-opengl.conf
+GSK_RENDERER=ngl
+EOF
+
 fi
