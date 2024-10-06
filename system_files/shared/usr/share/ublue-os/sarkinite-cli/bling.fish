@@ -19,6 +19,7 @@ if [ "$(command -v ug)" ]
 end
 
 if status is-interactive
+    [ "$(command -v starship)" ] && starship init fish | source
     [ "$(command -v fzf)" ] && fzf --fish | source
     [ "$(command -v zoxide)" ] && eval "$(zoxide init fish)"
 	[ "$(command -v direnv)" ] && eval "$(direnv hook fish)"

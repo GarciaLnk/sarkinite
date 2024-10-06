@@ -22,10 +22,12 @@ fi
 
 if [ "$(basename "${SHELL}")" = "bash" ]; then
 	[ -f "${HOMEBREW_PREFIX}"/etc/profile.d/bash-preexec.sh ] && . "${HOMEBREW_PREFIX}"/etc/profile.d/bash-preexec.sh
+	[ -n "$(command -v starship)" ] && eval "$(starship init bash)"
 	[ -n "$(command -v fzf)" ] && eval "$(fzf --bash)"
 	[ -n "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
 	[ -n "$(command -v direnv)" ] && eval "$(direnv hook bash)"
 elif [ "$(basename "${SHELL}")" = "zsh" ]; then
+	[ -n "$(command -v starship)" ] && eval "$(starship init bash)"
 	[ -n "$(command -v fzf)" ] && fzf --zsh >/tmp/fzf.zsh && . /tmp/fzf.zsh && rm /tmp/fzf.zsh
 	[ -n "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
 	[ -n "$(command -v direnv)" ] && eval "$(direnv hook zsh)"
