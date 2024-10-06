@@ -45,6 +45,7 @@
 				"pulseaudio-utils",
 				"python3-pip",
 				"qdirstat",
+				"rar",
 				"rclone",
 				"restic",
 				"samba-dcerpc",

@@ -86,6 +86,9 @@ curl -Lo /etc/yum.repos.d/_copr_garcia-etckeeper.repo https://copr.fedorainfracl
 # Add Steam
 curl -Lo /etc/yum.repos.d/negativo17-fedora-steam.repo https://negativo17.org/repos/fedora-steam.repo
 
+# Add RAR
+curl -Lo /etc/yum.repos.d/negativo17-fedora-rar.repo https://negativo17.org/repos/fedora-rar.repo
+
 # Add CoolerControl
 curl -Lo /etc/yum.repos.d/_copr_codifryed-CoolerControl.repo https://copr.fedorainfracloud.org/coprs/codifryed/CoolerControl/repo/fedora-"${FEDORA_MAJOR_VERSION}"/codifryed-CoolerControl-fedora-"${FEDORA_MAJOR_VERSION}".repo
 

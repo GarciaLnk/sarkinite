@@ -20,6 +20,7 @@ sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_kylegospo-rom-properties
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_kylegospo-webapp-manager.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_garcia-etckeeper.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/negativo17-fedora-steam.repo
+sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/negativo17-fedora-rar.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_codifryed-CoolerControl.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/firefoxpwa.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo
