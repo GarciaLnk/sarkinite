@@ -116,8 +116,8 @@ setup-spotify:
     brew install spicetify-cli
     spicetify backup apply
     sed -i "/prefs_path/c\prefs_path             = $HOME/.var/app/com.spotify.Client/config/spotify/prefs" "$HOME/.config/spicetify/config-xpui.ini"
-    sudo chmod a+wr "$HOME/.var/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify"
-    sudo chmod a+wr -R "$HOME/.var/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify/Apps"
+    chmod a+wr "$HOME/.local/share/flatpak/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify"
+    chmod a+wr -R "$HOME/.local/share/flatpak/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify/Apps"
     curl -Lo /tmp/spicetify-marketplace.sh https://raw.githubusercontent.com/spicetify/marketplace/main/resources/install.sh
     chmod +x /tmp/spicetify-marketplace.sh
     /tmp/spicetify-marketplace.sh

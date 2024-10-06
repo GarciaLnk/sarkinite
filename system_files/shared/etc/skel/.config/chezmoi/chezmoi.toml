@@ -3,7 +3,7 @@ command = "code"
 args = ["--wait"]
 
 [update]
-args = ["--no-tty", "--keep-going"]
+args = ["--no-tty", "--keep-going", "--force"]
 
 [git]
 autoCommit = true

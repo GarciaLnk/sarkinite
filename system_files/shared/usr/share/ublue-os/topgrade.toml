@@ -11,6 +11,7 @@ ignore_failures = [
   "pip3",
   "home_manager",
   "firmware",
+  "snap",
 ]
 assume_yes = true
 no_retry = false
