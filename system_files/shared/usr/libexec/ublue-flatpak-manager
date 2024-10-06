@@ -21,7 +21,8 @@ flatpak remote-modify --system --enable flathub
 flatpak override \
 	--filesystem=xdg-config/gtk-4.0:ro \
 	--filesystem=xdg-config/gtk-3.0:ro \
-	--filesystem=xdg-data/icons:ro
+	--filesystem=xdg-data/icons:ro \
+	--filesystem="${HOME}"/.themes:ro
 
 # Fix printing on LibreOffice
 flatpak override \
