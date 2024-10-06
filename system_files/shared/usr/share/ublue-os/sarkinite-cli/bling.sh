@@ -21,8 +21,7 @@ if [ -n "$(command -v ug)" ]; then
 fi
 
 if [ "$(basename "${SHELL}")" = "bash" ]; then
-	#shellcheck disable=SC1091
-	. /usr/share/bash-prexec
+	[ -f "${HOMEBREW_PREFIX}"/etc/profile.d/bash-preexec.sh ] && . "${HOMEBREW_PREFIX}"/etc/profile.d/bash-preexec.sh
 	[ -n "$(command -v fzf)" ] && eval "$(fzf --bash)"
 	[ -n "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
 	[ -n "$(command -v direnv)" ] && eval "$(direnv hook bash)"
