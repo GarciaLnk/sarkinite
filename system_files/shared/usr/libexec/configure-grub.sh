@@ -24,4 +24,4 @@ elif [[ ${OPTION,,} =~ ^show ]]; then
 else
 	echo "Not Changing Settings"
 fi
-echo "Grub menu is set to: ${GRUB_STATE}"
+echo "Grub menu is set to: ${GRUB_STATE}, run 'ujust regenerate-grub' to apply changes"
