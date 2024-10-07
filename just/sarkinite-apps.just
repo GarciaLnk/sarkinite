@@ -111,8 +111,8 @@ setup-spotify:
     if ! flatpak list | grep -q "com.spotify.Client"; then
         echo "Installing Spotify Flatpak"
         flatpak install --user -y flathub com.spotify.Client
-        flatpak run com.spotify.Client & disown > /dev/null 2>&1 & sleep 5
     fi
+    flatpak run com.spotify.Client & disown > /dev/null 2>&1 & sleep 5
     echo "Configuring Spotify with Spicetify"
     brew install spicetify-cli
     spicetify backup apply
