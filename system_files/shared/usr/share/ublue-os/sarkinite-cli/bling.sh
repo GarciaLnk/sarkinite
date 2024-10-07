@@ -35,5 +35,5 @@ fi
 
 HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
 if [ -f "${HB_CNF_HANDLER}" ]; then
-	. "${HB_CNF_HANDLER}";
+	. "${HB_CNF_HANDLER}"
 fi
