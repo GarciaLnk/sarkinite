@@ -14,7 +14,7 @@ rpm-ostree override replace --experimental --from repo=updates \
 rpm-ostree override replace --experimental --from repo=updates \
 	nspr || true
 rpm-ostree override replace --experimental --from repo=updates \
-	nss-softokn nss-softokn-freebl nss-util || true
+	nss nss-softokn nss-softokn-freebl nss-sysinit nss-util || true
 rpm-ostree override replace --experimental --from repo=updates \
 	atk at-spi2-atk || true
 rpm-ostree override replace --experimental --from repo=updates \
@@ -48,6 +48,10 @@ rpm-ostree override replace --experimental --from repo=updates \
 rpm-ostree override replace --experimental --from repo=updates \
 	libdrm || true
 rpm-ostree override replace --experimental --from repo=updates \
+	cpp libatomic libgcc libgfortran libgomp libobjc libstdc++ || true
+rpm-ostree override replace --experimental --from repo=updates \
 	libX11 libX11-common libX11-xcb || true
 rpm-ostree override replace --experimental --from repo=updates \
 	libv4l || true
+rpm-ostree override replace --experimental --from repo=updates \
+	qt6-qtbase qt6-qtbase-common qt6-qtbase-mysql qt6-qtbase-gui || true

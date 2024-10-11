@@ -17,8 +17,6 @@ rpm-ostree install \
 	/tmp/akmods/kmods/*xpadneo*.rpm \
 	/tmp/akmods/kmods/*xone*.rpm \
 	/tmp/akmods/kmods/*openrazer*.rpm \
-	/tmp/akmods-extra-rpms/kmods/*zenergy*.rpm \
-	/tmp/akmods-extra-rpms/kmods/*ryzen-smu*.rpm \
 	/tmp/akmods-extra-rpms/kmods/*evdi*.rpm
 # /tmp/akmods-rpms/kmods/*framework-laptop*.rpm
 

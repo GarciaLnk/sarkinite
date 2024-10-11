@@ -17,6 +17,16 @@ fi
 flatpak remote-add --if-not-exists --system flathub /etc/flatpak/remotes.d/flathub.flatpakrepo
 flatpak remote-modify --system --enable flathub
 
+PROTONTRICKS_SETUP_FILE="/etc/bazzite/protontricks_installed"
+if [[ ! -f ${PROTONTRICKS_SETUP_FILE} ]]; then
+	if ! grep -q "com.github.Matoking.protontricks" <<<"$(/usr/bin/flatpak list --app --columns=application)"; then
+		flatpak install --system --assumeyes com.github.Matoking.protontricks
+		touch "${PROTONTRICKS_SETUP_FILE}"
+	else
+		touch "${PROTONTRICKS_SETUP_FILE}"
+	fi
+fi
+
 # Flatpak theming support
 flatpak override \
 	--filesystem=xdg-config/gtk-4.0:ro \
@@ -30,6 +40,13 @@ flatpak override \
 	--socket=cups \
 	--socket=session-bus \
 	org.libreoffice.LibreOffice
+
+# Fix permissions for Protontricks
+flatpak override \
+	--filesystem=~/.local/share/Steam \
+	--filesystem=/var/mnt \
+	--filesystem=/run/media \
+	com.github.Matoking.protontricks
 
 # Fixes too many flatpaks to list
 flatpak override \
