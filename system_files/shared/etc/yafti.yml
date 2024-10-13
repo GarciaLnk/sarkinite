@@ -87,7 +87,6 @@ screens:
             - Kdenlive: org.kde.kdenlive
             - Krita: org.kde.krita
             - LibreOffice: org.libreoffice.LibreOffice
-            - LosslessCut: no.mifi.losslesscut
             - Notesnook: com.notesnook.Notesnook
             - Obsidian: md.obsidian.Obsidian
             - OnlyOffice: org.onlyoffice.desktopeditors
@@ -128,6 +127,7 @@ screens:
             - Calibre: com.calibre_ebook.calibre
             - Cryptomator: org.cryptomator.Cryptomator
             - DejaDup: org.gnome.DejaDup
+            - Ente Auth: io.ente.auth
             - FreeTube: io.freetubeapp.FreeTube
             - JamesDSP: me.timschneeberger.jdsp4linux
             - KeePassXC: org.keepassxc.KeePassXC
