@@ -4,6 +4,7 @@
 			"all": [
 				"bash-color-prompt",
 				"bcache-tools",
+				"borgbackup",
 				"bootc",
 				"btrfs-assistant",
 				"cage",
