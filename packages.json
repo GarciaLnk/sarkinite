@@ -189,7 +189,7 @@
 	"39": {
 		"include": {
 			"all": [],
-			"silverblue": [],
+			"silverblue": ["fmt"],
 			"dx": ["distrobuilder", "podman-plugins"]
 		},
 		"exclude": {
