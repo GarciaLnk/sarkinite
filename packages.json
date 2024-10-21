@@ -142,8 +142,6 @@
 				"libvirt",
 				"libvirt-nss",
 				"lxc",
-				"lxd-agent",
-				"lxd",
 				"mozilla-fira-mono-fonts",
 				"p7zip-plugins",
 				"p7zip",
@@ -190,11 +188,13 @@
 		"include": {
 			"all": [],
 			"silverblue": ["fmt"],
-			"dx": ["distrobuilder", "podman-plugins"]
+			"kinoite": [],
+			"dx": ["distrobuilder", "podman-plugins", "lxd-agent", "lxd"]
 		},
 		"exclude": {
 			"all": [],
 			"silverblue": [],
+			"kinoite": [],
 			"dx": []
 		}
 	},
@@ -202,11 +202,26 @@
 		"include": {
 			"all": [],
 			"silverblue": [],
-			"dx": []
+			"kinoite": [],
+			"dx": ["lxd-agent", "lxd"]
 		},
 		"exclude": {
 			"all": [],
 			"silverblue": [],
+			"kinoite": [],
+			"dx": []
+		}
+	},
+	"41": {
+		"include": {
+			"all": [],
+			"kinoite": [],
+			"silverblue": []
+		},
+		"exclude": {
+			"all": [],
+			"silverblue": [],
+			"kinoite": ["plasma-welcome", "plasma-welcome-fedora"],
 			"dx": []
 		}
 	}
