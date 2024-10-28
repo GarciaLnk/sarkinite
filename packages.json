@@ -2,6 +2,7 @@
 	"all": {
 		"include": {
 			"all": [
+				"adw-gtk3-theme",
 				"bash-color-prompt",
 				"bcache-tools",
 				"borgbackup",
