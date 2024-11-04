@@ -21,7 +21,9 @@ sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/ublue-os-staging-fedora-"${FED
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_che-nerd-fonts-"${FEDORA_MAJOR_VERSION}".repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_kylegospo-rom-properties.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_kylegospo-webapp-manager.repo
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_garcia-etckeeper.repo
+if [[ ${FEDORA_MAJOR_VERSION} -lt "41" ]]; then
+	sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_garcia-etckeeper.repo
+fi
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_codifryed-CoolerControl.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/firefoxpwa.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_alternateved-keyd.repo

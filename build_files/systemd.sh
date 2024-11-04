@@ -24,3 +24,4 @@ systemctl enable hwclock-sync.service
 systemctl enable check-sb-key.service
 systemctl enable snapper-setup
 systemctl enable keyd
+systemctl disable displaylink.service

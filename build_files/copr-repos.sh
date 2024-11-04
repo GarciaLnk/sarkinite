@@ -80,8 +80,10 @@ curl -Lo /etc/yum.repos.d/_copr_kylegospo-rom-properties.repo https://copr.fedor
 # Add Webapp Manager
 curl -Lo /etc/yum.repos.d/_copr_kylegospo-webapp-manager.repo https://copr.fedorainfracloud.org/coprs/kylegospo/webapp-manager/repo/fedora-"${FEDORA_MAJOR_VERSION}"/kylegospo-webapp-manager-fedora-"${FEDORA_MAJOR_VERSION}".repo
 
-# Add etckeeper (won't be needed in F41)
-curl -Lo /etc/yum.repos.d/_copr_garcia-etckeeper.repo https://copr.fedorainfracloud.org/coprs/garcia/etckeeper/repo/fedora-"${FEDORA_MAJOR_VERSION}"/garcia-etckeeper-fedora-"${FEDORA_MAJOR_VERSION}".repo
+# Add etckeeper
+if [[ ${FEDORA_MAJOR_VERSION} -lt "41" ]]; then
+	curl -Lo /etc/yum.repos.d/_copr_garcia-etckeeper.repo https://copr.fedorainfracloud.org/coprs/garcia/etckeeper/repo/fedora-"${FEDORA_MAJOR_VERSION}"/garcia-etckeeper-fedora-"${FEDORA_MAJOR_VERSION}".repo
+fi
 
 # Add CoolerControl
 curl -Lo /etc/yum.repos.d/_copr_codifryed-CoolerControl.repo https://copr.fedorainfracloud.org/coprs/codifryed/CoolerControl/repo/fedora-"${FEDORA_MAJOR_VERSION}"/codifryed-CoolerControl-fedora-"${FEDORA_MAJOR_VERSION}".repo
