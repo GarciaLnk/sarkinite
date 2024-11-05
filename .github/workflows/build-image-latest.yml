@@ -1,0 +1,50 @@
+name: Latest Images
+on:
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - "**.md"
+  schedule:
+    - cron: "40 4 * * 0" # 4:40 UTC Sunday
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      brand_name:
+        description: "Image Brand to Build"
+        default: '["sarkinite-kde"]'
+        type: choice
+        options:
+          - '["sarkinite-kde"]'
+          - '["sarkinite-gnome"]'
+          - '["sarkinite-kde", "sarkinite-gnome"]'
+
+jobs:
+  build-image-latest:
+    name: Build Latest Images
+    uses: ./.github/workflows/reusable-build.yml
+    secrets: inherit
+    strategy:
+      fail-fast: false
+      matrix:
+        brand_name: ${{ fromJson(inputs.brand_name || '["sarkinite-kde"]') }}
+    with:
+      image_flavors: '["main", "nvidia", "hwe", "hwe-nvidia"]'
+      brand_name: ${{ matrix.brand_name }}
+      stream_name: latest
+
+  generate-release:
+    name: Generate Release
+    needs: [build-image-latest]
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call' || github.event.schedule == '40 4 * * 0'
+    secrets: inherit
+    uses: ./.github/workflows/generate-release.yml
+    with:
+      stream_name: '["latest"]'
+
+  build-iso-latest:
+    name: Build Latest ISOs
+    needs: [build-image-latest]
+    if: github.event.schedule == '40 4 * * 0'
+    secrets: inherit
+    uses: ./.github/workflows/build-iso-latest.yml

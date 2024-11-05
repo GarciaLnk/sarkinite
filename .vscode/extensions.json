@@ -1,0 +1,12 @@
+{
+	"recommendations": [
+		"eamodio.gitlens",
+		"hangxingliu.vscode-systemd-support",
+		"mads-hartmann.bash-ide-vscode",
+		"nefrob.vscode-just-syntax",
+		"tudoudou.json5-for-vscode",
+		"ms-vscode.makefile-tools",
+		"github.vscode-github-actions",
+		"Trunk.io"
+	]
+}

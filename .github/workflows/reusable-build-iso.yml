@@ -2,19 +2,23 @@ name: Reusable ISO
 on:
   workflow_call:
     inputs:
+      image_flavors:
+        description: "JSON string of flavors to build, '[main, nvidia, hwe, hwe-nvidia]'"
+        default: "['main', 'nvidia']"
+        type: string
       brand_name:
-        description: "'sarkinite-kde', 'sarkinite-gnome' or 'sarkinite-sway'"
+        description: "The Desktop Environment: 'sarkinite-kde' or 'sarkinite-gnome'"
         required: true
         type: string
-      fedora_version:
-        description: "The Fedora release version: 38, 39, 40, etc"
+      stream_name:
+        description: "The Fedora Version: gts, stable, or latest"
         required: true
         type: string
 env:
   IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}-iso
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}-${{ inputs.brand_name}}-${{ inputs.stream_name }}-iso
   cancel-in-progress: true
 
 jobs:
@@ -27,31 +31,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image_flavor:
-          - main
-          - nvidia
-          - asus
-          - asus-nvidia
-          - surface
-          - surface-nvidia
-        base_name:
-          - ${{ inputs.brand_name }}
-          - ${{ inputs.brand_name }}-dx
-        fedora_version:
-          - ${{ inputs.fedora_version }}
-        exclude:
-          - fedora_version: gts
-            image_flavor: asus
-          - fedora_version: gts
-            image_flavor: asus-nvidia
-          - fedora_version: stable
-            image_flavor: asus
-          - fedora_version: stable
-            image_flavor: asus-nvidia
-          - fedora_version: stable
-            image_flavor: surface
-          - fedora_version: stable
-            image_flavor: surface-nvidia
+        image_flavor: ${{ fromJson(inputs.image_flavors) }}
+        base_name: ["${{ inputs.brand_name }}", "${{ inputs.brand_name }}-dx"]
+        stream_name: ["${{ inputs.stream_name }}"]
 
     steps:
       - name: Free Disk Space (Ubuntu)
@@ -62,17 +44,15 @@ jobs:
 
       - name: Matrix Variables
         run: |
-          if [[ ${{ inputs.brand_name }} == "sarkinite-gnome" ]]; then
-            echo "VARIANT=silverblue" >> $GITHUB_ENV
-          elif [[ ${{ inputs.brand_name }} == "sarkinite-kde" ]]; then
-            echo "VARIANT=kinoite" >> $GITHUB_ENV
-          elif [[ ${{ inputs.brand_name }} == "sarkinite-sway" ]]; then
-            echo "VARIANT=sericea" >> $GITHUB_ENV
-          fi
           if [[ "${{ matrix.image_flavor }}" == "main" ]]; then
             echo "IMAGE_NAME=${{ matrix.base_name }}" >> $GITHUB_ENV
           else
             echo "IMAGE_NAME=${{ format('{0}-{1}', matrix.base_name, matrix.image_flavor) }}" >> $GITHUB_ENV
+          fi
+          if [[ ${{ matrix.base_name }} =~ sarkinite-gnome ]]; then
+            echo "VARIANT=silverblue" >> $GITHUB_ENV
+          elif [[ ${{ matrix.base_name }} =~ sarkinite-kde ]]; then
+            echo "VARIANT=kinoite" >> $GITHUB_ENV
           fi
 
       # Workaround bug where capital letters in your GitHub username make it impossible to push to GHCR.
@@ -88,7 +68,7 @@ jobs:
         shell: bash
         run: |
           set -eo pipefail
-          kernel_release=$(skopeo inspect docker://${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}:${{ inputs.fedora_version }} | jq -r '.Labels["ostree.linux"] | split(".x86_64")[0]')
+          kernel_release=$(skopeo inspect docker://${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}:${{ matrix.stream_name }} | jq -r '.Labels["ostree.linux"] | split(".x86_64")[0]')
           fedora_version=$(echo $kernel_release | grep -oP 'fc\K[0-9]+')
           echo "kernel_release=$kernel_release" >> $GITHUB_OUTPUT
           echo "fedora_version=$fedora_version" >> $GITHUB_OUTPUT
@@ -97,21 +77,15 @@ jobs:
         id: generate-tag
         shell: bash
         run: |
-          TAG="${{ inputs.fedora_version }}"
+          TAG="${{ matrix.stream_name }}"
 
           if [[ "${{ github.ref_name }}" == "testing" ]]; then
-            if [[ "${{ inputs.fedora_version }}" == "true" ]]; then
-              TAG="gts-testing"
-            elif [[ "${{ inputs.fedora_version }}" == "true" ]]; then
-              TAG="stable-testing"
-            elif [[ "${{ inputs.fedora_version }}" == "true" ]]; then
-              TAG="testing"
-            fi
+            TAG="testing-${TAG}"
           fi
 
           # Would like to implement in the future. This will allow us to support image tags from a PR.
           #if [[ github.event.number ]]; then
-          #  TAG="pr-${{ github.event.number }}-${{ matrix.fedora_version }}"
+          #  TAG="pr-${{ github.event.number }}-${{ matrix.stream_name }}"
           #fi
 
           echo "tag=${TAG}" >> $GITHUB_OUTPUT
@@ -120,12 +94,10 @@ jobs:
         id: generate-flatpak-dir-shortname
         shell: bash
         run: |
-          if [[ ${{ inputs.brand_name }} = "sarkinite-gnome" ]]; then
+          if [[ "${{ env.IMAGE_NAME }}" =~ sarkinite-gnome ]]; then
             FLATPAK_DIR_SHORTNAME="flatpaks_gnome"
-          elif [[ ${{ inputs.brand_name }} = "sarkinite-kde" ]]; then
+          elif [[ "${{ env.IMAGE_NAME }}" =~ sarkinite-kde ]]; then
             FLATPAK_DIR_SHORTNAME="flatpaks_kde"
-          elif [[ ${{ inputs.brand_name }} = "sarkinite-sway" ]]; then
-            FLATPAK_DIR_SHORTNAME="flatpaks_sway"
           fi
           echo "flatpak-dir-shortname=${FLATPAK_DIR_SHORTNAME}" >> $GITHUB_OUTPUT
 
@@ -134,7 +106,7 @@ jobs:
         shell: bash
         run: |
           set -ex
-          image="${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}:${{ inputs.fedora_version }}"
+          image="${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}:${{ matrix.stream_name }}"
           # Make temp space
           TEMP_FLATPAK_INSTALL_DIR=$(mktemp -d -p ${{ github.workspace }} flatpak.XXX)
           # Get list of refs from directory
@@ -205,7 +177,7 @@ jobs:
           overwrite: true
 
       - name: Upload ISOs and Checksum to R2 to Sarkinite Bucket
-        if: github.ref_name == 'main'
+        if: github.ref_name == 'main' && contains(matrix.base_name,'sarkinite')
         shell: bash
         env:
           RCLONE_CONFIG_R2_TYPE: s3

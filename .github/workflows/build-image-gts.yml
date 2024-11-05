@@ -1,0 +1,33 @@
+name: GTS Images
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build-image-gts:
+    name: Build GTS Images
+    uses: ./.github/workflows/reusable-build.yml
+    secrets: inherit
+    strategy:
+      fail-fast: false
+      matrix:
+        brand_name: [sarkinite-gnome]
+    with:
+      brand_name: ${{ matrix.brand_name }}
+      stream_name: gts
+
+  generate_release:
+    name: Generate Release
+    needs: [build-image-gts]
+    if: github.event_name == 'scheduled' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call'
+    secrets: inherit
+    uses: ./.github/workflows/generate-release.yml
+    with:
+      stream_name: '["gts"]'
+
+  build-iso-gts:
+    name: Build GTS ISOs
+    needs: [build-image-gts]
+    if: github.event_name == 'scheduled'
+    secrets: inherit
+    uses: ./.github/workflows/build-iso-gts.yml

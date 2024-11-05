@@ -1,0 +1,35 @@
+name: Beta Images
+on:
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      brand_name:
+        description: "Image Brand to Build"
+        default: '["sarkinite-kde"]'
+        type: choice
+        options:
+          - '["sarkinite-kde"]'
+          - '["sarkinite-gnome"]'
+          - '["sarkinite-kde", "sarkinite-gnome"]'
+
+jobs:
+  build-image-beta:
+    name: Build Beta Images
+    uses: ./.github/workflows/reusable-build.yml
+    secrets: inherit
+    strategy:
+      fail-fast: false
+      matrix:
+        brand_name: ${{ fromJson(inputs.brand_name || '["sarkinite-kde"]') }}
+    with:
+      brand_name: ${{ matrix.brand_name }}
+      stream_name: beta
+
+  generate-release:
+    name: Generate Release
+    needs: [build-image-beta]
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call' || github.event.schedule == '40 4 * * 0'
+    secrets: inherit
+    uses: ./.github/workflows/generate-release.yml
+    with:
+      stream_name: '["beta"]'

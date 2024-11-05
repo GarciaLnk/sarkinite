@@ -1,0 +1,27 @@
+name: Latest ISO
+on:
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      brand_name:
+        description: "Image Brand to Build"
+        default: '["sarkinite-kde"]'
+        type: choice
+        options:
+          - '["sarkinite-kde"]'
+          - '["sarkinite-gnome"]'
+          - '["sarkinite-kde", "sarkinite-gnome"]'
+
+jobs:
+  build-iso-latest:
+    name: Build Latest ISOs
+    uses: ./.github/workflows/reusable-build-iso.yml
+    secrets: inherit
+    strategy:
+      fail-fast: false
+      matrix:
+        brand_name: ${{ fromJson(inputs.brand_name || '["sarkinite-kde", "sarkinite-gnome"]') }}
+    with:
+      image_flavors: '["main", "nvidia", "hwe", "hwe-nvidia"]'
+      brand_name: ${{ matrix.brand_name }}
+      stream_name: latest
