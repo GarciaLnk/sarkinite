@@ -108,7 +108,6 @@ screens:
             - Opera: com.opera.Opera
             - Tor Browser: org.torproject.torbrowser-launcher
             - Vivaldi: com.vivaldi.Vivaldi
-            - Zen: io.github.zen_browser.zen
         Streaming:
           description: Stream to the Internet
           default: false
