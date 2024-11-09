@@ -265,7 +265,7 @@ jobs:
           command: |
             # pull the base image used for FROM in containerfile so
             # we can retry on that unfortunately common failure case
-            sudo podman pull ${{ env.IMAGE_REGISTRY }}/${{ env.BASE_IMAGE_NAME }}-main:${{ env.FEDORA_VERSION }}
+            sudo podman pull ghcr.io/ublue-os/${{ env.BASE_IMAGE_NAME }}-main:${{ env.FEDORA_VERSION }}
 
       - name: Build Image
         id: build_image
