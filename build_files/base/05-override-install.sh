@@ -49,7 +49,7 @@ rm /etc/yum.repos.d/_copr_sentry-switcheroo-control_discrete.repo
 
 # Flahub repo
 mkdir -p /etc/flatpak/remotes.d
-curl -Lo /etc/flatpak/remotes.d/flathub.flatpakrepo https://dl.flathub.org/repo/flathub.flatpakrepo
+curl --retry 3 -Lo /etc/flatpak/remotes.d/flathub.flatpakrepo https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # Install ublue-update -- breaks with packages.json due to missing topgrade
 rpm-ostree install ublue-update
@@ -66,13 +66,13 @@ fc-cache -f /usr/share/fonts/inter
 
 # Waydroid
 sed -i~ -E 's/=.\$\(command -v (nft|ip6?tables-legacy).*/=/g' /usr/lib/waydroid/data/scripts/waydroid-net.sh
-curl -Lo /usr/bin/waydroid-choose-gpu https://raw.githubusercontent.com/KyleGospo/waydroid-scripts/main/waydroid-choose-gpu.sh
+curl --retry 3 -Lo /usr/bin/waydroid-choose-gpu https://raw.githubusercontent.com/KyleGospo/waydroid-scripts/main/waydroid-choose-gpu.sh
 chmod +x /usr/bin/waydroid-choose-gpu
 if [[ -f "/var/lib/waydroid/lxc/waydroid/config" ]]; then
 	sed -i '/lxc\.apparmor\.profile\s*=\s*unconfined/d' "/var/lib/waydroid/lxc/waydroid/config"
 fi
 
 # Chezmoi
-curl -Lo ./chezmoi "https://github.com/twpayne/chezmoi/releases/latest/download/chezmoi-$(uname)-amd64"
+curl --retry 3 -Lo ./chezmoi "https://github.com/twpayne/chezmoi/releases/latest/download/chezmoi-$(uname)-amd64"
 chmod +x ./chezmoi
 mv ./chezmoi /usr/bin/chezmoi

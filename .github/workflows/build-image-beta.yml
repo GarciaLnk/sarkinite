@@ -28,7 +28,6 @@ jobs:
   generate-release:
     name: Generate Release
     needs: [build-image-beta]
-    if: github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call' || github.event.schedule == '40 4 * * 0'
     secrets: inherit
     uses: ./.github/workflows/generate-release.yml
     with:

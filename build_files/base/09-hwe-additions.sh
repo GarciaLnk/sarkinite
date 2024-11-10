@@ -10,10 +10,10 @@ else
 fi
 
 # Asus/Surface for HWE
-curl -Lo /etc/yum.repos.d/_copr_lukenukem-asus-linux.repo \
-	https://copr.fedorainfracloud.org/coprs/lukenukem/asus-linux/repo/fedora-"$(rpm -E %fedora)"/lukenukem-asus-linux-fedora-"$(rpm -E %fedora)".repo
+curl --retry 3 -Lo /etc/yum.repos.d/_copr_lukenukem-asus-linux.repo \
+	"https://copr.fedorainfracloud.org/coprs/lukenukem/asus-linux/repo/fedora-$(rpm -E %fedora)/lukenukem-asus-linux-fedora-$(rpm -E %fedora).repo"
 
-curl -Lo /etc/yum.repos.d/linux-surface.repo \
+curl --retry 3 -Lo /etc/yum.repos.d/linux-surface.repo \
 	https://pkg.surfacelinux.com/fedora/linux-surface.repo
 
 # Asus Firmware
@@ -39,7 +39,7 @@ rpm-ostree install \
 	"${ASUS_PACKAGES[@]}" \
 	"${SURFACE_PACKAGES[@]}"
 
-tee /usr/lib/modules-load.d/ublue-surface.conf << EOF
+tee /usr/lib/modules-load.d/ublue-surface.conf <<EOF
 # Add modules necessary for Disk Encryption via keyboard
 surface_aggregator
 surface_aggregator_registry
