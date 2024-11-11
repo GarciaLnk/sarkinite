@@ -74,13 +74,15 @@ From previous `{target}` version `{prev}` there have been the following changes.
 
 ### How to rebase
 For current users, type the following to rebase to this version:
-#### For this branch (if latest):
 ```bash
-sudo bootc switch ghcr.io/GarciaLnk/sarkinite:{target} --enforce-container-sigpolicy
-```
-#### For this specific image:
-```bash
-sudo bootc switch ghcr.io/GarciaLnk/sarkinite:{curr} --enforce-container-sigpolicy
+# Get Image Name
+IMAGE_NAME=$(jq -r '.["image-name"]' < /usr/share/ublue-os/image-info.json)
+
+# For this Stream
+sudo bootc switch --enforce-container-sigpolicy ghcr.io/GarciaLnk/$IMAGE_NAME:{target}
+
+# For this Specific Image:
+sudo bootc switch --enforce-container-sigpolicy ghcr.io/GarciaLnk/$IMAGE_NAME:{curr}
 ```
 """
 HANDWRITTEN_PLACEHOLDER = """\
@@ -209,7 +211,6 @@ def get_package_groups(target: str, prev: dict[str, Any], manifests: dict[str, A
 
     # Find other packages
     for t, other in others.items():
-        print(t)
         first = True
         for img, experience, de, image_flavor in get_images(target):
             if img not in pkg:
@@ -317,6 +318,8 @@ def get_commits(prev_manifests, manifests, workdir: str):
 
             if subject.lower().startswith("merge"):
                 continue
+            if subject.lower().startswith("chore"):
+                continue
 
             out += (
                 COMMIT_FORMAT.replace("{short}", short)
@@ -366,11 +369,14 @@ def generate_changelog(
         # Remove .0 from curr
         curr_pretty = re.sub(r"\.\d{1,2}$", "", curr)
         # Remove target- from curr
-        curr_pretty = re.sub(r"^[a-z]+-|^[0-9]+-", "", curr_pretty)
+        curr_pretty = re.sub(rf"^[a-z]+-|^[0-9]+-", "", curr_pretty)
+        if not fedora_version + "." in curr_pretty:
+            curr_pretty=fedora_version + "." + curr_pretty
         pretty = target.capitalize()
-        pretty += " (F" + fedora_version
-        pretty += "." + curr_pretty
-        pretty += ", #" + finish[:7] + ")"
+        pretty += " (F" + curr_pretty
+        if finish:
+            pretty += ", #" + finish[:7]
+        pretty += ")"
 
     title = CHANGELOG_TITLE.format_map(defaultdict(str, tag=curr, pretty=pretty))
 
