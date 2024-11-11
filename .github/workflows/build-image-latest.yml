@@ -29,7 +29,7 @@ jobs:
       matrix:
         brand_name: ${{ fromJson(inputs.brand_name || '["sarkinite-kde"]') }}
     with:
-      image_flavors: '["main", "nvidia", "hwe", "hwe-nvidia"]'
+      image_flavors: '["main", "nvidia"]'
       brand_name: ${{ matrix.brand_name }}
       stream_name: latest
 

@@ -142,9 +142,9 @@ build image="sarkinite-kde" tag="latest" flavor="main" rechunk="0" ghcr="0" pipe
     image_name=$(just image_name {{ image }} {{ tag }} {{ flavor }})
 
     # Base Image
-    if [[ "${image}" =~ sarkinite-kde ]]; then
+    if [[ "${image}" =~ sarkinite-gnome ]]; then
         base_image_name="silverblue"
-    elif [[ "${image}" =~ sarkinite-gnome ]]; then
+    elif [[ "${image}" =~ sarkinite-kde ]]; then
         base_image_name="kinoite"
     fi
 
