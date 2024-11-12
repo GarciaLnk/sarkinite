@@ -128,7 +128,7 @@ sudoif command *args:
 
 # Build Image
 [group('Image')]
-build image="sarkinite-kde" tag="latest" flavor="main" rechunk="0" ghcr="0" pipeline="0" kernel_pin="":
+build image="sarkinite-kde" tag="stable" flavor="main" rechunk="0" ghcr="0" pipeline="0" kernel_pin="":
     #!/usr/bin/bash
     set -eoux pipefail
     image={{ image }}
@@ -238,12 +238,12 @@ build image="sarkinite-kde" tag="latest" flavor="main" rechunk="0" ghcr="0" pipe
 
 # Build Image and Rechunk
 [group('Image')]
-build-rechunk image="sarkinite-kde" tag="latest" flavor="main" kernel_pin="":
+build-rechunk image="sarkinite-kde" tag="stable" flavor="main" kernel_pin="":
     @just build {{ image }} {{ tag }} {{ flavor }} 1 0 0 {{ kernel_pin }}
 
 # Build Image with GHCR Flag
 [group('Image')]
-build-ghcr image="sarkinite-kde" tag="latest" flavor="main" kernel_pin="":
+build-ghcr image="sarkinite-kde" tag="stable" flavor="main" kernel_pin="":
     #!/usr/bin/bash
     if [[ "${UID}" -gt "0" ]]; then
         echo "Must Run with sudo or as root..."
@@ -253,7 +253,7 @@ build-ghcr image="sarkinite-kde" tag="latest" flavor="main" kernel_pin="":
 
 # Build Image for Pipeline:
 [group('Image')]
-build-pipeline image="sarkinite-kde" tag="latest" flavor="main" kernel_pin="":
+build-pipeline image="sarkinite-kde" tag="stable" flavor="main" kernel_pin="":
     #!/usr/bin/bash
     if [[ "${UID}" -gt "0" ]]; then
         echo "Must Run with sudo or as root..."
@@ -264,7 +264,7 @@ build-pipeline image="sarkinite-kde" tag="latest" flavor="main" kernel_pin="":
 # Rechunk Image
 [group('Image')]
 [private]
-rechunk image="sarkinite-kde" tag="latest" flavor="main" ghcr="0" pipeline="0":
+rechunk image="sarkinite-kde" tag="stable" flavor="main" ghcr="0" pipeline="0":
     #!/usr/bin/bash
     set -eoux pipefail
 
@@ -391,7 +391,7 @@ rechunk image="sarkinite-kde" tag="latest" flavor="main" ghcr="0" pipeline="0":
 
 # Load OCI into Podman Store
 [group('Image')]
-load-rechunk image="sarkinite-kde" tag="latest" flavor="main":
+load-rechunk image="sarkinite-kde" tag="stable" flavor="main":
     #!/usr/bin/bash
     set -eou pipefail
 
@@ -412,7 +412,7 @@ load-rechunk image="sarkinite-kde" tag="latest" flavor="main":
 
 # Run Container
 [group('Image')]
-run image="sarkinite-kde" tag="latest" flavor="main":
+run image="sarkinite-kde" tag="stable" flavor="main":
     #!/usr/bin/bash
     set -eoux pipefail
     image={{ image }}
@@ -436,7 +436,7 @@ run image="sarkinite-kde" tag="latest" flavor="main":
 
 # Build ISO
 [group('ISO')]
-build-iso image="sarkinite-kde" tag="latest" flavor="main" ghcr="0":
+build-iso image="sarkinite-kde" tag="stable" flavor="main" ghcr="0":
     #!/usr/bin/bash
     set -eoux pipefail
     image={{ image }}
@@ -561,12 +561,12 @@ build-iso image="sarkinite-kde" tag="latest" flavor="main" ghcr="0":
 
 # Build ISO using GHCR Image
 [group('ISO')]
-build-iso-ghcr image="sarkinite-kde" tag="latest" flavor="main":
+build-iso-ghcr image="sarkinite-kde" tag="stable" flavor="main":
     @just build-iso {{ image }} {{ tag }} {{ flavor }} 1
 
 # Run ISO
 [group('ISO')]
-run-iso image="sarkinite-kde" tag="latest" flavor="main":
+run-iso image="sarkinite-kde" tag="stable" flavor="main":
     #!/usr/bin/bash
     set -eoux pipefail
     image={{ image }}
@@ -650,7 +650,7 @@ verify-container container="" registry="ghcr.io/ublue-os" key="":
 
 # Secureboot Check
 [group('Utility')]
-secureboot image="sarkinite-kde" tag="latest" flavor="main":
+secureboot image="sarkinite-kde" tag="stable" flavor="main":
     #!/usr/bin/bash
     set -eoux pipefail
     image={{ image }}
@@ -705,7 +705,7 @@ secureboot image="sarkinite-kde" tag="latest" flavor="main":
 # Get Fedora Version of an image
 [group('Utility')]
 [private]
-fedora_version image="sarkinite-kde" tag="latest" flavor="main":
+fedora_version image="sarkinite-kde" tag="stable" flavor="main":
     #!/usr/bin/bash
     set -eou pipefail
     just validate {{ image }} {{ tag }} {{ flavor }}
@@ -723,7 +723,7 @@ fedora_version image="sarkinite-kde" tag="latest" flavor="main":
 # Image Name
 [group('Utility')]
 [private]
-image_name image="sarkinite-kde" tag="latest" flavor="main":
+image_name image="sarkinite-kde" tag="stable" flavor="main":
     #!/usr/bin/bash
     set -eou pipefail
     just validate {{ image }} {{ tag }} {{ flavor }}
@@ -736,7 +736,7 @@ image_name image="sarkinite-kde" tag="latest" flavor="main":
 
 # Generate Tags
 [group('Utility')]
-generate-build-tags image="sarkinite-kde" tag="latest" flavor="main" ghcr="0" version="" github_event="" github_number="":
+generate-build-tags image="sarkinite-kde" tag="stable" flavor="main" ghcr="0" version="" github_event="" github_number="":
     #!/usr/bin/bash
     set -eou pipefail
 
@@ -796,7 +796,7 @@ generate-build-tags image="sarkinite-kde" tag="latest" flavor="main" ghcr="0" ve
 
 # Generate Default Tag
 [group('Utility')]
-generate-default-tag tag="latest" ghcr="0":
+generate-default-tag tag="stable" ghcr="0":
     #!/usr/bin/bash
     set -eou pipefail
 
