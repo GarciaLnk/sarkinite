@@ -4,7 +4,7 @@ on:
       make_latest:
         description: "Make latest for Release"
         type: string
-        default: 'False'
+        default: "False"
       stream_name:
         description: "Release Tag (e.g. gts, stable)"
         type: string
@@ -16,10 +16,10 @@ on:
       make_latest:
         description: "Make latest for Release"
         type: choice
-        default: 'False'
+        default: "False"
         options:
-          - 'False'
-          - 'True'
+          - "False"
+          - "True"
       stream_name:
         description: "Release Tag (e.g. gts, stable)"
         required: true

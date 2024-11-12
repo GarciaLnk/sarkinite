@@ -369,9 +369,9 @@ def generate_changelog(
         # Remove .0 from curr
         curr_pretty = re.sub(r"\.\d{1,2}$", "", curr)
         # Remove target- from curr
-        curr_pretty = re.sub(rf"^[a-z]+-|^[0-9]+-", "", curr_pretty)
-        if not fedora_version + "." in curr_pretty:
-            curr_pretty=fedora_version + "." + curr_pretty
+        curr_pretty = re.sub(r"^[a-z]+-|^[0-9]+-", "", curr_pretty)
+        if fedora_version + "." not in curr_pretty:
+            curr_pretty = fedora_version + "." + curr_pretty
         pretty = target.capitalize()
         pretty += " (F" + curr_pretty
         if finish:
