@@ -79,10 +79,10 @@ For current users, type the following to rebase to this version:
 IMAGE_NAME=$(jq -r '.["image-name"]' < /usr/share/ublue-os/image-info.json)
 
 # For this Stream
-sudo bootc switch --enforce-container-sigpolicy ghcr.io/GarciaLnk/$IMAGE_NAME:{target}
+sudo bootc switch --enforce-container-sigpolicy ghcr.io/garcialnk/$IMAGE_NAME:{target}
 
 # For this Specific Image:
-sudo bootc switch --enforce-container-sigpolicy ghcr.io/GarciaLnk/$IMAGE_NAME:{curr}
+sudo bootc switch --enforce-container-sigpolicy ghcr.io/garcialnk/$IMAGE_NAME:{curr}
 ```
 """
 HANDWRITTEN_PLACEHOLDER = """\
@@ -370,6 +370,8 @@ def generate_changelog(
         curr_pretty = re.sub(r"\.\d{1,2}$", "", curr)
         # Remove target- from curr
         curr_pretty = re.sub(r"^[a-z]+-|^[0-9]+-", "", curr_pretty)
+        if target == "stable-daily":
+            curr_pretty = re.sub(r"^[a-z]+-", "", curr_pretty)
         if fedora_version + "." not in curr_pretty:
             curr_pretty = fedora_version + "." + curr_pretty
         pretty = target.capitalize()
