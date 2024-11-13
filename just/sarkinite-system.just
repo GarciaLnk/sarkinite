@@ -299,13 +299,30 @@ install-nix-devbox:
     sudo /tmp/nix-installer install ostree --no-confirm
     rm -f /tmp/nix-installer
     sudo systemctl enable nix-gc.timer
+    nix-channel --add https://nixos.org/channels/nixpkgs-unstable
+    nix-channel --add https://github.com/nix-community/nixGL/archive/main.tar.gz nixgl
+    nix-channel --update
+    nix-env -iA nixgl.auto.nixGLDefault
+    if [[ $(cat /etc/ublue/image_flavor) =~ "nvidia" ]]; then
+      auto.nixVulkanNvidia
+    else
+      nixVulkanIntel
+    fi
+    if ! grep -q 'NIXPKGS_ALLOW_UNFREE=' /etc/environment; then
+      echo 'NIXPKGS_ALLOW_UNFREE=1' | sudo tee -a /etc/environment > /dev/null
+    fi
     echo 'Installing devbox!'
     curl -Lo /tmp/devbox-installer https://get.jetify.com/devbox
     chmod +x /tmp/devbox-installer
     /tmp/devbox-installer -f
     rm -f /tmp/devbox-installer
-    echo 'eval "$(devbox global shellenv)"' | sudo tee -a /etc/bashrc > /dev/null
+    if ! grep -q 'eval "$(devbox global shellenv)"' /etc/bashrc; then
+      echo 'eval "$(devbox global shellenv)"' | sudo tee -a /etc/bashrc > /dev/null
+    fi
     sudo systemctl enable devbox-update.timer
+    if ! grep -q "export XDG_DATA_DIRS="; then
+      echo "export XDG_DATA_DIRS=\"$(devbox global path)/.devbox/nix/profile/default/share:$HOME/.nix-profile/share:\$XDG_DATA_DIRS\"" | tee -a "$HOME/.profile" > /dev/null
+    fi
     echo 'Open a new shell to continue'
 
 alias install-nix := install-nix-devbox
