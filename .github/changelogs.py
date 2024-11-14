@@ -30,7 +30,7 @@ FEDORA_PATTERN = re.compile(r"\.fc\d\d")
 
 
 def START_PATTERN(target):
-    return re.compile(f"{target}-[0-9]+")
+    return re.compile(f"{target}-\\d\\d\\d+")
 
 
 PATTERN_ADD = "\n| ✨ | {name} | | {version} |"
@@ -101,9 +101,9 @@ BLACKLIST_VERSIONS = [
 
 
 def get_images(target: str):
-    if target == "latest":
+    if "latest" in target:
         matrix = IMAGE_MATRIX_LATEST
-    elif target == "gts":
+    elif "gts" in target:
         matrix = IMAGE_MATRIX_GTS
     else:
         matrix = IMAGE_MATRIX
