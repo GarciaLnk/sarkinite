@@ -19,6 +19,10 @@ if [[ ${BASE_IMAGE_NAME} == "kinoite" ]]; then
 		rpm-ostree install plasma-workspace-x11
 	fi
 
+	# SDDM wallpaper
+    ln -sf /usr/share/wallpapers/Kay/contents/images_dark/5120x2880.png /usr/share/backgrounds/default.png
+    ln -sf /usr/share/wallpapers/Kay/contents/images_dark/5120x2880.png /usr/share/backgrounds/default-dark.png
+
 	# Favorites in Kickoff
 	sed -i '/<entry name="launchers" type="StringList">/,/<\/entry>/ s/<default>[^<]*<\/default>/<default>preferred:\/\/filemanager,preferred:\/\/browser<\/default>/' /usr/share/plasma/plasmoids/org.kde.plasma.taskmanager/contents/config/main.xml
 
