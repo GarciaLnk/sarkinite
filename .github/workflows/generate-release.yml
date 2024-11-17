@@ -71,7 +71,7 @@ jobs:
         id: generate-release-text
         shell: bash
         run: |
-          just changelogs "${{ matrix.version }}" "${{ github.event.inputs.handwritten }}"
+          just changelogs "${{ matrix.version }}" "${{ inputs.handwritten }}"
           source ./output.env
           echo "title=${TITLE}" >> $GITHUB_OUTPUT
           echo "tag=${TAG}" >> $GITHUB_OUTPUT
