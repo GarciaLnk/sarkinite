@@ -323,7 +323,7 @@ rechunk image="sarkinite-kde" tag="stable" flavor="main" ghcr="0" pipeline="0":
         if [[ "${tag}" =~ stable ]]; then
             tag="stable-daily"
         fi
-        ID=$(just sudoif podman images --filter reference=ghcr.io/ublue-os/"${base_image_name}":${fedora_version} --format "'{{ '{{.ID}}' }}'")
+        ID=$(just sudoif podman images --filter reference=ghcr.io/garcialnk/"${base_image_name}":${fedora_version} --format "'{{ '{{.ID}}' }}'")
         if [[ -n "$ID" ]]; then
             podman rmi "$ID"
         fi
@@ -371,7 +371,7 @@ rechunk image="sarkinite-kde" tag="stable" flavor="main" ghcr="0" pipeline="0":
         --volume "$PWD:/var/git" \
         --volume cache_ostree:/var/ostree \
         --env REPO=/var/ostree/repo \
-        --env PREV_REF=ghcr.io/ublue-os/"${image_name}":"${tag}" \
+        --env PREV_REF=ghcr.io/garcialnk/"${image_name}":"${tag}" \
         --env OUT_NAME="$OUT_NAME" \
         --env LABELS="org.opencontainers.image.title=${image_name}$'\n''io.artifacthub.package.readme-url=https://raw.githubusercontent.com/GarciaLnk/sarkinite/refs/heads/main/README.md'$'\n''io.artifacthub.package.logo-url=https://avatars.githubusercontent.com/u/120078124?s=200&v=4'$'\n'" \
         --env "DESCRIPTION='An interpretation of the Ubuntu spirit built on Fedora technology'" \
@@ -644,7 +644,7 @@ changelogs branch="stable" handwritten="":
 
 # Verify Container with Cosign
 [group('Utility')]
-verify-container container="" registry="ghcr.io/ublue-os" key="":
+verify-container container="" registry="ghcr.io/garcialnk" key="":
     #!/usr/bin/bash
     set -eoux pipefail
 
