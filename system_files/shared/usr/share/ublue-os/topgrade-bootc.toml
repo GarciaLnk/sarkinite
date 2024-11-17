@@ -1,0 +1,25 @@
+[misc]
+no_self_update = true
+disable = ["self_update", "toolbx", "containers", "waydroid", "helm", "system"]
+ignore_failures = [
+  "distrobox",
+  "flatpak",
+  "brew_cask",
+  "brew_formula",
+  "nix",
+  "node",
+  "pip3",
+  "git_repos",
+  "chezmoi",
+  "helm",
+  "home_manager",
+  "firmware",
+  "shell",
+  "snap",
+  "spicetify",
+]
+assume_yes = true
+no_retry = false
+
+[commands]
+"System Upgrade" = "sudo bootc upgrade"
