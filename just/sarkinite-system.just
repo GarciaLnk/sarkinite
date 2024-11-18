@@ -334,6 +334,7 @@ install-nix-devbox:
     sudo /tmp/nix-installer install ostree --no-confirm
     rm -f /tmp/nix-installer
     sudo systemctl enable nix-gc.timer
+    . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
     nix-channel --add https://nixos.org/channels/nixpkgs-unstable
     nix-channel --add https://github.com/nix-community/nixGL/archive/main.tar.gz nixgl
     nix-channel --update
