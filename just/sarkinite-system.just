@@ -340,9 +340,9 @@ install-nix-devbox:
     nix-channel --update
     nix-env -iA nixgl.auto.nixGLDefault
     if [[ $(cat /etc/ublue/image_flavor) =~ "nvidia" ]]; then
-      auto.nixVulkanNvidia
+      nix-env -iA auto.nixVulkanNvidia
     else
-      nixVulkanIntel
+      nix-env -iA nixVulkanIntel
     fi
     if ! grep -q 'NIXPKGS_ALLOW_UNFREE=' /etc/environment; then
       echo 'NIXPKGS_ALLOW_UNFREE=1' | sudo tee -a /etc/environment > /dev/null
