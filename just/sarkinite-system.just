@@ -340,9 +340,9 @@ install-nix-devbox:
     nix-channel --update
     nix-env -iA nixgl.auto.nixGLDefault
     if [[ $(cat /etc/ublue/image_flavor) =~ "nvidia" ]]; then
-      nix-env -iA auto.nixVulkanNvidia
+      nix-env -iA nixgl.auto.nixVulkanNvidia
     else
-      nix-env -iA nixVulkanIntel
+      nix-env -iA nixgl.nixVulkanIntel
     fi
     if ! grep -q 'NIXPKGS_ALLOW_UNFREE=' /etc/environment; then
       echo 'NIXPKGS_ALLOW_UNFREE=1' | sudo tee -a /etc/environment > /dev/null
@@ -357,6 +357,9 @@ install-nix-devbox:
     fi
     sudo systemctl enable devbox-update.timer
     if ! grep -q "export XDG_DATA_DIRS="; then
+      if [ ! -f "$HOME/.profile" ]; then
+        touch "$HOME/.profile"
+      fi
       echo "export XDG_DATA_DIRS=\"$(devbox global path)/.devbox/nix/profile/default/share:$HOME/.nix-profile/share:\$XDG_DATA_DIRS\"" | tee -a "$HOME/.profile" > /dev/null
     fi
     echo 'Open a new shell to continue'
