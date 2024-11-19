@@ -63,13 +63,16 @@ flatpak override \
 	com.github.Matoking.protontricks
 
 # Fixes too many flatpaks to list
+# --env=USE_POINTER_VIEWPORT=1 fixes cursor scaling issues on GTK - revisit later
 flatpak override \
 	--system \
+	--env=USE_POINTER_VIEWPORT=1 \
 	--socket=session-bus \
 	--socket=system-bus \
 	--socket=wayland
 flatpak override \
 	--user \
+	--env=USE_POINTER_VIEWPORT=1 \
 	--socket=session-bus \
 	--socket=system-bus \
 	--socket=wayland
