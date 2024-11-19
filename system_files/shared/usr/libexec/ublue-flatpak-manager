@@ -36,7 +36,6 @@ flatpak override \
 
 # Fix printing on LibreOffice
 flatpak override \
-	--system \
 	--socket=cups \
 	--socket=session-bus \
 	org.libreoffice.LibreOffice
@@ -50,13 +49,9 @@ flatpak override \
 
 # Fixes too many flatpaks to list
 flatpak override \
-	--system \
 	--socket=session-bus \
-	--socket=system-bus
-flatpak override \
-	--user \
-	--socket=session-bus \
-	--socket=system-bus
+	--socket=system-bus \
+	--socket=wayland
 
 # Set up Zen default configuration
 mkdir -p "/var/lib/flatpak/extension/io.github.zen_browser.zen.systemconfig/$(arch)/stable/defaults/pref"
