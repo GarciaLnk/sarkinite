@@ -644,7 +644,7 @@ changelogs branch="stable" handwritten="":
 
 # Verify Container with Cosign
 [group('Utility')]
-verify-container container="" registry="ghcr.io/garcialnk" key="":
+verify-container container="" registry="ghcr.io/ublue-os" key="":
     #!/usr/bin/bash
     set -eoux pipefail
 
