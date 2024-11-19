@@ -25,3 +25,4 @@ app/dev.deedles.Trayscale/x86_64/stable
 app/org.rncbc.qpwgraph/x86_64/stable
 runtime/org.gtk.Gtk3theme.adw-gtk3/x86_64/3.22
 runtime/org.gtk.Gtk3theme.adw-gtk3-dark/x86_64/3.22
+runtime/org.kde.KStyle.Adwaita/x86_64/6.7

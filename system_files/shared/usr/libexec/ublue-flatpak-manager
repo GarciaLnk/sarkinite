@@ -28,11 +28,26 @@ if [[ ! -f ${PROTONTRICKS_SETUP_FILE} ]]; then
 fi
 
 # Flatpak theming support
+[ ! -L ~/.local/share/themes ] && ln -s /usr/share/themes ~/.local/share/themes
+[ ! -L ~/.local/share/icons ] && ln -s /usr/share/icons ~/.local/share/icons
 flatpak override \
+	--system \
 	--filesystem=xdg-config/gtk-4.0:ro \
 	--filesystem=xdg-config/gtk-3.0:ro \
-	--filesystem=xdg-data/icons:ro \
-	--filesystem="${HOME}"/.themes:ro
+	--filesystem=xdg-data/applications:ro \
+	--filesystem=xdg-data/themes:ro \
+    --filesystem=xdg-data/icons:ro \
+	--filesystem="${HOME}"/.themes:ro \
+	--filesystem="${HOME}"/.icons:ro
+flatpak override \
+	--user \
+	--filesystem=xdg-config/gtk-4.0:ro \
+	--filesystem=xdg-config/gtk-3.0:ro \
+	--filesystem=xdg-data/applications:ro \
+	--filesystem=xdg-data/themes:ro \
+    --filesystem=xdg-data/icons:ro \
+	--filesystem="${HOME}"/.themes:ro \
+	--filesystem="${HOME}"/.icons:ro
 
 # Fix printing on LibreOffice
 flatpak override \
@@ -49,6 +64,12 @@ flatpak override \
 
 # Fixes too many flatpaks to list
 flatpak override \
+	--system \
+	--socket=session-bus \
+	--socket=system-bus \
+	--socket=wayland
+flatpak override \
+	--user \
 	--socket=session-bus \
 	--socket=system-bus \
 	--socket=wayland
