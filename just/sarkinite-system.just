@@ -395,7 +395,6 @@ configure-hostname:
     sudo hostnamectl set-hostname $NEW_HOSTNAME
     echo "Hostname changed to $NEW_HOSTNAME"
 
-[group('System')]
 alias hostname := configure-hostname
 
 [group('System')]

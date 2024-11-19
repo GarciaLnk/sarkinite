@@ -118,7 +118,6 @@ install-incus:
     echo 'Installing and configuring Incus.'
     /usr/libexec/sarkinite-incus
 
-[group('Apps')]
 alias spotify := setup-spotify
 
 # Configure Spotify with Spicetify
