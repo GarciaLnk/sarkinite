@@ -10,3 +10,9 @@ pref("browser.tabs.unloadOnLowMemory", true);
 
 // Hide PiP toggle
 pref("media.videocontrols.picture-in-picture.video-toggle.enabled", false);
+
+// Disable media hardware keys
+pref("media.hardwaremediakeys.enabled", false);
+
+// Use native file picker
+pref("widget.use-xdg-desktop-portal.file-picker", 1);
