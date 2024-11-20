@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # Script Version
-VER=3
+VER=4
 VER_FILE="${XDG_DATA_HOME:-${HOME}/.local/share}/ublue/flatpak_manager_version"
 VER_RAN=$(cat "${VER_FILE}")
 
@@ -31,6 +31,16 @@ fi
 [[ ! -L ~/.local/share/themes ]] && ln -s /usr/share/themes ~/.local/share/themes
 [[ ! -L ~/.local/share/icons ]] && ln -s /usr/share/icons ~/.local/share/icons
 flatpak override \
+	--system \
+	--filesystem=xdg-config/gtk-4.0:ro \
+	--filesystem=xdg-config/gtk-3.0:ro \
+	--filesystem=xdg-data/applications:ro \
+	--filesystem=xdg-data/themes:ro \
+	--filesystem=xdg-data/icons:ro \
+	--filesystem="${HOME}"/.themes:ro \
+	--filesystem="${HOME}"/.icons:ro
+flatpak override \
+	--user \
 	--filesystem=xdg-config/gtk-4.0:ro \
 	--filesystem=xdg-config/gtk-3.0:ro \
 	--filesystem=xdg-data/applications:ro \
@@ -56,6 +66,12 @@ flatpak override \
 # --env=USE_POINTER_VIEWPORT=1 fixes cursor scaling issues on GTK - revisit later
 flatpak override \
 	--system \
+	--env=USE_POINTER_VIEWPORT=1 \
+	--socket=session-bus \
+	--socket=system-bus \
+	--socket=wayland
+flatpak override \
+	--user \
 	--env=USE_POINTER_VIEWPORT=1 \
 	--socket=session-bus \
 	--socket=system-bus \
