@@ -76,3 +76,8 @@ fi
 curl --retry 3 -Lo ./chezmoi "https://github.com/twpayne/chezmoi/releases/latest/download/chezmoi-$(uname)-amd64"
 chmod +x ./chezmoi
 mv ./chezmoi /usr/bin/chezmoi
+
+# pkgx
+curl --retry 3 -Lo ./pkgx "https://pkgx.sh/$(uname)/$(uname -m)"
+chmod +x ./pkgx
+mv ./pkgx /usr/bin/pkgx
