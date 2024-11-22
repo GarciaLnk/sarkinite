@@ -143,3 +143,10 @@ setup-spotify:
     curl -Lo "$HOME/.config/spicetify/Extensions/adblock.js" "https://raw.githubusercontent.com/rxri/spicetify-extensions/main/adblock/adblock.js"
     spicetify config extensions adblock.js
     spicetify apply
+
+# Install Kubernetes CLI dev tools
+[group('Apps')]
+install-k8s-dev-tools:
+    #!/usr/bin/bash
+    echo "Adding Kubernetes command line tools..."
+    brew bundle --file /usr/share/ublue-os/homebrew/kubernetes.Brewfile
