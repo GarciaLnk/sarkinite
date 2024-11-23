@@ -22,7 +22,6 @@ sarkinite-cli:
     @/usr/libexec/ublue-bling.sh
 
 # alias for toggle-devmode
-[group('System')]
 devmode:
     @ujust toggle-devmode
 
