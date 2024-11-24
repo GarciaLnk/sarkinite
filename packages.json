@@ -39,6 +39,7 @@
 				"make",
 				"mesa-libGLU",
 				"mesa-vdpau-drivers",
+				"mono-complete",
 				"nerd-fonts",
 				"opendyslexic-fonts",
 				"printer-driver-brlaser",
