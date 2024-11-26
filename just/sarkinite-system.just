@@ -25,7 +25,7 @@ sarkinite-cli:
 devmode:
     @ujust toggle-devmode
 
-# Toggle between Bluefin and the Developer Experience
+# Toggle Developer Experience
 [group('System')]
 toggle-devmode:
     #!/usr/bin/env bash
