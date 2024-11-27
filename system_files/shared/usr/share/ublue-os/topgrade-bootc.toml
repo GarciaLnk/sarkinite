@@ -1,6 +1,6 @@
 [misc]
 no_self_update = true
-disable = ["self_update", "toolbx", "containers", "waydroid", "helm", "system"]
+disable = ["self_update", "toolbx", "containers", "waydroid", "helm", "nix", "system"]
 ignore_failures = [
   "distrobox",
   "flatpak",
