@@ -1,6 +1,14 @@
 [misc]
 no_self_update = true
-disable = ["self_update", "toolbx", "containers", "waydroid", "helm", "nix"]
+disable = [
+  "self_update",
+  "toolbx",
+  "containers",
+  "waydroid",
+  "helm",
+  "nix",
+  "spicetify",
+]
 ignore_failures = [
   "distrobox",
   "flatpak",
@@ -23,3 +31,7 @@ no_retry = false
 
 [linux]
 rpm_ostree = true
+
+[commands]
+"Devbox" = "command -v devbox && devbox global update"
+"Spicetify" = "command -v spicetify && (spicetify upgrade ; spicetify apply)"

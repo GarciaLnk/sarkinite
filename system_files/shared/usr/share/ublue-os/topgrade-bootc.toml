@@ -1,6 +1,15 @@
 [misc]
 no_self_update = true
-disable = ["self_update", "toolbx", "containers", "waydroid", "helm", "nix", "system"]
+disable = [
+  "self_update",
+  "toolbx",
+  "containers",
+  "waydroid",
+  "helm",
+  "nix",
+  "spicetify",
+  "system",
+]
 ignore_failures = [
   "distrobox",
   "flatpak",
@@ -23,3 +32,5 @@ no_retry = false
 
 [commands]
 "System Upgrade" = "sudo bootc upgrade"
+"Devbox" = "command -v devbox && devbox global update"
+"Spicetify" = "command -v spicetify && (spicetify upgrade ; spicetify apply)"
