@@ -27,9 +27,7 @@ if [[ ${BASE_IMAGE_NAME} == "kinoite" ]]; then
 	sed -i '/<entry name="launchers" type="StringList">/,/<\/entry>/ s/<default>[^<]*<\/default>/<default>preferred:\/\/filemanager,preferred:\/\/browser<\/default>/' /usr/share/plasma/plasmoids/org.kde.plasma.taskmanager/contents/config/main.xml
 
 	rm -f /etc/profile.d/gnome-ssh-askpass.{csh,sh} # This shouldn't be pulled in
-	rm -f /usr/share/kglobalaccel/org.kde.konsole.desktop
 	systemctl enable kde-sysmonitor-workaround.service
-	systemctl enable usr-share-sddm-themes.mount
 
 	# Get Default Font since font fallback doesn't work
 	curl --retry 3 --output-dir /tmp -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip
