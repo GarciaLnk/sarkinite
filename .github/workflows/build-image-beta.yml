@@ -2,15 +2,6 @@ name: Beta Images
 on:
   workflow_call:
   workflow_dispatch:
-    inputs:
-      brand_name:
-        description: "Image Brand to Build"
-        default: '["sarkinite-kde"]'
-        type: choice
-        options:
-          - '["sarkinite-kde"]'
-          - '["sarkinite-gnome"]'
-          - '["sarkinite-kde", "sarkinite-gnome"]'
 
 jobs:
   build-image-beta:
@@ -20,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        brand_name: ${{ fromJson(inputs.brand_name || '["sarkinite-kde"]') }}
+        brand_name: ["sarkinite-kde"]
     with:
       brand_name: ${{ matrix.brand_name }}
       stream_name: beta

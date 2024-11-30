@@ -11,15 +11,6 @@ on:
     - cron: "45 5 * * 0" # 5:41 UTC sunday
   workflow_call:
   workflow_dispatch:
-    inputs:
-      brand_name:
-        description: "Image Brand to Build"
-        default: '["sarkinite-kde"]'
-        type: choice
-        options:
-          - '["sarkinite-kde"]'
-          - '["sarkinite-gnome"]'
-          - '["sarkinite-kde", "sarkinite-gnome"]'
 
 jobs:
   build-image-stable:
@@ -29,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        brand_name: ${{ fromJson(inputs.brand_name || '["sarkinite-kde"]') }}
+        brand_name: ["sarkinite-kde"]
     with:
       kernel_pin: 6.11.3-300.fc41.x86_64
       brand_name: ${{ matrix.brand_name }}
