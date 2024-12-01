@@ -32,3 +32,6 @@ echo -e "[firefoxpwa]\nname=FirefoxPWA\nmetadata_expire=300\nbaseurl=https://pac
 
 # Add keyd
 curl --retry 3 -Lo /etc/yum.repos.d/_copr_alternateved-keyd.repo https://copr.fedorainfracloud.org/coprs/alternateved/keyd/repo/fedora-"${FEDORA_MAJOR_VERSION}"/alternateved-keyd-fedora-"${FEDORA_MAJOR_VERSION}".repo
+
+# Add ventoy
+curl --retry 3 -Lo /etc/yum.repos.d/_copr_karlisk-ventoy.repo https://copr.fedorainfracloud.org/coprs/karlisk/ventoy/repo/fedora-"${FEDORA_MAJOR_VERSION}"/karlisk-ventoy-fedora-"${FEDORA_MAJOR_VERSION}".repo

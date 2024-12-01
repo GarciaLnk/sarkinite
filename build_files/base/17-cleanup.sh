@@ -51,6 +51,7 @@ fi
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_codifryed-CoolerControl.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/firefoxpwa.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_alternateved-keyd.repo
+sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_karlisk-ventoy.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/fedora-cisco-openh264.repo
 for i in /etc/yum.repos.d/rpmfusion-*; do
