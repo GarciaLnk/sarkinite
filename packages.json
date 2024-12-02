@@ -184,7 +184,7 @@
 				"gnome-terminal-nautilus",
 				"gnome-tour"
 			],
-			"kinoite": ["krfb", "krfb-libs", "plasma-welcome"],
+			"kinoite": ["krfb", "krfb-libs"],
 			"dx": []
 		}
 	},
@@ -211,7 +211,7 @@
 		"exclude": {
 			"all": [],
 			"silverblue": [],
-			"kinoite": ["plasma-welcome", "plasma-welcome-fedora"],
+			"kinoite": [],
 			"dx": []
 		}
 	}
