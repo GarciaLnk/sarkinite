@@ -204,7 +204,7 @@
 	},
 	"41": {
 		"include": {
-			"all": [],
+			"all": ["google-noto-fonts-all"],
 			"kinoite": [],
 			"silverblue": []
 		},
