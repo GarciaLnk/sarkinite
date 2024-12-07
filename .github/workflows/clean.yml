@@ -14,7 +14,7 @@ jobs:
       packages: write
     steps:
       - name: Delete Images Older Than 90 Days
-        uses: dataaxiom/ghcr-cleanup-action@v1.0.13
+        uses: dataaxiom/ghcr-cleanup-action@792f00f0ff1466b4ee1eeb46049aeeb6ba7d1c8d # v1.0.14
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           packages: sarkinite-kde,sarkinite-kde-nvidia,sarkinite-kde-dx,sarkinite-kde-dx-nvidia
