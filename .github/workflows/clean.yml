@@ -17,7 +17,7 @@ jobs:
         uses: dataaxiom/ghcr-cleanup-action@v1.0.13
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          packages: sarkinite-gnome,sarkinite-gnome-nvidia,sarkinite-gnome-dx,sarkinite-gnome-dx-nvidia,sarkinite-kde,sarkinite-kde-nvidia,sarkinite-kde-dx,sarkinite-kde-dx-nvidia 
+          packages: sarkinite-kde,sarkinite-kde-nvidia,sarkinite-kde-dx,sarkinite-kde-dx-nvidia
           older-than: 90 days
           delete-orphaned-images: true
           keep-n-tagged: 7
