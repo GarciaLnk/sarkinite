@@ -18,6 +18,11 @@ if [ "$(command -v ug)" ]
     alias xzfgrep='ug -zF'
 end
 
+# bat for cat
+if [ "$(command -v bat)" ]
+    alias cat='bat'
+end
+
 if status is-interactive
     [ "$(command -v starship)" ] && starship init fish | source
     [ "$(command -v fzf)" ] && fzf --fish | source

@@ -20,6 +20,11 @@ if [ -n "$(command -v ug)" ]; then
 	alias xzfgrep='ug -zF'
 fi
 
+# bat for cat
+if [ -n "$(command -v bat)" ]; then
+	alias cat='bat'
+fi
+
 if [ "$(basename "${SHELL}")" = "bash" ]; then
 	[ -f "${HOMEBREW_PREFIX}"/etc/profile.d/bash-preexec.sh ] && . "${HOMEBREW_PREFIX}"/etc/profile.d/bash-preexec.sh
 	[ -n "$(command -v starship)" ] && eval "$(starship init bash)"
