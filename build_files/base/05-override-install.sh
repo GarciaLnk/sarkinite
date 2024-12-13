@@ -72,11 +72,6 @@ if [[ -f "/var/lib/waydroid/lxc/waydroid/config" ]]; then
 	sed -i '/lxc\.apparmor\.profile\s*=\s*unconfined/d' "/var/lib/waydroid/lxc/waydroid/config"
 fi
 
-# Chezmoi
-curl --retry 3 -Lo ./chezmoi "https://github.com/twpayne/chezmoi/releases/latest/download/chezmoi-$(uname)-amd64"
-chmod +x ./chezmoi
-mv ./chezmoi /usr/bin/chezmoi
-
 # pkgx
 curl --retry 3 -Lo ./pkgx "https://pkgx.sh/$(uname)/$(uname -m)"
 chmod +x ./pkgx
