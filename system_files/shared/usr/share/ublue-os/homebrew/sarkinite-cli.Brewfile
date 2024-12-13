@@ -1,6 +1,7 @@
 brew "bash-preexec"
 brew "bat"
 brew "btop"
+brew "devcontainer"
 brew "direnv"
 brew "dysk"
 brew "eza"
