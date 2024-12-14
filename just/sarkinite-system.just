@@ -10,12 +10,6 @@
 # fix-       = apply fix/patch/workaround for something
 # foo        = no verb is used for shortcuts or something deemed important enough to use a super memorable name
 
-# Run a one minute system benchmark
-[group('System')]
-benchmark:
-    @echo 'Running a 1 minute benchmark ...'
-    stress-ng --matrix 0 -t 1m --times
-
 # Configure Sarkinite-CLI Terminal Experience with Brew
 [group('System')]
 sarkinite-cli:
