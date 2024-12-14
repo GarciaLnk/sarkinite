@@ -24,6 +24,7 @@
 				"gcc",
 				"git-credential-libsecret",
 				"glow",
+				"gstreamer1-plugin-openh264",
 				"gum",
 				"hplip",
 				"keyd",
@@ -38,6 +39,7 @@
 				"make",
 				"mesa-libGLU",
 				"mono-complete",
+				"mozilla-openh264",
 				"nerd-fonts",
 				"opendyslexic-fonts",
 				"printer-driver-brlaser",
@@ -170,7 +172,7 @@
 			]
 		},
 		"exclude": {
-			"all": ["podman-docker", "ublue-os-update-services"],
+			"all": ["noopenh264", "podman-docker", "ublue-os-update-services"],
 			"silverblue": [
 				"gnome-extensions-app",
 				"gnome-software-rpm-ostree",
