@@ -17,6 +17,8 @@
 				"espanso-wayland",
 				"etckeeper",
 				"fastfetch",
+				"fcitx5",
+				"fcitx5-autostart",
 				"fish",
 				"firefoxpwa",
 				"firewall-config",
@@ -91,6 +93,7 @@
 				"zenity"
 			],
 			"kinoite": [
+				"kcm-fcitx5",
 				"kde-runtime-docs",
 				"kdenetwork-filesharing",
 				"kdeplasma-addons",
