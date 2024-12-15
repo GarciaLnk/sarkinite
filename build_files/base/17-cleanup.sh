@@ -54,4 +54,3 @@ fi
 
 # Initialize etckeeper
 etckeeper init
-etckeeper commit "Initial base setup"
