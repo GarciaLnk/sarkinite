@@ -22,7 +22,7 @@ fi
 
 # bat for cat
 if [ -n "$(command -v bat)" ]; then
-	alias cat='bat'
+	alias cat='bat -p'
 fi
 
 if [ "$(basename "${SHELL}")" = "bash" ]; then

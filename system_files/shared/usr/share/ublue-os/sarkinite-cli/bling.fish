@@ -20,7 +20,7 @@ end
 
 # bat for cat
 if [ "$(command -v bat)" ]
-    alias cat='bat'
+    alias cat='bat -p'
 end
 
 if status is-interactive
