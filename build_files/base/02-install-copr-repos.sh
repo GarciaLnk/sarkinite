@@ -20,4 +20,4 @@ curl --retry 3 -Lo /etc/yum.repos.d/_copr_kylegospo-webapp-manager.repo https://
 echo -e "[firefoxpwa]\nname=FirefoxPWA\nmetadata_expire=300\nbaseurl=https://packagecloud.io/filips/FirefoxPWA/rpm_any/rpm_any/\$basearch\ngpgkey=https://packagecloud.io/filips/FirefoxPWA/gpgkey\nrepo_gpgcheck=1\ngpgcheck=0\nenabled=1" | tee /etc/yum.repos.d/firefoxpwa.repo
 
 # Add Terra repo
-curl --retry 3 -Lo /etc/yum.repos.d/terra.repo https://raw.githubusercontent.com/terrapkg/packages/refs/heads/frawhide/anda/terra/release/terra.repo
+curl --retry 3 -Lo /etc/yum.repos.d/terra.repo https://raw.githubusercontent.com/terrapkg/subatomic-repos/main/terra.repo
