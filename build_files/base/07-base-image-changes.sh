@@ -79,4 +79,9 @@ GSK_RENDERER=ngl
 EOF
 	fi
 
+	# Add udev rules to workaround NVML error (https://github.com/NVIDIA/nvidia-container-toolkit/issues/48)
+	cat <<EOF >/etc/udev/rules.d/71-nvidia-dev-char.rules
+ACTION=="add", DEVPATH=="/bus/pci/drivers/nvidia", RUN+="/usr/bin/nvidia-ctk system 	create-dev-char-symlinks --create-all"
+EOF
+
 fi
