@@ -34,4 +34,4 @@ rpm_ostree = true
 
 [commands]
 "Devbox" = "command -v devbox && devbox global update"
-"Spicetify" = "command -v spicetify && (spicetify upgrade ; spicetify apply)"
+"Spicetify" = "command -v spicetify && (spicetify upgrade ; spicetify apply || spicetify restore backup apply)"
