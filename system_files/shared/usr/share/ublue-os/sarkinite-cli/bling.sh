@@ -2,6 +2,10 @@
 
 # shellcheck disable=SC1091,SC1090
 
+# Check if bling has already been sourced
+[ "${BLING_SOURCED:-0}" -eq 1 ] && return
+BLING_SOURCED=1
+
 # ls aliases
 if [ -n "$(command -v eza)" ]; then
 	alias ll='eza -l --icons=auto --group-directories-first'
