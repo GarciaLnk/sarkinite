@@ -19,6 +19,7 @@ sed -i 's@Exec=firefox@Exec=/usr/bin/firefox-wrapper@g' /usr/share/applications/
 curl --retry 3 -Lo /tmp/uosc-install.sh https://raw.githubusercontent.com/tomasklaen/uosc/HEAD/installers/unix.sh
 MPV_CONFIG_DIR=/etc/mpv /tmp/uosc-install.sh
 curl --retry 3 -Lo /etc/mpv/scripts/thumbfast.lua https://raw.githubusercontent.com/po5/thumbfast/refs/heads/master/thumbfast.lua
+curl --retry 3 -Lo /etc/mpv/scripts/SmartCopyPaste_II.lua https://raw.githubusercontent.com/Eisa01/mpv-scripts/refs/heads/master/scripts/SmartCopyPaste_II.lua
 
 if [[ ${BASE_IMAGE_NAME} == "kinoite" ]]; then
 
