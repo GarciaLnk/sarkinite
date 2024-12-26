@@ -186,7 +186,7 @@
 			"all": [],
 			"silverblue": [],
 			"kinoite": [],
-			"dx": ["lxd-agent", "lxd"]
+			"dx": []
 		},
 		"exclude": {
 			"all": [],

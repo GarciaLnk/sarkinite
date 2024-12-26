@@ -107,7 +107,7 @@ toggle-gnome-vrr:
     fi
     echo "To apply the changes make sure you logout and restart your session"
 
-# Configure docker,incus-admin,lxd,libvirt container manager permissions
+# Configure docker,incus-admin,libvirt container manager permissions
 [group('System')]
 dx-group:
     #!/usr/bin/env bash
@@ -119,14 +119,14 @@ dx-group:
         fi
     }
 
-    GROUPS_ADD=("docker" "incus-admin" "lxd" "libvirt")
+    GROUPS_ADD=("docker" "incus-admin" "libvirt")
 
     for GROUP_ADD in "${GROUPS_ADD[@]}" ; do
         append_group $GROUP_ADD
         pkexec usermod -aG $GROUP_ADD $USER
     done
 
-    echo "Reboot system and log back in to use docker, incus-admin, lxd, libvirt."
+    echo "Reboot system and log back in to use docker, incus-admin, libvirt."
 
 # alias for configure-vfio
 [group('System')]
