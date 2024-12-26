@@ -21,3 +21,6 @@ echo -e "[firefoxpwa]\nname=FirefoxPWA\nmetadata_expire=300\nbaseurl=https://pac
 
 # Add Terra repo
 curl --retry 3 -Lo /etc/yum.repos.d/terra.repo https://raw.githubusercontent.com/terrapkg/subatomic-repos/main/terra.repo
+
+# Add Sunshine repo
+curl --retry 3 -Lo /etc/yum.repos.d/_copr_matte-schwartz-sunshine.repo https://copr.fedorainfracloud.org/coprs/matte-schwartz/sunshine/repo/fedora-"${FEDORA_MAJOR_VERSION}"/matte-schwartz-sunshine-fedora-"${FEDORA_MAJOR_VERSION}".repo
