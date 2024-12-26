@@ -73,16 +73,11 @@
  * no longer necessarily means that all prefs have been applied. Check the console right
  * after startup for any warnings/error messages related to non-applied prefs
  * [1] https://blog.mozilla.org/nnethercote/2018/03/09/a-new-preferences-parser-for-firefox/ ***/
-user_pref(
-	"_user.js.parrot",
-	"START: Oh yes, the Norwegian Blue... what's wrong with it?",
-);
 
 /* 0000: disable about:config warning ***/
 user_pref("browser.aboutConfig.showWarning", false);
 
 /*** [SECTION 0100]: STARTUP ***/
-user_pref("_user.js.parrot", "0100 syntax error: the parrot's dead!");
 /* 0102: set startup page [SETUP-CHROME]
  * 0=blank, 1=home, 2=last visited page, 3=resume previous session
  * [NOTE] Session Restore is cleared with history (2811), and not used in Private Browsing mode
@@ -105,20 +100,12 @@ user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false); //
 user_pref("browser.newtabpage.activity-stream.default.sites", "");
 
 /*** [SECTION 0200]: GEOLOCATION ***/
-user_pref(
-	"_user.js.parrot",
-	"0200 syntax error: the parrot's definitely deceased!",
-);
 /* 0202: disable using the OS's geolocation service ***/
 user_pref("geo.provider.ms-windows-location", false); // [WINDOWS]
 user_pref("geo.provider.use_corelocation", false); // [MAC]
 user_pref("geo.provider.use_geoclue", false); // [FF102+] [LINUX]
 
 /*** [SECTION 0300]: QUIETER FOX ***/
-user_pref(
-	"_user.js.parrot",
-	"0300 syntax error: the parrot's not pinin' for the fjords!",
-);
 /** RECOMMENDATIONS ***/
 /* 0320: disable recommendation pane in about:addons (uses Google Analytics) ***/
 user_pref("extensions.getAddons.showPane", false); // [HIDDEN PREF]
@@ -205,7 +192,6 @@ user_pref("network.connectivity-service.enabled", false);
     [3] https://support.mozilla.org/kb/how-does-phishing-and-malware-protection-work
     [4] https://educatedguesswork.org/posts/safe-browsing-privacy/
  ***/
-user_pref("_user.js.parrot", "0400 syntax error: the parrot's passed on!");
 /* 0401: disable SB (Safe Browsing)
  * [WARNING] Do this at your own risk! These are the master switches
  * [SETTING] Privacy & Security>Security>... Block dangerous and deceptive content ***/
@@ -233,7 +219,6 @@ user_pref("_user.js.parrot", "0400 syntax error: the parrot's passed on!");
 // user_pref("browser.safebrowsing.allowOverride", false);
 
 /*** [SECTION 0600]: BLOCK IMPLICIT OUTBOUND [not explicitly asked for - e.g. clicked on] ***/
-user_pref("_user.js.parrot", "0600 syntax error: the parrot's no more!");
 /* 0601: disable link prefetching
  * [1] https://developer.mozilla.org/docs/Web/HTTP/Link_prefetching_FAQ ***/
 user_pref("network.prefetch-next", false);
@@ -254,10 +239,6 @@ user_pref("browser.places.speculativeConnect.enabled", false);
 // user_pref("browser.send_pings", false); // [DEFAULT: false]
 
 /*** [SECTION 0700]: DNS / DoH / PROXY / SOCKS ***/
-user_pref(
-	"_user.js.parrot",
-	"0700 syntax error: the parrot's given up the ghost!",
-);
 /* 0702: set the proxy server to do any DNS lookups when using SOCKS
  * e.g. in Tor, this stops your local DNS server from knowing your Tor destination
  * as a remote Tor node will handle the DNS request
@@ -302,7 +283,6 @@ user_pref("network.trr.mode", 3);
 // user_pref("network.trr.custom_uri", "https://example.dns");
 
 /*** [SECTION 0800]: LOCATION BAR / SEARCH BAR / SUGGESTIONS / HISTORY / FORMS ***/
-user_pref("_user.js.parrot", "0800 syntax error: the parrot's ceased to be!");
 /* 0801: disable location bar making speculative connections [FF56+]
  * [1] https://bugzilla.mozilla.org/1348275 ***/
 user_pref("browser.urlbar.speculativeConnect.enabled", false);
@@ -364,7 +344,6 @@ user_pref("browser.search.separatePrivateDefault.ui.enabled", true); // [FF71+]
 /*** [SECTION 0900]: PASSWORDS
     [1] https://support.mozilla.org/kb/use-primary-password-protect-stored-logins-and-pas
  ***/
-user_pref("_user.js.parrot", "0900 syntax error: the parrot's expired!");
 /* 0903: disable auto-filling username & password form fields
  * can leak in cross-site forms *and* be spoofed
  * [NOTE] Username & password is still available when you enter the field
@@ -386,10 +365,6 @@ user_pref("network.auth.subresource-http-auth-allow", 1);
 // user_pref("network.http.windows-sso.enabled", false); // [DEFAULT: false]
 
 /*** [SECTION 1000]: DISK AVOIDANCE ***/
-user_pref(
-	"_user.js.parrot",
-	"1000 syntax error: the parrot's gone to meet 'is maker!",
-);
 /* 1001: disable disk cache
  * [NOTE] We also clear cache on exit (2811)
  * [SETUP-CHROME] If you think disk cache helps perf, then feel free to override this ***/
@@ -418,7 +393,6 @@ user_pref("browser.shell.shortcutFavicons", false);
     [TEST] https://ja3er.com/
     [1] https://www.securityartwork.es/2017/02/02/tls-client-fingerprinting-with-bro/
  ***/
-user_pref("_user.js.parrot", "1200 syntax error: the parrot's a stiff!");
 /** SSL (Secure Sockets Layer) / TLS (Transport Layer Security) ***/
 /* 1201: require safe negotiation
  * Blocks connections to servers that don't support RFC 5746 [2] as they're potentially vulnerable to a
@@ -515,13 +489,11 @@ user_pref("browser.xul.error_pages.expert_bad_cert", true);
            scheme+host+port: https://example.com:8888
     [1] https://feeding.cloud.geek.nz/posts/tweaking-referrer-for-privacy-in-firefox/
  ***/
-user_pref("_user.js.parrot", "1600 syntax error: the parrot rests in peace!");
 /* 1602: control the amount of cross-origin information to send [FF52+]
  * 0=send full URI (default), 1=scheme+host+port+path, 2=scheme+host+port ***/
 user_pref("network.http.referer.XOriginTrimmingPolicy", 2);
 
 /*** [SECTION 1700]: CONTAINERS ***/
-user_pref("_user.js.parrot", "1700 syntax error: the parrot's bit the dust!");
 /* 1701: enable Container Tabs and its UI setting [FF50+]
  * [SETTING] General>Tabs>Enable Container Tabs
  * https://wiki.mozilla.org/Security/Contextual_Identity_Project/Containers ***/
@@ -539,7 +511,6 @@ user_pref("privacy.userContext.ui.enabled", true);
 // user_pref("browser.link.force_default_user_context_id_for_external_opens", true);
 
 /*** [SECTION 2000]: PLUGINS / MEDIA / WEBRTC ***/
-user_pref("_user.js.parrot", "2000 syntax error: the parrot's snuffed it!");
 /* 2002: force WebRTC inside the proxy [FF70+] ***/
 //  user_pref("media.peerconnection.ice.proxy_only_if_behind_proxy", true);
 /* 2003: force a single network interface for ICE candidates generation [FF42+]
@@ -556,18 +527,10 @@ user_pref("_user.js.parrot", "2000 syntax error: the parrot's snuffed it!");
 // user_pref("media.gmp-provider.enabled", false);
 
 /*** [SECTION 2400]: DOM (DOCUMENT OBJECT MODEL) ***/
-user_pref(
-	"_user.js.parrot",
-	"2400 syntax error: the parrot's kicked the bucket!",
-);
 /* 2402: prevent scripts from moving and resizing open windows ***/
 user_pref("dom.disable_window_move_resize", true);
 
 /*** [SECTION 2600]: MISCELLANEOUS ***/
-user_pref(
-	"_user.js.parrot",
-	"2600 syntax error: the parrot's run down the curtain!",
-);
 /* 2603: remove temp files opened from non-PB windows with an external application
  * [1] https://bugzilla.mozilla.org/buglist.cgi?bug_id=302433,1738574 ***/
 user_pref("browser.download.start_downloads_in_tmp_dir", true); // [FF102+]
@@ -646,10 +609,6 @@ user_pref("extensions.postDownloadThirdPartyPrompt", false);
 // user_pref("extensions.webextensions.restrictedDomains", "");
 
 /*** [SECTION 2700]: ETP (ENHANCED TRACKING PROTECTION) ***/
-user_pref(
-	"_user.js.parrot",
-	"2700 syntax error: the parrot's joined the bleedin' choir invisible!",
-);
 /* 2701: enable ETP Strict Mode [FF86+]
  * ETP Strict Mode enables Total Cookie Protection (TCP)
  * [NOTE] Adding site exceptions disables all ETP protections for that site and increases the risk of
@@ -667,10 +626,6 @@ user_pref("browser.contentblocking.category", "strict"); // [HIDDEN PREF]
 // user_pref("privacy.antitracking.enableWebcompat", false);
 
 /*** [SECTION 2800]: SHUTDOWN & SANITIZING ***/
-user_pref(
-	"_user.js.parrot",
-	"2800 syntax error: the parrot's bleedin' demised!",
-);
 /* 2810: enable Firefox to clear items on shutdown
  * [NOTE] In FF129+ clearing "siteSettings" on shutdown (2811), or manually via site data (2820) and
  * via history (2830), will no longer remove sanitize on shutdown "cookie and site data" site exceptions (2815)
@@ -759,7 +714,6 @@ user_pref("privacy.sanitize.timeSpan", 0);
        https://searchfox.org/mozilla-central/search?path=StandardFonts*.inc
     1858181 - subtly randomize canvas per eTLD+1, per session and per window-mode (FF120+)
  ***/
-user_pref("_user.js.parrot", "4000 syntax error: the parrot's bereft of life!");
 /* 4001: enable FPP in PB mode [FF114+]
  * [NOTE] In FF119+, FPP for all modes (7016) is enabled with ETP Strict (2701) ***/
 // user_pref("privacy.fingerprintingProtection.pbmode", true); // [DEFAULT: true FF118+]
@@ -837,10 +791,6 @@ user_pref("_user.js.parrot", "4000 syntax error: the parrot's bereft of life!");
     1787790 - normalize system fonts (FF128)
     1835987 - spoof timezone as Atlantic/Reykjavik (previously FF55+ was UTC) (FF128)
  ***/
-user_pref(
-	"_user.js.parrot",
-	"4500 syntax error: the parrot's popped 'is clogs",
-);
 /* 4501: enable RFP
  * [NOTE] pbmode applies if true and the original pref is false
  * [SETUP-WEB] RFP can cause some website breakage: mainly canvas, use a canvas site exception via the urlbar.
@@ -895,10 +845,6 @@ user_pref("browser.link.open_newwindow.restriction", 0);
 /*** [SECTION 5000]: OPTIONAL OPSEC
     Disk avoidance, application data isolation, eyeballs...
  ***/
-user_pref(
-	"_user.js.parrot",
-	"5000 syntax error: the parrot's taken 'is last bow",
-);
 /* 5001: start Firefox in PB (Private Browsing) mode
  * [NOTE] In this mode all windows are "private windows" and the PB mode icon is not displayed
  * [NOTE] The P in PB mode can be misleading: it means no "persistent" disk state such as history,
@@ -990,7 +936,6 @@ user_pref("extensions.formautofill.creditCards.enabled", false); // [FF56+]
     Not recommended. Overriding these can cause breakage and performance issues,
     they are mostly fingerprintable, and the threat model is practically nonexistent
  ***/
-user_pref("_user.js.parrot", "5500 syntax error: this is an ex-parrot!");
 /* 5501: disable MathML (Mathematical Markup Language) [FF51+]
  * [1] https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=mathml ***/
 // user_pref("mathml.disabled", true); // 1173199
@@ -1051,7 +996,6 @@ user_pref("media.eme.enabled", true);
 // user_pref("network.trr.bootstrapAddr", "10.0.0.1"); // [HIDDEN PREF]
 
 /*** [SECTION 6000]: DON'T TOUCH ***/
-user_pref("_user.js.parrot", "6000 syntax error: the parrot's 'istory!");
 /* 6001: enforce Firefox blocklist
  * [WHY] It includes updates for "revoked certificates"
  * [1] https://blog.mozilla.org/security/2015/03/03/revoking-intermediate-certificates-introducing-onecrl/ ***/
@@ -1091,10 +1035,6 @@ user_pref("extensions.quarantinedDomains.enabled", true); // [DEFAULT: true]
 // user_pref("privacy.partition.serviceWorkers", "");
 
 /*** [SECTION 7000]: DON'T BOTHER ***/
-user_pref(
-	"_user.js.parrot",
-	"7000 syntax error: the parrot's pushing up daisies!",
-);
 /* 7001: disable APIs
  * Location-Aware Browsing, Full Screen
  * [WHY] The API state is easily fingerprintable.
@@ -1209,10 +1149,6 @@ user_pref(
     [WHY] They are insufficient to help anti-fingerprinting and do more harm than good
     [WARNING] DO NOT USE with RFP. RFP already covers these and they can interfere
  ***/
-user_pref(
-	"_user.js.parrot",
-	"8000 syntax error: the parrot's crossed the Jordan",
-);
 /* 8001: prefsCleaner: reset items useless for anti-fingerprinting ***/
 // user_pref("browser.display.use_document_fonts", "");
 // user_pref("browser.zoom.siteSpecific", "");
@@ -1238,10 +1174,6 @@ user_pref(
 // user_pref("webgl.enable-debug-renderer-info", "");
 
 /*** [SECTION 9000]: NON-PROJECT RELATED ***/
-user_pref(
-	"_user.js.parrot",
-	"9000 syntax error: the parrot's cashed in 'is chips!",
-);
 /* 9001: disable welcome notices ***/
 user_pref("browser.startup.homepage_override.mstone", "ignore"); // [HIDDEN PREF]
 /* 9002: disable General>Browsing>Recommend extensions/features as you browse [FF67+] ***/
@@ -1258,10 +1190,6 @@ user_pref(
 user_pref("browser.urlbar.showSearchTerms.enabled", false);
 
 /*** [SECTION 9999]: DEPRECATED / RENAMED ***/
-user_pref(
-	"_user.js.parrot",
-	"9999 syntax error: the parrot's shuffled off 'is mortal coil!",
-);
 /* ESR115.x still uses all the following prefs
  // [NOTE] replace the * with a slash in the line above to re-enable active ones
  // FF116
@@ -1331,7 +1259,3 @@ user_pref(
  // ***/
 
 /* END: internal custom pref to test for syntax errors ***/
-user_pref(
-	"_user.js.parrot",
-	"SUCCESS: No no he's not dead, he's, he's restin'!",
-);
