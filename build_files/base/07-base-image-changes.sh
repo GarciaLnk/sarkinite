@@ -12,6 +12,9 @@ git clone https://github.com/vinceliuice/Fluent-gtk-theme /tmp/fluent-gtk-theme
 cd /tmp/fluent-gtk-theme || exit
 ./install.sh -s compact -l
 
+# Modify Firefox .desktop to use wrapper
+sed -i 's@Exec=firefox@Exec=/usr/bin/firefox-wrapper@g' /usr/share/applications/org.mozilla.firefox.desktop
+
 if [[ ${BASE_IMAGE_NAME} == "kinoite" ]]; then
 
 	# Restore x11 for Nvidia Images

@@ -38,6 +38,7 @@
 				"input-remapper",
 				"libimobiledevice",
 				"libxcrypt-compat",
+				"libvdpau-va-gl",
 				"liquidctl",
 				"lm_sensors",
 				"make",

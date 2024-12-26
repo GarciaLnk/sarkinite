@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # Script Version
-VER=4
+VER=5
 VER_FILE="${XDG_DATA_HOME:-${HOME}/.local/share}/ublue/flatpak_manager_version"
 VER_RAN=$(cat "${VER_FILE}")
 
@@ -81,6 +81,25 @@ flatpak override \
 mkdir -p "/var/lib/flatpak/extension/io.github.zen_browser.zen.systemconfig/$(arch)/stable/defaults/pref"
 rm -f "/var/lib/flatpak/extension/io.github.zen_browser.zen.systemconfig/$(arch)/stable/defaults/pref/{*sarkinite*,*arkenfox*}.js"
 /usr/bin/cp -rf /usr/lib64/firefox/defaults/pref/* "/var/lib/flatpak/extension/io.github.zen_browser.zen.systemconfig/$(arch)/stable/defaults/pref/"
+
+# Params needed for HW accelerated video on Nvidia
+if [[ $(cat /etc/ublue/image_flavor) =~ "nvidia" ]] && [[ "$(grep -o "\-display" <<<"$(lshw -C display)")" -le 1 ]] && grep -q "vendor: NVIDIA Corporation" <<<"$(lshw -C display)"; then
+	flatpak override \
+		--system \
+		--env=MOZ_ENABLE_WAYLAND=1 \
+		--env=MOZ_DISABLE_RDD_SANDBOX=1 \
+		--env=__NV_PRIME_RENDER_OFFLOAD=1 \
+		--env=LIBVA_DRIVER_NAME=nvidia \
+		io.github.zen_browser.zen
+else
+	flatpak override \
+		--system \
+		--env=MOZ_ENABLE_WAYLAND=1 \
+		--unset-env=MOZ_DISABLE_RDD_SANDBOX \
+		--unset-env=__NV_PRIME_RENDER_OFFLOAD \
+		--unset-env=LIBVA_DRIVER_NAME \
+		io.github.zen_browser.zen
+fi
 
 # Use until yafti rework is done
 flatpak --system update -y
