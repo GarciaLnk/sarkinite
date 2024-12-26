@@ -175,6 +175,25 @@ setup-spotify:
 # Install Kubernetes CLI dev tools
 [group('Apps')]
 install-k8s-dev-tools:
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     echo "Adding Kubernetes command line tools..."
     brew bundle --file /usr/share/ublue-os/homebrew/kubernetes.Brewfile
+
+# Install SVP
+[group('Apps')]
+install-svp:
+    #!/usr/bin/env bash
+    if [[ -d "${HOME}/.local/share/svp4" ]]; then
+        echo "SVP is already installed."
+        exit 0
+    fi
+    echo "Downloading SVP..."
+    curl -Lo /tmp/svp4-linux-x64.tar.bz2 https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2
+    echo "Extracting SVP..."
+    tar -xjf /tmp/svp4-linux-x64.tar.bz2 -C /tmp
+    echo "Installing SVP, set install directory to ${HOME}/.local/share/svp4"
+    /tmp/svp4-linux-64.run
+    rm -f /tmp/svp4-linux-x64.tar.bz2 /tmp/svp4-linux-64.run
+    SCRIPTS_DIR="${HOME}/.config/mpv/scripts"
+    curl "https://raw.githubusercontent.com/wis/mpvSockets/master/mpvSockets.lua" --create-dirs -o "${SCRIPTS_DIR}/mpvSockets.lua"
+    echo "SVP has been installed."

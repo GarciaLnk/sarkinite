@@ -15,6 +15,11 @@ cd /tmp/fluent-gtk-theme || exit
 # Modify Firefox .desktop to use wrapper
 sed -i 's@Exec=firefox@Exec=/usr/bin/firefox-wrapper@g' /usr/share/applications/org.mozilla.firefox.desktop
 
+# mpv tweaks
+curl --retry 3 -Lo /tmp/uosc-install.sh https://raw.githubusercontent.com/tomasklaen/uosc/HEAD/installers/unix.sh
+MPV_CONFIG_DIR=/etc/mpv /tmp/uosc-install.sh
+curl --retry 3 -Lo /etc/mpv/scripts/thumbfast.lua https://raw.githubusercontent.com/po5/thumbfast/refs/heads/master/thumbfast.lua
+
 if [[ ${BASE_IMAGE_NAME} == "kinoite" ]]; then
 
 	# Restore x11 for Nvidia Images
@@ -44,6 +49,9 @@ if [[ ${BASE_IMAGE_NAME} == "kinoite" ]]; then
 	./install.sh -c
 	rm -rf /usr/share/plasma/look-and-feel/com.github.vinceliuice.Fluent*
 	rm -rf /usr/share/plasma/plasmoids/org.kde.plasma.splitdigitalclock
+
+	# mpv tweaks
+	curl -Lo /etc/mpv/scripts/mpv-kscreen-doctor.lua https://gitlab.com/smaniottonicola/mpv-kscreen-doctor/-/raw/master/mpv-kscreen-doctor.lua
 
 elif [[ ${BASE_IMAGE_NAME} == "silverblue" ]]; then
 
