@@ -51,9 +51,6 @@ if [[ ${BASE_IMAGE_NAME} == "kinoite" ]]; then
 	rm -rf /usr/share/plasma/look-and-feel/com.github.vinceliuice.Fluent*
 	rm -rf /usr/share/plasma/plasmoids/org.kde.plasma.splitdigitalclock
 
-	# mpv tweaks
-	curl -Lo /etc/mpv/scripts/mpv-kscreen-doctor.lua https://gitlab.com/smaniottonicola/mpv-kscreen-doctor/-/raw/master/mpv-kscreen-doctor.lua
-
 elif [[ ${BASE_IMAGE_NAME} == "silverblue" ]]; then
 
 	# Remove desktop entries
