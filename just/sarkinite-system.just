@@ -30,7 +30,7 @@ toggle-devmode:
     Before we can switch to the Sarkinite Developer Experience
     the current system needs an update. Please run 'ujust update'
     and reboot your system when the update is finished
-    EOF
+EOF
         exit
     fi
     if /bin/grep -q "\-dx" <<< $CURRENT_IMAGE ; then
@@ -118,14 +118,11 @@ dx-group:
             grep "^$group_name:" /usr/lib/group | sudo tee -a /etc/group > /dev/null
         fi
     }
-
     GROUPS_ADD=("docker" "incus-admin" "libvirt")
-
     for GROUP_ADD in "${GROUPS_ADD[@]}" ; do
         append_group $GROUP_ADD
         pkexec usermod -aG $GROUP_ADD $USER
     done
-
     echo "Reboot system and log back in to use docker, incus-admin, libvirt."
 
 # alias for configure-vfio
@@ -136,7 +133,7 @@ setup-vfio:
 # Configure system to use vfio and kvmfr
 [group('System')]
 configure-vfio ACTION="":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     source /usr/lib/ujust/ujust.sh
     CURRENT_IMAGE=$(rpm-ostree status -b --json | jq -r '.deployments[0]."container-image-reference"')
     if grep -q "dx" <<< $CURRENT_IMAGE ; then
@@ -156,7 +153,7 @@ configure-vfio ACTION="":
       Use 'vfio-on' to select Enable VFIO drivers
       Use 'vfio-off' to select Disable VFIO drivers
       Use 'kvmfr' to select Autocreate Looking-Glass shm
-    EOF
+EOF
         exit 0
     elif [ "$OPTION" == "" ]; then
         cat <<EOF
@@ -164,7 +161,7 @@ configure-vfio ACTION="":
     This is only used for GPU passthrough of a secondary dGPU.
     It will enable vfio and configure kvmfr for use with $(Urllink "https://looking-glass.io" "Looking Glass")
     If you do not plan to use any of this then press ESC.
-    EOF
+EOF
     ${bold}NOTE:${normal} Since this is a niche use case, support will be ${b}very limited${n}
         OPTION=$(Choose \
           "Enable VFIO drivers" \
@@ -235,7 +232,7 @@ configure-vfio ACTION="":
 [group('System')]
 [private]
 install-system-flatpaks:
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     IMAGE_INFO="/usr/share/ublue-os/image-info.json"
     BASE_IMAGE_NAME=$(jq -r '."base-image-name"' < $IMAGE_INFO)
     if [[ ${BASE_IMAGE_NAME} == 'silverblue' ]]; then
@@ -263,7 +260,7 @@ rebase-helper:
 # Toggle tailscale
 [group('System')]
 toggle-tailscale:
-    #!/bin/bash
+    #!/usr/bin/env bash
     set -euo pipefail
     source /usr/lib/ujust/ujust.sh
     source /usr/lib/os-release
@@ -320,7 +317,7 @@ toggle-tailscale:
 # Install nix and Devbox
 [group('System')]
 install-nix-devbox:
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     echo 'Installing nix.'
     curl -Lo /tmp/nix-installer https://install.determinate.systems/nix/nix-installer-x86_64-linux
     chmod +x /tmp/nix-installer
@@ -363,7 +360,7 @@ alias setup-nix := install-nix-devbox
 # Update nix
 [group('System')]
 update-nix:
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     echo 'Updating nix.'
     sudo -i /nix/var/nix/profiles/default/bin/nix upgrade-nix --nix-store-paths-url \
     https://releases.nixos.org/nix/nix-$(curl -s https://api.github.com/repos/DeterminateSystems/nix/tags | \
@@ -372,7 +369,7 @@ update-nix:
 # Remove nix
 [group('System')]
 remove-nix:
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     echo 'Removing nix.'
     /nix/nix-installer uninstall
     sudo systemctl disable nix-gc.timer
@@ -380,7 +377,7 @@ remove-nix:
 
 [group('System')]
 configure-hostname:
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     source /usr/lib/ujust/ujust.sh
     echo "Current hostname: $(hostname)"
     echo "Enter the new hostname:"
@@ -392,7 +389,7 @@ alias hostname := configure-hostname
 
 [group('System')]
 setup-ssh:
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     SSH_DIR="$HOME/.ssh"
     if ! [[ -f "$SSH_DIR/authorized_keys" ]]; then
       mkdir -p "$SSH_DIR"
