@@ -25,6 +25,7 @@
 				"fuse-encfs",
 				"gcc",
 				"git-credential-libsecret",
+				"ghostty",
 				"glow",
 				"gstreamer1-plugin-openh264",
 				"gum",
