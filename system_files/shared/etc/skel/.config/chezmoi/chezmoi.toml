@@ -1,7 +1,3 @@
-[edit]
-command = "code"
-args = ["--wait"]
-
 [update]
 args = ["--no-tty", "--keep-going", "--force"]
 
