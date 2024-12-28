@@ -169,7 +169,8 @@
 				"virt-manager",
 				"virt-viewer",
 				"virt-v2v",
-				"ydotool"
+				"ydotool",
+				"zed"
 			]
 		},
 		"exclude": {
