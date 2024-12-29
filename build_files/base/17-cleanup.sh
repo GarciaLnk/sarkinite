@@ -44,7 +44,6 @@ sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_kylegospo-webapp-manager
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/firefoxpwa.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/terra.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_matte-schwartz-sunshine.repo
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_pgdev-ghostty.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/fedora-cisco-openh264.repo
 for i in /etc/yum.repos.d/rpmfusion-*; do
