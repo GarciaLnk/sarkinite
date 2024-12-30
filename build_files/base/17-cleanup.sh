@@ -25,7 +25,6 @@ systemctl enable flatpak-cleanup.timer
 systemctl enable hwclock-sync.service
 systemctl enable snapper-setup
 systemctl enable keyd
-systemctl enable sunshine-workaround.service
 systemctl disable displaylink.service
 
 # Hide Desktop Files. Hidden removes mime associations
