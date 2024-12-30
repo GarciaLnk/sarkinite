@@ -30,7 +30,7 @@ toggle-devmode:
     Before we can switch to the Sarkinite Developer Experience
     the current system needs an update. Please run 'ujust update'
     and reboot your system when the update is finished
-EOF
+    EOF
         exit
     fi
     if /bin/grep -q "\-dx" <<< $CURRENT_IMAGE ; then
@@ -153,7 +153,7 @@ configure-vfio ACTION="":
       Use 'vfio-on' to select Enable VFIO drivers
       Use 'vfio-off' to select Disable VFIO drivers
       Use 'kvmfr' to select Autocreate Looking-Glass shm
-EOF
+    EOF
         exit 0
     elif [ "$OPTION" == "" ]; then
         cat <<EOF
@@ -161,7 +161,7 @@ EOF
     This is only used for GPU passthrough of a secondary dGPU.
     It will enable vfio and configure kvmfr for use with $(Urllink "https://looking-glass.io" "Looking Glass")
     If you do not plan to use any of this then press ESC.
-EOF
+    EOF
     ${bold}NOTE:${normal} Since this is a niche use case, support will be ${b}very limited${n}
         OPTION=$(Choose \
           "Enable VFIO drivers" \

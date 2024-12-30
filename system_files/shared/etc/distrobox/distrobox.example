@@ -1,6 +1,6 @@
 [ubuntu]
 image=ghcr.io/ublue-os/ubuntu-toolbox:latest
-#additional_packages=" " 
+#additional_packages=" "
 #export=" "
 init=false
 nvidia=true
@@ -8,7 +8,7 @@ pull=true
 root=false
 replace=true
 
-# Add more distros and then use: 
+# Add more distros and then use:
 # distrobox assemble create --replace --file /etc/distrobox/distrobox.ini
 # This will replace your distroboxes in place
 # Tip: Use additional_packages as declarative config!

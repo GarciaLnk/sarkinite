@@ -186,7 +186,7 @@ user_pref("network.connectivity-service.enabled", false);
     to Google, only a part-hash of the prefix, hidden with noise of other real part-hashes.
     Firefox takes measures such as stripping out identifying parameters and since SBv4 (FF57+)
     doesn't even use cookies. (#Turn on browser.safebrowsing.debug to monitor this activity)
- 
+
     [1] https://feeding.cloud.geek.nz/posts/how-safe-browsing-works-in-firefox/
     [2] https://wiki.mozilla.org/Security/Safe_Browsing
     [3] https://support.mozilla.org/kb/how-does-phishing-and-malware-protection-work
@@ -703,13 +703,13 @@ user_pref("privacy.sanitize.timeSpan", 0);
 
 /*** [SECTION 4000]: FPP (fingerprintingProtection)
     RFP (4501) overrides FPP
- 
+
     In FF118+ FPP is on by default in private windows (4001) and in FF119+ is controlled
     by ETP (2701). FPP will also use Remote Services in future to relax FPP protections
     on a per site basis for compatibility (4004).
- 
+
     https://searchfox.org/mozilla-central/source/toolkit/components/resistfingerprinting/RFPTargetsDefault.inc
- 
+
     1826408 - restrict fonts to system (kBaseFonts + kLangPackFonts) (Windows, Mac, some Linux)
        https://searchfox.org/mozilla-central/search?path=StandardFonts*.inc
     1858181 - subtly randomize canvas per eTLD+1, per session and per window-mode (FF120+)
@@ -733,16 +733,16 @@ user_pref("privacy.sanitize.timeSpan", 0);
 
 /*** [SECTION 4500]: OPTIONAL RFP (resistFingerprinting)
     RFP overrides FPP (4000)
- 
+
     FF128+ Arkenfox by default uses FPP (automatically enabled with ETP Strict). For most people
     this is all you need. To use RFP instead, add RFP (4501) to your overrides, and optionally
     add letterboxing (4504), spoof_english (4506), and webgl (4520).
- 
+
     RFP is an all-or-nothing buy in: you cannot pick and choose what parts you want
     [TEST] https://arkenfox.github.io/TZP/tzp.html
- 
+
     [WARNING] DO NOT USE extensions to alter RFP protected metrics
- 
+
      418986 - limit window.screen & CSS media queries (FF41)
     1281949 - spoof screen orientation (FF50)
     1360039 - spoof navigator.hardwareConcurrency as 2 (FF55)
