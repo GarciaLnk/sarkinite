@@ -46,7 +46,6 @@ screens:
             - JupyterLab Desktop: org.jupyter.JupyterLab
             - Meld: org.gnome.meld
             - Podman Desktop: io.podman_desktop.PodmanDesktop
-            - Zed: dev.zed.Zed
         Gaming:
           description: "Rock and Stone!"
           default: false
@@ -96,6 +95,7 @@ screens:
             - Portfolio Performance: info.portfolio_performance.PortfolioPerformance
             - Tenacity: org.tenacityaudio.Tenacity
             - Thunderbird: org.mozilla.Thunderbird
+            - TickTick: com.ticktick.TickTick
             - Tuta: com.tutanota.Tutanota
             - Xournal++: com.github.xournalpp.xournalpp
             - Zotero: org.zotero.Zotero
@@ -134,7 +134,6 @@ screens:
             - KeePassXC: org.keepassxc.KeePassXC
             - Main Menu: page.codeberg.libre_menu_editor.LibreMenuEditor
             - Metadata Cleaner: fr.romainvigier.MetadataCleaner
-            - Mpv: io.mpv.Mpv
             - OnionShare: org.onionshare.OnionShare
             - OpenRGB: org.openrgb.OpenRGB
             - qBitTorrent: org.qbittorrent.qBittorrent
