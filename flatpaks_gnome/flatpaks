@@ -1,15 +1,16 @@
 app/com.github.tchx84.Flatseal/x86_64/stable
 app/io.github.dvlv.boxbuddyrs/x86_64/stable
 app/io.github.flattool.Warehouse/x86_64/stable
-app/io.github.flattool.Ignition/x86_64/stable
 app/org.fedoraproject.MediaWriter/x86_64/stable
 app/io.missioncenter.MissionCenter/x86_64/stable
 app/it.mijorus.gearlever/x86_64/stable
 app/com.usebottles.bottles/x86_64/stable
 app/com.vysp3r.ProtonPlus/x86_64/stable
 app/com.github.wwmm.easyeffects/x86_64/stable
+app/com.valvesoftware.Steam/x86_64/stable
 app/com.github.Matoking.protontricks/x86_64/stable
 app/io.github.zen_browser.zen/x86_64/stable
+app/de.leopoldluley.Clapgrep/x86_64/stable
 app/org.gnome.World.PikaBackup/x86_64/stable
 app/com.mattjakeman.ExtensionManager/x86_64/stable
 app/org.gnome.baobab/x86_64/stable
@@ -29,6 +30,7 @@ app/org.gnome.Weather/x86_64/stable
 app/org.gnome.Evolution/x86_64/stable
 app/io.gitlab.news_flash.NewsFlash/x86_64/stable
 app/org.pipewire.Helvum/x86_64/stable
+app/io.github.flattool.Ignition/x86_64/stable
 runtime/org.gtk.Gtk3theme.adw-gtk3/x86_64/3.22
 runtime/org.gtk.Gtk3theme.adw-gtk3-dark/x86_64/3.22
 runtime/org.kde.KStyle.Adwaita/x86_64/6.7

@@ -17,16 +17,6 @@ fi
 flatpak remote-add --if-not-exists --system flathub /etc/flatpak/remotes.d/flathub.flatpakrepo
 flatpak remote-modify --system --enable flathub
 
-PROTONTRICKS_SETUP_FILE="/etc/bazzite/protontricks_installed"
-if [[ ! -f ${PROTONTRICKS_SETUP_FILE} ]]; then
-	if ! grep -q "com.github.Matoking.protontricks" <<<"$(/usr/bin/flatpak list --app --columns=application)"; then
-		flatpak install --system --assumeyes com.github.Matoking.protontricks
-		touch "${PROTONTRICKS_SETUP_FILE}"
-	else
-		touch "${PROTONTRICKS_SETUP_FILE}"
-	fi
-fi
-
 # Flatpak theming support
 [[ ! -L ~/.local/share/themes ]] && ln -s /usr/share/themes ~/.local/share/themes
 [[ ! -L ~/.local/share/icons ]] && ln -s /usr/share/icons ~/.local/share/icons
@@ -57,7 +47,7 @@ flatpak override \
 
 # Fix permissions for Protontricks
 flatpak override \
-	--filesystem=~/.local/share/Steam \
+	--filesystem="${HOME}"/.var/app/com.valvesoftware.Steam/.local/share/Steam \
 	--filesystem=/var/mnt \
 	--filesystem=/run/media \
 	com.github.Matoking.protontricks

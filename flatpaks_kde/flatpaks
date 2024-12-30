@@ -1,15 +1,16 @@
 app/com.github.tchx84.Flatseal/x86_64/stable
 app/io.github.dvlv.boxbuddyrs/x86_64/stable
 app/io.github.flattool.Warehouse/x86_64/stable
-app/io.github.flattool.Ignition/x86_64/stable
 app/org.fedoraproject.MediaWriter/x86_64/stable
 app/io.missioncenter.MissionCenter/x86_64/stable
 app/it.mijorus.gearlever/x86_64/stable
 app/com.usebottles.bottles/x86_64/stable
 app/com.vysp3r.ProtonPlus/x86_64/stable
 app/com.github.wwmm.easyeffects/x86_64/stable
+app/com.valvesoftware.Steam/x86_64/stable
 app/com.github.Matoking.protontricks/x86_64/stable
 app/io.github.zen_browser.zen/x86_64/stable
+app/de.leopoldluley.Clapgrep/x86_64/stable
 app/com.borgbase.Vorta/x86_64/stable
 app/org.kde.kcalc/x86_64/stable
 app/org.kde.gwenview/x86_64/stable
