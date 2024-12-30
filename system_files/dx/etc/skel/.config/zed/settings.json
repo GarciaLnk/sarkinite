@@ -1,0 +1,13 @@
+{
+	"auto_install_extensions": {
+		"html": true,
+		"vscode-dark-modern": true
+	},
+	"theme": {
+		"mode": "system",
+		"dark": "VSCode Dark Modern",
+		"light": "One Light"
+	},
+	"buffer_font_family": "FiraCode Nerd Font",
+	"buffer_font_size": 14
+}
