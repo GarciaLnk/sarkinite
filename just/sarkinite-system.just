@@ -329,10 +329,11 @@ install-nix-devbox:
     nix-channel --add https://github.com/nix-community/nixGL/archive/main.tar.gz nixgl
     nix-channel --update
     nix-env -iA nixgl.auto.nixGLDefault
-    if [[ $(cat /etc/ublue/image_flavor) =~ "nvidia" ]]; then
+    nix-env -iA nixgl.nixGLIntel
+    nix-env -iA nixgl.nixVulkanIntel
+    if [[ $(cat /etc/ublue/image_flavor) =~ "nvidia" ]] && [[ "$(grep -o "\-display" <<<"$(lshw -C display)")" -le 1 ]] && grep -q "vendor: NVIDIA Corporation" <<<"$(lshw -C display)"; then
+      nix-env -iA nixgl.auto.nixGLNvidia
       nix-env -iA nixgl.auto.nixVulkanNvidia
-    else
-      nix-env -iA nixgl.nixVulkanIntel
     fi
     if ! grep -q 'NIXPKGS_ALLOW_UNFREE=' /etc/environment; then
       echo 'NIXPKGS_ALLOW_UNFREE=1' | sudo tee -a /etc/environment > /dev/null
