@@ -346,7 +346,6 @@ install-nix-devbox:
     if ! grep -q 'eval "$(devbox global shellenv)"' /etc/bashrc; then
       echo 'eval "$(devbox global shellenv)"' | sudo tee -a /etc/bashrc > /dev/null
     fi
-    sudo systemctl enable devbox-update.timer
     if ! grep -q "export XDG_DATA_DIRS="; then
       if [ ! -f "$HOME/.profile" ]; then
         touch "$HOME/.profile"
@@ -374,7 +373,6 @@ remove-nix:
     echo 'Removing nix.'
     /nix/nix-installer uninstall
     sudo systemctl disable nix-gc.timer
-    sudo systemctl disable devbox-update.timer
 
 [group('System')]
 configure-hostname:

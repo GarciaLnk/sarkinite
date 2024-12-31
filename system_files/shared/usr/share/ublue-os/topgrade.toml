@@ -33,5 +33,6 @@ no_retry = false
 rpm_ostree = true
 
 [commands]
+"Nix" = "command -v nix && ujust update-nix"
 "Devbox" = "command -v devbox && devbox global update"
 "Spicetify" = "command -v spicetify && (spicetify upgrade ; spicetify apply || spicetify restore backup apply)"
