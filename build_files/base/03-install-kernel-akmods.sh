@@ -44,7 +44,11 @@ rpm-ostree uninstall rpmfusion-free-release rpmfusion-nonfree-release
 # Nvidia AKMODS
 if [[ ${IMAGE_NAME} =~ nvidia ]]; then
 	# Fetch Nvidia RPMs
-	skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods-nvidia:"${AKMODS_FLAVOR}"-"$(rpm -E %fedora)"-"${KERNEL}" dir:/tmp/akmods-rpms
+	if [[ ${IMAGE_NAME} =~ open ]]; then
+		skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods-nvidia-open:"${AKMODS_FLAVOR}"-"$(rpm -E %fedora)"-"${KERNEL}" dir:/tmp/akmods-rpms
+	else
+		skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods-nvidia:"${AKMODS_FLAVOR}"-"$(rpm -E %fedora)"-"${KERNEL}" dir:/tmp/akmods-rpms
+	fi
 	NVIDIA_TARGZ=$(jq -r '.layers[].digest' </tmp/akmods-rpms/manifest.json | cut -d : -f 2)
 	tar -xvzf /tmp/akmods-rpms/"${NVIDIA_TARGZ}" -C /tmp/
 	mv /tmp/rpms/* /tmp/akmods-rpms/
@@ -54,6 +58,7 @@ if [[ ${IMAGE_NAME} =~ nvidia ]]; then
 	chmod +x /tmp/nvidia-install.sh
 	IMAGE_NAME="${BASE_IMAGE_NAME}" RPMFUSION_MIRROR="" /tmp/nvidia-install.sh
 	rm -f /usr/share/vulkan/icd.d/nouveau_icd.*.json
+	ln -sf libnvidia-ml.so.1 /usr/lib64/libnvidia-ml.so
 fi
 
 # ZFS for gts/stable
