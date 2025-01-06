@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+echo "::group:: ===$(basename "$0")==="
+
 set -eoux pipefail
 
 #ublue-os staging
@@ -12,3 +14,5 @@ curl --retry 3 -Lo /etc/yum.repos.d/hikariknight-looking-glass-kvmfr-fedora-"${F
 
 # Enable terra repo
 sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/terra.repo
+
+echo "::endgroup::"

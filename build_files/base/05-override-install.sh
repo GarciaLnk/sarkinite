@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+echo "::group:: ===$(basename "$0")==="
+
 set -eoux pipefail
 
 # Patched shells
@@ -76,3 +78,5 @@ fi
 curl --retry 3 -Lo ./pkgx "https://pkgx.sh/$(uname)/$(uname -m)"
 chmod +x ./pkgx
 mv ./pkgx /usr/bin/pkgx
+
+echo "::endgroup::"

@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+echo "::group:: ===$(basename "$0")==="
+
 set -eoux pipefail
 
 if [[ ${IMAGE_NAME} =~ hwe ]]; then
@@ -73,3 +75,5 @@ pinctrl_alderlake
 # For Surface Pro 10/Surface Laptop 6
 pinctrl_meteorlake
 EOF
+
+echo "::endgroup::"

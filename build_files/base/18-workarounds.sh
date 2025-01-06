@@ -1,6 +1,8 @@
 #!/bin/sh
 # shellcheck disable=SC2016
 
+echo "::group:: ===$(basename "$0")==="
+
 set -eoux pipefail
 
 # alternatives cannot create symlinks on its own during a container build
@@ -10,3 +12,5 @@ fi
 
 # Patch btrfs-assistant-launcher to not pass $XDG_RUNTIME_DIR so that it does not break flatpaks
 sed -i 's/ --xdg-runtime=\\"${XDG_RUNTIME_DIR}\\"//g' /usr/bin/btrfs-assistant-launcher
+
+echo "::endgroup::"

@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+echo "::group:: ===$(basename "$0")==="
+
 set -eoux pipefail
 
 # Setup Systemd
@@ -54,3 +56,5 @@ fi
 
 # Initialize etckeeper
 etckeeper init
+
+echo "::endgroup::"

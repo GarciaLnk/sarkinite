@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+echo "::group:: ===$(basename "$0")==="
+
 set -ouex pipefail
 
 # Tela Icon Theme
@@ -97,3 +99,5 @@ ACTION=="add", DEVPATH=="/bus/pci/drivers/nvidia", RUN+="/usr/bin/nvidia-ctk sys
 EOF
 
 fi
+
+echo "::endgroup::"

@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+echo "::group:: ===$(basename "$0")==="
+
 set -ouex pipefail
 
 sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo
@@ -22,3 +24,5 @@ mv /tmp/rpms/* /tmp/akmods/
 
 # Install RPMS
 rpm-ostree install /tmp/akmods/kmods/*kvmfr*.rpm
+
+echo "::endgroup::"

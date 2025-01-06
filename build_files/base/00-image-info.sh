@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "::group:: ===$(basename "$0")==="
+
 set -ouex pipefail
 
 IMAGE_PRETTY_NAME="Sarkinite"
@@ -41,3 +43,5 @@ fi
 
 # Fix issues caused by ID no longer being fedora
 sed -i 's/^EFIDIR=.*/EFIDIR="fedora"/' /usr/sbin/grub2-switch-to-blscfg
+
+echo "::endgroup::"

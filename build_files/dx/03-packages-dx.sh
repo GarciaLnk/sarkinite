@@ -1,6 +1,8 @@
 #!/usr/bin/bash
 # shellcheck disable=SC2068,SC2207,SC2046
 
+echo "::group:: ===$(basename "$0")==="
+
 set -ouex pipefail
 
 # build list of all packages requested for inclusion
@@ -54,3 +56,5 @@ if [[ ${#INSTALLED_EXCLUDED_PACKAGES[@]} -gt 0 ]]; then
 	rpm-ostree override remove \
 		${INSTALLED_EXCLUDED_PACKAGES[@]}
 fi
+
+echo "::endgroup::"

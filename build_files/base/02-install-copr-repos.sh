@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+echo "::group:: ===$(basename "$0")==="
+
 set -eoux pipefail
 
 # Add Staging repo
@@ -24,3 +26,5 @@ curl --retry 3 -Lo /etc/yum.repos.d/terra.repo https://raw.githubusercontent.com
 
 # Add Sunshine repo
 curl --retry 3 -Lo /etc/yum.repos.d/_copr_lizardbyte-beta.repo https://copr.fedorainfracloud.org/coprs/lizardbyte/beta/repo/fedora-"${FEDORA_MAJOR_VERSION}"/lizardbyte-beta-fedora-"${FEDORA_MAJOR_VERSION}".repo
+
+echo "::endgroup::"
