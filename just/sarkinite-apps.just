@@ -104,3 +104,18 @@ install-svp:
     SCRIPTS_DIR="${HOME}/.config/mpv/scripts"
     curl "https://raw.githubusercontent.com/wis/mpvSockets/master/mpvSockets.lua" --create-dirs -o "${SCRIPTS_DIR}/mpvSockets.lua"
     echo "SVP has been installed."
+
+# Install gaming apps
+[group('Apps')]
+install-gaming-apps:
+    #!/usr/bin/env bash
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak --system -y install --or-update app/com.valvesoftware.Steam/x86_64/stable \
+                                            app/com.heroicgameslauncher.hgl/x86_64/stable \
+                                            app/net.lutris.Lutris/x86_64/stable \
+                                            app/com.vysp3r.ProtonPlus/x86_64/stable \
+                                            app/com.github.Matoking.protontricks/x86_64/stable \
+                                            runtime/org.freedesktop.Platform.VulkanLayer.gamescope/x86_64/24.08 \
+                                            runtime/org.freedesktop.Platform.VulkanLayer.OBSVkCapture/x86_64/24.08 \
+                                            runtime/com.obsproject.Studio.Plugin.OBSVkCapture/x86_64/stable \
+                                            runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08
