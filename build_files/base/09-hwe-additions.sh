@@ -41,7 +41,7 @@ rpm-ostree install \
 	"${ASUS_PACKAGES[@]}" \
 	"${SURFACE_PACKAGES[@]}"
 
-tee /usr/lib/modules-load.d/ublue-surface.conf << EOF
+tee /usr/lib/modules-load.d/ublue-surface.conf <<EOF
 # Only on AMD models
 pinctrl_amd
 
