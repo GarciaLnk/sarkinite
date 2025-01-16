@@ -78,16 +78,12 @@ if [[ $(cat /etc/ublue/image_flavor) =~ "nvidia" ]] && [[ "$(grep -o "\-display"
 		--system \
 		--env=MOZ_ENABLE_WAYLAND=1 \
 		--env=MOZ_DISABLE_RDD_SANDBOX=1 \
-		--env=__NV_PRIME_RENDER_OFFLOAD=1 \
-		--env=LIBVA_DRIVER_NAME=nvidia \
 		io.github.zen_browser.zen
 else
 	flatpak override \
 		--system \
 		--env=MOZ_ENABLE_WAYLAND=1 \
 		--unset-env=MOZ_DISABLE_RDD_SANDBOX \
-		--unset-env=__NV_PRIME_RENDER_OFFLOAD \
-		--unset-env=LIBVA_DRIVER_NAME \
 		io.github.zen_browser.zen
 fi
 
