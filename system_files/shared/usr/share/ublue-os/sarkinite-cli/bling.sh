@@ -9,7 +9,7 @@ BLING_SOURCED=1
 # ls aliases
 if [ -n "$(command -v eza)" ]; then
 	alias ll='eza -l --icons=auto --group-directories-first'
-	alias la="eza -lA --icons=auto --group-directories-first"
+	alias la='eza -lA --icons=auto --group-directories-first'
 	alias l.='eza -d .*'
 	alias ls='eza'
 	alias l1='eza -1'
@@ -27,7 +27,7 @@ fi
 
 # bat for cat
 if [ -n "$(command -v bat)" ]; then
-	alias cat='bat -p'
+	alias cat='bat -pp'
 fi
 
 if [ "$(basename "${SHELL}")" = "bash" ]; then
