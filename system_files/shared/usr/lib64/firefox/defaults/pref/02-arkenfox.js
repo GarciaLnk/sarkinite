@@ -366,7 +366,7 @@ user_pref("network.auth.subresource-http-auth-allow", 1);
 // user_pref("network.http.windows-sso.enabled", false); // [DEFAULT: false]
 /* 0907: enforce no automatic authentication on Microsoft sites [FF131+] [MAC]
  * On macOS, SSO only works on corporate devices ***/
-   // user_pref("network.http.microsoft-entra-sso.enabled", false); // [DEFAULT: false]
+// user_pref("network.http.microsoft-entra-sso.enabled", false); // [DEFAULT: false]
 
 /*** [SECTION 1000]: DISK AVOIDANCE ***/
 /* 1001: disable disk cache
