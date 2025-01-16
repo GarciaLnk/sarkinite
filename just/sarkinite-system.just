@@ -314,7 +314,7 @@ toggle-tailscale:
         fi
     fi
 
-# Install nix and Devbox
+# Install Nix w/ Devbox and nixGL
 [group('System')]
 install-nix-devbox:
     #!/usr/bin/env bash
@@ -335,18 +335,21 @@ install-nix-devbox:
       nix-env -iA nixgl.auto.nixGLNvidia
       nix-env -iA nixgl.auto.nixVulkanNvidia
     fi
-    if ! grep -q 'NIXPKGS_ALLOW_UNFREE=' /etc/environment; then
-      echo 'NIXPKGS_ALLOW_UNFREE=1' | sudo tee -a /etc/environment > /dev/null
+    if [ ! -f "$HOME/.config/nixpkgs/config.nix" ]; then
+      mkdir -p "$HOME/.config/nixpkgs"
+      echo "{
+      allowUnfree = true;
+    }" > "$HOME/.config/nixpkgs/config.nix"
     fi
     echo 'Installing devbox!'
     curl -Lo /tmp/devbox-installer https://get.jetify.com/devbox
     chmod +x /tmp/devbox-installer
     /tmp/devbox-installer -f
     rm -f /tmp/devbox-installer
-    if ! grep -q 'eval "$(devbox global shellenv)"' /etc/bashrc; then
-      echo 'eval "$(devbox global shellenv)"' | sudo tee -a /etc/bashrc > /dev/null
+    if ! grep -q 'eval "$(devbox global shellenv)"' "$HOME/.bashrc"; then
+      echo 'eval "$(devbox global shellenv)"' | sudo tee -a "$HOME/.bashrc" > /dev/null
     fi
-    if ! grep -q "export XDG_DATA_DIRS="; then
+    if ! grep -q "export XDG_DATA_DIRS=" "$HOME/.profile" 2>/dev/null; then
       if [ ! -f "$HOME/.profile" ]; then
         touch "$HOME/.profile"
       fi
@@ -373,6 +376,8 @@ remove-nix:
     echo 'Removing nix.'
     /nix/nix-installer uninstall
     sudo systemctl disable nix-gc.timer
+    sed -i '/eval "$(devbox global shellenv)"/d' "$HOME/.bashrc"
+    sed -i '/export XDG_DATA_DIRS=/d' "$HOME/.profile"
 
 [group('System')]
 configure-hostname:
@@ -386,6 +391,7 @@ configure-hostname:
 
 alias hostname := configure-hostname
 
+# Setup SSH keys
 [group('System')]
 setup-ssh:
     #!/usr/bin/env bash
