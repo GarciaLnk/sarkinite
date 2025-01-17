@@ -5,7 +5,6 @@ echo "::group:: ===$(basename "$0")==="
 set -eoux pipefail
 
 # Setup Systemd
-systemctl enable rpm-ostree-countme.service
 systemctl enable tailscaled.service
 systemctl enable dconf-update.service
 systemctl --global enable ublue-flatpak-manager.service
