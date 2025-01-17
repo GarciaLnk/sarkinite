@@ -35,7 +35,6 @@
 				"krb5-workstation",
 				"ifuse",
 				"igt-gpu-tools",
-				"input-leap",
 				"input-remapper",
 				"libimobiledevice",
 				"libxcrypt-compat",
