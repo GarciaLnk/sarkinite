@@ -12,7 +12,7 @@ KERNEL_TARGZ=$(jq -r '.layers[].digest' </tmp/kernel-rpms/manifest.json | cut -d
 tar -xvzf /tmp/kernel-rpms/"${KERNEL_TARGZ}" -C /
 mv /tmp/rpms/* /tmp/kernel-rpms/
 
-if ! rpm -qa | grep -q kernel-devel; then
+if ! rpm -qa | grep kernel-devel; then
 	rpm-ostree install /tmp/kernel-rpms/kernel-devel-*.rpm
 fi
 
