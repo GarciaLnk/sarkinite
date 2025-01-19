@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # Script Version
-VER=5
+VER=6
 VER_FILE="${XDG_DATA_HOME:-${HOME}/.local/share}/ublue/flatpak_manager_version"
 VER_RAN=$(cat "${VER_FILE}")
 
@@ -38,6 +38,15 @@ flatpak override \
 	--filesystem=xdg-data/icons:ro \
 	--filesystem="${HOME}"/.themes:ro \
 	--filesystem="${HOME}"/.icons:ro
+
+if [[ $(cat /etc/ublue/image_name) =~ "gnome" ]]; then
+	flatpak override --env=XDG_CURRENT_DESKTOP=GNOME
+	flatpak override --user --env=XDG_CURRENT_DESKTOP=GNOME
+elif [[ $(cat /etc/ublue/image_name) =~ "kde" ]]; then
+	flatpak override --env=XDG_CURRENT_DESKTOP=KDE
+	flatpak override --user --env=XDG_CURRENT_DESKTOP=KDE
+fi
+
 
 # Fix printing on LibreOffice
 flatpak override \
