@@ -33,5 +33,4 @@ no_retry = false
 [commands]
 "System update" = "sudo bootc upgrade"
 "Nix" = "command -v nix && ujust update-nix"
-"Devbox" = "command -v devbox && devbox global update"
 "Spicetify" = "command -v spicetify && (spicetify upgrade ; spicetify apply || spicetify restore backup apply)"

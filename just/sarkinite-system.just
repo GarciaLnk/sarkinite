@@ -315,16 +315,16 @@ toggle-tailscale:
 
 # Install Nix w/ Devbox and nixGL
 [group('System')]
-install-nix-devbox:
+install-nix:
     #!/usr/bin/env bash
-    echo 'Installing nix.'
+    echo 'Installing Nix'
     curl -Lo /tmp/nix-installer https://install.determinate.systems/nix/nix-installer-x86_64-linux
     chmod +x /tmp/nix-installer
     sudo /tmp/nix-installer install ostree --no-confirm
     rm -f /tmp/nix-installer
     sudo systemctl enable nix-gc.timer
     . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-    nix-channel --add https://nixos.org/channels/nixpkgs-unstable
+    nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
     nix-channel --add https://github.com/nix-community/nixGL/archive/main.tar.gz nixgl
     nix-channel --update
     nix-env -iA nixgl.auto.nixGLDefault
@@ -356,27 +356,28 @@ install-nix-devbox:
     fi
     echo 'Open a new shell to continue'
 
-alias install-nix := install-nix-devbox
-alias setup-nix := install-nix-devbox
+alias setup-nix := install-nix
 
-# Update nix
+# Update Nix and Devbox
 [group('System')]
 update-nix:
     #!/usr/bin/env bash
-    echo 'Updating nix.'
-    sudo -i /nix/var/nix/profiles/default/bin/nix upgrade-nix --nix-store-paths-url \
-    https://releases.nixos.org/nix/nix-$(curl -s https://api.github.com/repos/DeterminateSystems/nix/tags | \
-    jq -r '.[0].name' | cut -c2-)/fallback-paths.nix
+    echo 'Updating Nix'
+    # sudo -i nix upgrade-nix
+    devbox global update
 
-# Remove nix
+# Remove Nix and Devbox
 [group('System')]
 remove-nix:
     #!/usr/bin/env bash
-    echo 'Removing nix.'
+    echo 'Removing Nix'
     /nix/nix-installer uninstall
     sudo systemctl disable nix-gc.timer
     sed -i '/eval "$(devbox global shellenv)"/d' "$HOME/.bashrc"
     sed -i '/export XDG_DATA_DIRS=/d' "$HOME/.profile"
+    sudo rm /usr/local/bin/devbox
+    rm -rf ~/.cache/devbox
+    rm -rf .local/share/devbox
 
 [group('System')]
 configure-hostname:
