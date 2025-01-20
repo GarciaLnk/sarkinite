@@ -103,6 +103,7 @@
 				"zenity"
 			],
 			"kinoite": [
+				"heaptrack",
 				"kcm-fcitx5",
 				"kde-runtime-docs",
 				"kdenetwork-filesharing",
