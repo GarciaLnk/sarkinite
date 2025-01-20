@@ -26,6 +26,7 @@ systemctl enable flatpak-cleanup.timer
 systemctl enable hwclock-sync.service
 systemctl enable snapper-setup.service
 systemctl enable keyd.service
+systemctl enable usr-share-sddm-themes.mount
 
 # Hide Desktop Files. Hidden removes mime associations
 sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nHidden=true@g' /usr/share/applications/fish.desktop
