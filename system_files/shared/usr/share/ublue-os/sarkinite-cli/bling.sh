@@ -41,6 +41,14 @@ if [ "$(basename "${SHELL}")" = "bash" ]; then
 	[ -n "$(command -v fzf)" ] && eval "$(fzf --bash)"
 	[ -n "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
 	[ -n "$(command -v direnv)" ] && eval "$(direnv hook bash)"
+
+	# bash history settings
+	bash -c 'shopt -s histappend'
+	export PROMPT_COMMAND='history -a'
+	export HISTTIMEFORMAT='%F %T - '
+	export HISTCONTROL=ignoreboth
+	export HISTSIZE=-1
+	export HISTFILESIZE=-1
 elif [ "$(basename "${SHELL}")" = "zsh" ]; then
 	[ -n "$(command -v starship)" ] && eval "$(starship init bash)"
 	[ -n "$(command -v fzf)" ] && fzf --zsh >/tmp/fzf.zsh && . /tmp/fzf.zsh && rm /tmp/fzf.zsh
