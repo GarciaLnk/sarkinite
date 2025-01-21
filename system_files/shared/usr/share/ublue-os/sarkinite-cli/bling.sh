@@ -30,6 +30,11 @@ if [ -n "$(command -v bat)" ]; then
 	alias cat='bat -pp'
 fi
 
+# set micro as default editor
+if [ -n "$(command -v micro)" ]; then
+	export EDITOR='micro'
+fi
+
 if [ "$(basename "${SHELL}")" = "bash" ]; then
 	[ -f "${HOMEBREW_PREFIX}"/etc/profile.d/bash-preexec.sh ] && . "${HOMEBREW_PREFIX}"/etc/profile.d/bash-preexec.sh
 	[ -n "$(command -v starship)" ] && eval "$(starship init bash)"
