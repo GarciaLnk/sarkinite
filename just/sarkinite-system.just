@@ -395,12 +395,26 @@ alias hostname := configure-hostname
 [group('System')]
 setup-ssh:
     #!/usr/bin/env bash
-    SSH_DIR="$HOME/.ssh"
-    if ! [[ -f "$SSH_DIR/authorized_keys" ]]; then
-      mkdir -p "$SSH_DIR"
-      chmod 700 "$SSH_DIR"
-      ssh-keygen -t ed25519 -f "$SSH_DIR/id_ed25519" -N "" -C "$USER@$HOSTNAME"
-      cat "$SSH_DIR/id_ed25519.pub" >> "$SSH_DIR/authorized_keys"
+    if ! [[ -f "$HOME/.ssh/authorized_keys" ]]; then
+      mkdir -p "$HOME/.ssh"
+      chmod 700 "$HOME/.ssh"
+      ssh-keygen -t ed25519 -f "$HOME/.ssh/id_ed25519" -N "" -C "$USER@$HOSTNAME"
+      cat "$HOME/.ssh/id_ed25519.pub" >> "$HOME/.ssh/authorized_keys"
       eval "$(ssh-agent -s)"
-      ssh-add "$SSH_DIR/id_ed25519"
+      ssh-add "$HOME/.ssh/id_ed25519"
+    fi
+
+    if ! grep -q "SSH_AUTH_SOCK" "$HOME/.profile" 2>/dev/null; then
+      cat >> "$HOME/.profile" << EOF
+if [[ -z \${SSH_AUTH_SOCK} ]]; then
+    # Check for a currently running instance of the agent
+    RUNNING_AGENT="\$(pgrep -fc 'ssh-agent -s')"
+    if [[ \${RUNNING_AGENT} == "0" ]]; then
+        # Launch a new instance of the agent
+        ssh-agent -s &>"\${HOME}/.ssh/ssh-agent"
+    fi
+    eval "\$(cat "\${HOME}/.ssh/ssh-agent")" >/dev/null
+    ssh-add "\${HOME}/.ssh/id_ed25519" 2>/dev/null
+fi
+EOF
     fi
