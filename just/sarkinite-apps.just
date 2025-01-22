@@ -119,3 +119,21 @@ install-gaming-apps:
                                             runtime/org.freedesktop.Platform.VulkanLayer.OBSVkCapture/x86_64/24.08 \
                                             runtime/com.obsproject.Studio.Plugin.OBSVkCapture/x86_64/stable \
                                             runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08
+
+# Install Java through Homebrew
+[group('Apps')]
+install-java:
+    #!/usr/bin/env bash
+    brew install openjdk
+    cat <<EOF > "${HOME}/.local/share/applications/openjdk.desktop"
+[Desktop Entry]
+Name=OpenJDK Java Runtime
+Comment=OpenJDK Java Runtime
+Keywords=java;runtime
+Exec=/var/home/linuxbrew/.linuxbrew/bin/java -jar %f
+Terminal=false
+Type=Application
+Icon=java-jdk
+MimeType=application/x-java-archive;application/java-archive;application/x-jar;
+NoDisplay=true
+EOF
