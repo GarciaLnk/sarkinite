@@ -125,15 +125,15 @@ install-gaming-apps:
 install-java:
     #!/usr/bin/env bash
     brew install openjdk
-    cat <<EOF > "${HOME}/.local/share/applications/openjdk.desktop"
-[Desktop Entry]
-Name=OpenJDK Java Runtime
-Comment=OpenJDK Java Runtime
-Keywords=java;runtime
-Exec=/var/home/linuxbrew/.linuxbrew/bin/java -jar %f
-Terminal=false
-Type=Application
-Icon=java-jdk
-MimeType=application/x-java-archive;application/java-archive;application/x-jar;
-NoDisplay=true
-EOF
+    cat > "${HOME}/.local/share/applications/openjdk.desktop" <<EOF
+    [Desktop Entry]
+    Name=OpenJDK Java Runtime
+    Comment=OpenJDK Java Runtime
+    Keywords=java;runtime
+    Exec=/var/home/linuxbrew/.linuxbrew/bin/java -jar %f
+    Terminal=false
+    Type=Application
+    Icon=java-jdk
+    MimeType=application/x-java-archive;application/java-archive;application/x-jar;
+    NoDisplay=true
+    EOF
