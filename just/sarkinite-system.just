@@ -24,7 +24,7 @@ devmode:
 toggle-devmode:
     #!/usr/bin/env bash
     source /usr/lib/ujust/ujust.sh
-    CURRENT_IMAGE=$(rpm-ostree status -b --json | jq -r '.deployments[0]."container-image-reference"')
+    CURRENT_IMAGE=$(cat /etc/ublue/image_name)
     if grep -q "/var/ublue-os/image" <<< $CURRENT_IMAGE ; then
         cat <<EOF
     Before we can switch to the Sarkinite Developer Experience
@@ -135,7 +135,7 @@ setup-vfio:
 configure-vfio ACTION="":
     #!/usr/bin/env bash
     source /usr/lib/ujust/ujust.sh
-    CURRENT_IMAGE=$(rpm-ostree status -b --json | jq -r '.deployments[0]."container-image-reference"')
+    CURRENT_IMAGE=$(cat /etc/ublue/image_name)
     if grep -q "dx" <<< $CURRENT_IMAGE ; then
         DEVMODE="enabled"
     else
@@ -417,4 +417,28 @@ setup-ssh:
         ssh-add "\${HOME}/.ssh/id_ed25519" 2>/dev/null
     fi
     EOF
+    fi
+
+# Add .desktop file to reboot into Windows if dual-booting
+[group('System')]
+setup-boot-windows:
+    #!/usr/bin/env bash
+    boot_number=$(efibootmgr | grep -oP "Boot\K\d{4}(?=[\* ]*Windows)" | head -n 1)
+    if [[ -n ${boot_number} ]]; then
+        mkdir -p "${HOME}/.local/share/applications"
+        echo "Making efibootmgr -n usable without sudo password"
+        echo "%wheel ALL=(root) NOPASSWD: /usr/sbin/efibootmgr" | sudo tee /etc/sudoers.d/efibootmgr-config
+        echo "Adding shortcut to reboot into Windows"
+        cat <<EOF >"${HOME}/.local/share/applications/reboot-windows.desktop"
+    [Desktop Entry]
+    Type=Application
+    Name=Boot Windows
+    Comment=Reboot into Windows
+    Exec=/usr/bin/boot-windows
+    Icon=windows
+    Terminal=false
+    Categories=System;
+    EOF
+    else
+        echo "Cannot find Windows boot in EFI"
     fi

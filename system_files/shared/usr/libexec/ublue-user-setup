@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # SCRIPT VERSION
-USER_SETUP_VER=7
+USER_SETUP_VER=8
 USER_SETUP_VER_FILE="${XDG_DATA_HOME:-${HOME}/.local/share}/ublue/user-setup"
 USER_SETUP_VER_RAN=$(cat "${USER_SETUP_VER_FILE}")
 VEN_ID="$(cat /sys/devices/virtual/dmi/id/chassis_vendor)"
@@ -52,6 +52,9 @@ if [[ ":Framework:" =~ :${VEN_ID}: ]]; then
 		touch "${UBLUE_CONFIG_DIR}/framework-initialized"
 	fi
 fi
+
+# Add shortcut to boot into windows
+ujust setup-boot-windows
 
 # Handle privileged tasks
 pkexec /usr/libexec/ublue-privileged-user-setup
