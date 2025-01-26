@@ -6,7 +6,7 @@
 [ "${BLING_SOURCED:-0}" -eq 1 ] && return
 BLING_SOURCED=1
 
-# ls aliases
+# eza for ls aliases
 if [ -n "$(command -v eza)" ]; then
 	alias ll='eza -l --icons=auto --group-directories-first'
 	alias la='eza -lA --icons=auto --group-directories-first'
@@ -30,9 +30,34 @@ if [ -n "$(command -v bat)" ]; then
 	alias cat='bat -pp'
 fi
 
+# fd for find
+if [ -n "$(command -v fd)" ]; then
+	alias find='fd'
+fi
+
+# dust for du
+if [ -n "$(command -v dust)" ]; then
+	alias du='dust'
+fi
+
+# hexyl for hexdump
+if [ -n "$(command -v hexyl)" ]; then
+	alias hexdump='hexyl'
+fi
+
+# procs for ps
+if [ -n "$(command -v procs)" ]; then
+	alias ps='procs'
+fi
+
 # set micro as default editor
 if [ -n "$(command -v micro)" ]; then
 	export EDITOR='micro'
+fi
+
+# set delta as default git pager
+if [ -n "$(command -v delta)" ]; then
+	export GIT_PAGER='delta'
 fi
 
 if [ "$(basename "${SHELL}")" = "bash" ]; then
