@@ -50,6 +50,7 @@ screens:
           description: "Rock and Stone!"
           default: false
           packages:
+            - AntiMicroX: io.github.antimicrox.antimicrox
             - Ares: dev.ares.ares
             - Bottles: com.usebottles.bottles
             - Cemu: info.cemu.Cemu
