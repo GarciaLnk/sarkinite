@@ -1,11 +1,11 @@
 // For format details, see https://aka.ms/devcontainer.json.
 {
-	"name": "Bluefin-devcontainer",
+	"name": "sarkinite-devcontainer",
 	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 	"workspaceFolder": "${localWorkspaceFolder}",
 	"workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind",
 	"mounts": [{ "source": "/tmp", "target": "/tmp", "type": "bind" }],
-	"otherPortsAttributes": { "onAutoForward" : "ignore" },
+	"otherPortsAttributes": { "onAutoForward": "ignore" },
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -13,16 +13,17 @@
 				"hangxingliu.vscode-systemd-support",
 				"mads-hartmann.bash-ide-vscode",
 				"ms-azuretools.vscode-docker",
-				"sclu1034.justfile",
-				"timonwong.shellcheck"
+				"nefrob.vscode-just-syntax",
+				"tudoudou.json5-for-vscode",
+				"ms-vscode.makefile-tools",
+				"github.vscode-github-actions",
+				"Trunk.io"
 			]
 		}
 	},
-	// Likely need to add "--userns=keep-id, --group-add=keep-groups" for podman support 
+	// Likely need to add "--userns=keep-id, --group-add=keep-groups" for podman support
 	"runArgs": ["--init"],
-	"securityOpt": [
-		"label=disable"
-	],
+	"securityOpt": ["label=disable"],
 	"features": {
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
 		"ghcr.io/guiyomh/features/just:0": {},

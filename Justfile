@@ -219,15 +219,15 @@ build $image="sarkinite-kde" $tag="stable" $flavor="main" rechunk="0" ghcr="0" p
     LABELS+=("--label" "ostree.linux=${kernel_release}")
     LABELS+=("--label" "io.artifacthub.package.readme-url=https://raw.githubusercontent.com/GarciaLnk/sarkinite/main/README.md")
     LABELS+=("--label" "io.artifacthub.package.logo-url=https://avatars.githubusercontent.com/u/120078124?s=200&v=4")
-    LABELS+=("--label" "org.opencontainers.image.description=An interpretation of the Ubuntu spirit built on Fedora technology")
+    LABELS+=("--label" "org.opencontainers.image.description= A custom image built upon Bluefin for a bespoke Linux experience")
     LABELS+=("--label" "containers.bootc=1")
     LABELS+=("--label" "org.opencontainers.image.created=$(date -u +%Y\-%m\-%d\T%H\:%M\:%S\Z)")
-    LABELS+=("--label" "org.opencontainers.image.source=https://raw.githubusercontent.com/ublue-os/bluefin/refs/heads/main/Containerfile")
-    LABELS+=("--label" "org.opencontainers.image.url=https://projectbluefin.io")
+    LABELS+=("--label" "org.opencontainers.image.source=https://raw.githubusercontent.com/GarciaLnk/sarkinite/refs/heads/main/Containerfile")
+    LABELS+=("--label" "org.opencontainers.image.url=https://github.com/GarciaLnk/sarkinite")
     LABELS+=("--label" "org.opencontainers.image.vendor={{ repo_organization }}")
     LABELS+=("--label" "io.artifacthub.package.deprecated=false")
-    LABELS+=("--label" "io.artifacthub.package.keywords=bootc,fedora,bluefin,ublue,universal-blue")
-    LABELS+=("--label" "io.artifacthub.package.maintainers=[{\"name\": \"castrojo\", \"email\": \"jorge.castro@gmail.com\"}]")
+    LABELS+=("--label" "io.artifacthub.package.keywords=bootc,fedora,sarkinite,ublue,universal-blue")
+    LABELS+=("--label" "io.artifacthub.package.maintainers=[{\"name\": \"GarciaLnk\", \"email\": \"4411661+GarciaLnk@users.noreply.github.com\"}]")
 
     echo "::endgroup::"
     echo "::group:: Build Container"

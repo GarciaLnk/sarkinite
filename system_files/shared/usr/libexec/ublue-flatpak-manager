@@ -47,7 +47,6 @@ elif [[ $(cat /etc/ublue/image_name) =~ "kde" ]]; then
 	flatpak override --user --env=XDG_CURRENT_DESKTOP=KDE
 fi
 
-
 # Fix printing on LibreOffice
 flatpak override \
 	--socket=cups \
