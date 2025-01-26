@@ -9,7 +9,7 @@ VEN_ID="$(cat /sys/devices/virtual/dmi/id/chassis_vendor)"
 CPU_VENDOR=$(grep "vendor_id" "/proc/cpuinfo" | uniq | awk -F": " '{ print $2 }')
 
 # SCRIPT VERSION
-HWS_VER=4
+HWS_VER=5
 HWS_VER_FILE="/etc/ublue/hws_version"
 [[ -f ${HWS_VER_FILE} ]] && HWS_VER_RAN=$(cat "${HWS_VER_FILE}")
 
@@ -80,6 +80,16 @@ if [[ ":Framework:" =~ ":${VEN_ID}:" ]]; then
 			fi
 		fi
 	fi
+fi
+
+# Correct broken config files on some systems
+if [[ -f "/etc/tuned/ppd.conf" ]] && ! grep "\[battery\]" "/etc/tuned/ppd.conf"; then
+  cp -f "/usr/etc/tuned/ppd.conf" "/etc/tuned/ppd.conf"
+fi
+
+# Set default target to graphical, fixes rebase from base image
+if grep -qv "graphical.target" <<< "$(systemctl get-default)"; then
+  systemctl set-default graphical.target
 fi
 
 echo "${IMAGE_NAME}" >"${KNOWN_IMAGE_NAME_FILE}"
