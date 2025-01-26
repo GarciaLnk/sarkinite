@@ -10,7 +10,7 @@ FEDORA_VERSION=$(jq -r '."fedora-version"' <"${IMAGE_INFO}")
 IMAGE_REGISTRY="ghcr.io/${IMAGE_VENDOR}"
 
 function list_tags() {
-	skopeo list-tags "docker://${IMAGE_REGISTRY}/${IMAGE_NAME}" | grep -E --color=never -- "${FEDORA_VERSION}-([0-9]+)" | sort -rV | head -n 31
+	skopeo list-tags "docker://${IMAGE_REGISTRY}/${IMAGE_NAME}" | grep -E --color=never -- "${IMAGE_TAG}-${FEDORA_VERSION}" | sort -rV | head -n 31
 }
 
 function rebase_helper() {
@@ -26,7 +26,7 @@ function rebase_helper() {
 		echo "Warning: This will pin you to a specific version, do not forget to rebase back to a channel to resume receiving updates."
 		mapfile -t valid_tags < <(list_tags | sed 's/\"//g' | sed 's/,//g')
 		target_tag=$(Choose cancel "${valid_tags[@]}")
-		if grep -Eq "${FEDORA_VERSION}-([0-9]+)" <<<"${target_tag}"; then
+		if grep -Eq "${IMAGE_TAG}-${FEDORA_VERSION}" <<<"${target_tag}"; then
 			# target_tag=${target_tag:1:-2}
 			rebase_target="${base_image}:${target_tag}"
 		else
