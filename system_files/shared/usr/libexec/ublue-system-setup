@@ -9,7 +9,7 @@ VEN_ID="$(cat /sys/devices/virtual/dmi/id/chassis_vendor)"
 CPU_VENDOR=$(grep "vendor_id" "/proc/cpuinfo" | uniq | awk -F": " '{ print $2 }')
 
 # SCRIPT VERSION
-HWS_VER=5
+HWS_VER=6
 HWS_VER_FILE="/etc/ublue/hws_version"
 [[ -f ${HWS_VER_FILE} ]] && HWS_VER_RAN=$(cat "${HWS_VER_FILE}")
 
@@ -84,12 +84,44 @@ fi
 
 # Correct broken config files on some systems
 if [[ -f "/etc/tuned/ppd.conf" ]] && ! grep "\[battery\]" "/etc/tuned/ppd.conf"; then
-  cp -f "/usr/etc/tuned/ppd.conf" "/etc/tuned/ppd.conf"
+	cp -f "/usr/etc/tuned/ppd.conf" "/etc/tuned/ppd.conf"
 fi
 
 # Set default target to graphical, fixes rebase from base image
-if grep -qv "graphical.target" <<< "$(systemctl get-default)"; then
-  systemctl set-default graphical.target
+if grep -qv "graphical.target" <<<"$(systemctl get-default)"; then
+	systemctl set-default graphical.target
+fi
+
+# Grub settings
+# set grub timeout to 1
+if ! grep -q "GRUB_TIMEOUT=" /etc/default/grub; then
+	echo "GRUB_TIMEOUT=1" >>/etc/default/grub
+else
+	sed -i 's/GRUB_TIMEOUT=[0-9]*/GRUB_TIMEOUT=1/' /etc/default/grub
+fi
+
+# nuke hidden timeout as it will cause issues if GRUB_TIMEOUT exists
+if grep -q "GRUB_HIDDEN_TIMEOUT=" /etc/default/grub; then
+	sed -i 's/GRUB_HIDDEN_TIMEOUT=[0-9]*//' /etc/default/grub
+fi
+
+# set timeout style to menu to show grub during countdown
+if ! grep -q "GRUB_TIMEOUT_STYLE=" /etc/default/grub; then
+	echo "GRUB_TIMEOUT_STYLE=menu" >>/etc/default/grub
+else
+	sed -i 's/GRUB_TIMEOUT_STYLE=.*/GRUB_TIMEOUT_STYLE=menu/' /etc/default/grub
+fi
+
+# Autohide grub menu if boot is successful
+grub2-editenv - set menu_auto_hide=2
+
+# Update grub
+if [[ -d /sys/firmware/efi ]]; then
+	echo "Updating EFI grub config"
+	grub2-mkconfig -o /etc/grub2-efi.cfg
+else
+	echo "Updating BIOS grub config"
+	grub2-mkconfig -o /etc/grub2.cfg
 fi
 
 echo "${IMAGE_NAME}" >"${KNOWN_IMAGE_NAME_FILE}"
