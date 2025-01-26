@@ -51,8 +51,10 @@ if [ -n "$(command -v procs)" ]; then
 fi
 
 # set micro as default editor
-if [ -n "$(command -v micro)" ]; then
-	export EDITOR='micro'
+MICRO_PATH="$(command -v micro)"
+if [ -n "${MICRO_PATH}" ]; then
+	export EDITOR="${MICRO_PATH}"
+	export SUDO_EDITOR="${MICRO_PATH}"
 fi
 
 # set delta as default git pager
