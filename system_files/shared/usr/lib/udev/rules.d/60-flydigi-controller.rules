@@ -1,0 +1,3 @@
+# Vader 3/4
+KERNEL=="hidraw*", KERNELS=="*04B4:2412*", MODE="0660", TAG+="uaccess"
+KERNEL=="hidraw*", ATTRS{idVendor}=="04b4", ATTRS{idProduct}=="2412", MODE="0660", TAG+="uaccess"
