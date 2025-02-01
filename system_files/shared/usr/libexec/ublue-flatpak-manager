@@ -81,7 +81,7 @@ flatpak override \
 
 # Set up Zen default configuration
 mkdir -p "/var/lib/flatpak/extension/io.github.zen_browser.zen.systemconfig/$(arch)/stable/defaults/pref"
-rm -f "/var/lib/flatpak/extension/io.github.zen_browser.zen.systemconfig/$(arch)/stable/defaults/pref/{*sarkinite*,*arkenfox*}.js"
+rm -f "/var/lib/flatpak/extension/io.github.zen_browser.zen.systemconfig/$(arch)/stable/defaults/pref/{*sarkinite*,*arkenfox*,*betterfox*}.js"
 /usr/bin/cp -rf /usr/lib64/firefox/defaults/pref/* "/var/lib/flatpak/extension/io.github.zen_browser.zen.systemconfig/$(arch)/stable/defaults/pref/"
 
 # Params needed for HW accelerated video on Nvidia
