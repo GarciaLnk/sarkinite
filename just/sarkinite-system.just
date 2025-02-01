@@ -336,8 +336,11 @@ install-nix:
     echo 'Installing Nix'
     curl -Lo /tmp/nix-installer https://install.determinate.systems/nix/nix-installer-x86_64-linux
     chmod +x /tmp/nix-installer
-    sudo /tmp/nix-installer install ostree --no-confirm
+    sudo /tmp/nix-installer install ostree --no-confirm --determinate
     rm -f /tmp/nix-installer
+    sudo tee /etc/sudoers.d/nix-sudo-env <<EOF
+    Defaults  secure_path = /nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:$(printenv PATH)
+    EOF
     sudo systemctl enable nix-gc.timer
     . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
     nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
@@ -458,3 +461,16 @@ setup-boot-windows:
     else
         echo "Cannot find Windows boot in EFI"
     fi
+
+# Cleanup system
+[group('System')]
+clean:
+    #!/usr/bin/env bash
+    podman image prune --all --force
+    podman volume prune --force
+    flatpak uninstall --unused
+    rpm-ostree cleanup --base --repomd
+    sudo podman image prune --all --force
+    sudo podman volume prune --force
+    docker image prune --all --force
+    docker volume prune --all --force

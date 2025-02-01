@@ -98,6 +98,18 @@ EOF
 ACTION=="add", DEVPATH=="/bus/pci/drivers/nvidia", RUN+="/usr/bin/nvidia-ctk system 	create-dev-char-symlinks --create-all"
 EOF
 
+	# Set nvidia-container-runtime in docker daemon.json
+	cat <<EOF >/etc/docker/daemon.json
+{
+    "runtimes": {
+        "nvidia": {
+            "args": [],
+            "path": "nvidia-container-runtime"
+        }
+    }
+}
+EOF
+
 fi
 
 echo "::endgroup::"

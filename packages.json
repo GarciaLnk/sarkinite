@@ -32,6 +32,7 @@
 				"gum",
 				"hplip",
 				"keyd",
+				"kmonad",
 				"krb5-workstation",
 				"ifuse",
 				"igt-gpu-tools",
@@ -158,9 +159,6 @@
 				"rocm-hip",
 				"rocm-opencl",
 				"rocm-smi",
-				"virt-manager",
-				"virt-viewer",
-				"virt-v2v",
 				"ydotool",
 				"zed"
 			]
