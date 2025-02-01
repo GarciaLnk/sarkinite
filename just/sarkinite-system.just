@@ -230,17 +230,33 @@ configure-vfio ACTION="":
 # Install system flatpaks for rebasers
 [group('System')]
 [private]
-install-system-flatpaks:
+install-system-flatpaks CURR_LIST_FILE="":
     #!/usr/bin/env bash
-    IMAGE_INFO="/usr/share/ublue-os/image-info.json"
-    BASE_IMAGE_NAME=$(jq -r '."base-image-name"' < $IMAGE_INFO)
-    if [[ ${BASE_IMAGE_NAME} == 'silverblue' ]]; then
+    CURR_LIST_FILE={{ CURR_LIST_FILE }}
+    IMAGE_NAME=$(jq -r '."image-name"' < "/usr/share/ublue-os/image-info.json")
+    if [[ ${IMAGE_NAME} =~ "gnome" ]]; then
         FLATPAKS="flatpaks_gnome/flatpaks"
-    elif [[ ${BASE_IMAGE_NAME} == 'kinoite' ]]; then
+    elif [[ ${IMAGE_NAME} =~ "kde" ]]; then
         FLATPAKS="flatpaks_kde/flatpaks"
     fi
     FLATPAK_LIST="$(curl https://raw.githubusercontent.com/GarciaLnk/sarkinite/main/${FLATPAKS} | tr '\n' ' ')"
-    flatpak --system -y install --or-update ${FLATPAK_LIST}
+
+    if [[ ${IMAGE_NAME} =~ "dx" ]]; then
+        DX_FLATPAKS="$(curl https://raw.githubusercontent.com/GarciaLnk/sarkinite/main/dx_flatpaks/flatpaks | tr '\n' ' ')"
+        FLATPAK_LIST="${FLATPAK_LIST} ${DX_FLATPAKS}"
+    fi
+
+    if [[ -n ${CURR_LIST_FILE} ]]; then
+        CURRENT_FLATPAK_LIST=$(cat "${CURR_LIST_FILE} 2>/dev/null")
+        # get flatpaks that are in FLATPAK_LIST but not in CURRENT_FLATPAK_LIST
+        NEW_FLATPAKS=$(comm -23 <(sort "${FLATPAK_LIST}") <(sort "${CURRENT_FLATPAK_LIST}"))
+        if [[ -n ${NEW_FLATPAKS} ]]; then
+            flatpak --system -y install --or-update ${NEW_FLATPAKS}
+            echo "${FLATPAK_LIST}" > "${CURR_LIST_FILE}"
+        fi
+    else
+        flatpak --system -y install --or-update ${FLATPAK_LIST}
+    fi
 
 # Configure grub bootmenu visibility
 [group('System')]
