@@ -53,7 +53,7 @@ running-indicator-style='DOTS'
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2]
 binding='<Control><Shift>Escape'
-command="flatpak run io.missioncenter.MissionCenter"
+command="flatpak run net.nokyan.Resources"
 name='mission-center'
 
 [org/gnome/settings-daemon/plugins/media-keys]
@@ -87,7 +87,7 @@ flatpak='off'
 symbolic-icon=true
 menu-button-icon-image=30
 menu-button-terminal='xdg-terminal-exec'
-menu-button-system-monitor='flatpak run io.missioncenter.MissionCenter'
+menu-button-system-monitor='flatpak run net.nokyan.Resources'
 menu-button-extensions-app='com.mattjakeman.ExtensionManager.desktop'
 menu-button-software-center='gnome-software'
 show-activities-button=true
