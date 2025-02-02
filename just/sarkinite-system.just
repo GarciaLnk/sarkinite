@@ -246,23 +246,28 @@ install-system-flatpaks CURR_LIST_FILE="":
     elif [[ ${IMAGE_NAME} =~ "kde" ]]; then
         FLATPAKS="flatpaks_kde/flatpaks"
     fi
-    FLATPAK_LIST="$(curl https://raw.githubusercontent.com/GarciaLnk/sarkinite/main/${FLATPAKS} | tr '\n' ' ')"
+    FLATPAK_LIST=($(curl https://raw.githubusercontent.com/GarciaLnk/sarkinite/main/${FLATPAKS}))
 
     if [[ ${IMAGE_NAME} =~ "dx" ]]; then
-        DX_FLATPAKS="$(curl https://raw.githubusercontent.com/GarciaLnk/sarkinite/main/dx_flatpaks/flatpaks | tr '\n' ' ')"
-        FLATPAK_LIST="${FLATPAK_LIST} ${DX_FLATPAKS}"
+        FLATPAK_LIST+=($(curl https://raw.githubusercontent.com/GarciaLnk/sarkinite/main/dx_flatpaks/flatpaks))
     fi
 
     if [[ -n ${CURR_LIST_FILE} ]]; then
-        CURRENT_FLATPAK_LIST=$(cat "${CURR_LIST_FILE} 2>/dev/null")
-        # get flatpaks that are in FLATPAK_LIST but not in CURRENT_FLATPAK_LIST
-        NEW_FLATPAKS=$(comm -23 <(sort "${FLATPAK_LIST}") <(sort "${CURRENT_FLATPAK_LIST}"))
-        if [[ -n ${NEW_FLATPAKS} ]]; then
-            flatpak --system -y install --or-update ${NEW_FLATPAKS}
-            echo "${FLATPAK_LIST}" > "${CURR_LIST_FILE}"
+        if [[ -f "${CURR_LIST_FILE}" ]]; then
+            mapfile -t CURRENT_FLATPAK_LIST < "${CURR_LIST_FILE}"
+            # convert arrays to sorted newline-separated strings to compare lists and get new flatpaks
+            NEW_FLATPAKS=($(comm -23 <(printf "%s\n" "${FLATPAK_LIST[@]}" | sort) <(printf "%s\n" "${CURRENT_FLATPAK_LIST[@]}" | sort)))
+            if [[ ${#NEW_FLATPAKS[@]} -gt 0 ]]; then
+                flatpak --system -y install --or-update "${NEW_FLATPAKS[@]}"
+                printf "%s\n" "${FLATPAK_LIST[@]}" > "${CURR_LIST_FILE}"
+                notify-send "Welcome to Sarkinite" "New flatpak apps have been installed!" --app-name="Flatpak Manager Service" -u NORMAL
+            fi
+        else
+            printf "%s\n" "${FLATPAK_LIST[@]}" > "${CURR_LIST_FILE}"
+            flatpak --system -y install --or-update "${FLATPAK_LIST[@]}"
         fi
     else
-        flatpak --system -y install --or-update ${FLATPAK_LIST}
+        flatpak --system -y install --or-update "${FLATPAK_LIST[@]}"
     fi
 
 # Configure grub bootmenu visibility
