@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 # SCRIPT VERSION
 USER_SETUP_VER=8

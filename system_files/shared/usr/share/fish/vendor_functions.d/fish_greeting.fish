@@ -1,4 +1,4 @@
-#!/usr/bin/fish
+#!/usr/bin/env fish
 #shellcheck disable=all
 
 function fish_greeting

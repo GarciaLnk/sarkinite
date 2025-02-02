@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 echo "::group:: ===$(basename "$0")==="
 
@@ -29,6 +29,8 @@ systemctl enable keyd.service
 systemctl enable usr-share-sddm-themes.mount
 systemctl enable grub-boot-success.timer
 systemctl enable grub-boot-success.service
+systemctl --global enable p11-kit-server.socket
+systemctl --global enable p11-kit-server.service
 
 # Hide Desktop Files. Hidden removes mime associations
 sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nHidden=true@g' /usr/share/applications/fish.desktop

@@ -15,9 +15,9 @@ fi
 
 # Add kvmfr modprobe file following upstream documentation
 echo "Setting up kvmfr module so it loads next boot"
-if [ -f "/etc/modprobe.d/kvmfr.conf" ]; then
-    echo "Re-creating dummy kvmfr modprobe file"
-    sudo rm /etc/modprobe.d/kvmfr.conf
+if [[ -f "/etc/modprobe.d/kvmfr.conf" ]]; then
+	echo "Re-creating dummy kvmfr modprobe file"
+	sudo rm /etc/modprobe.d/kvmfr.conf
 fi
 sudo bash -c 'cat << KVMFR_MODPROBE > /etc/modprobe.d/kvmfr.conf
 # This is a dummy file and changing it does nothing
@@ -67,9 +67,9 @@ fi
 if [[ ! -d "${HOME}/.config/selinux_te/pp" ]]; then
 	mkdir -p "${HOME}/.config/selinux_te/pp"
 fi
-if [ -f "$HOME/.config/selinux_te/kvmfr.te" ]; then
-    echo "Re-creating kvmfr selinux type enforcement rules"
-    rm $HOME/.config/selinux_te/kvmfr.te
+if [[ -f "${HOME}/.config/selinux_te/kvmfr.te" ]]; then
+	echo "Re-creating kvmfr selinux type enforcement rules"
+	rm "${HOME}"/.config/selinux_te/kvmfr.te
 fi
 bash -c "cat << KVMFR_SELINUX > ${HOME}/.config/selinux_te/kvmfr.te
 module kvmfr 1.0;

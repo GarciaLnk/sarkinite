@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # shellcheck disable=SC2068,SC2207,SC2046
 
 echo "::group:: ===$(basename "$0")==="

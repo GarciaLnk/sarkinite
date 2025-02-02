@@ -1,4 +1,4 @@
-#!/usr/bin/fish
+#!/usr/bin/env fish
 
 # ls aliases
 if [ "$(command -v eza)" ]

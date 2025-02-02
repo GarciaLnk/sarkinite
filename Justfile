@@ -39,7 +39,7 @@ default:
 # Check Just Syntax
 [group('Just')]
 check:
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     find . -type f -name "*.just" | while read -r file; do
     	echo "Checking syntax: $file"
     	just --unstable --fmt --check -f $file
@@ -50,7 +50,7 @@ check:
 # Fix Just Syntax
 [group('Just')]
 fix:
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     find . -type f -name "*.just" | while read -r file; do
     	echo "Checking syntax: $file"
     	just --unstable --fmt -f $file
@@ -61,7 +61,7 @@ fix:
 # Clean Repo
 [group('Utility')]
 clean:
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     set -eoux pipefail
     touch _build
     find *_build* -exec rm -rf {} \;
@@ -73,7 +73,7 @@ clean:
 [group('Utility')]
 [private]
 validate $image $tag $flavor:
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     set -eou pipefail
     declare -A images={{ images }}
     declare -A tags={{ tags }}
@@ -113,7 +113,7 @@ validate $image $tag $flavor:
 # Build Image
 [group('Image')]
 build $image="sarkinite-kde" $tag="stable" $flavor="main" rechunk="0" ghcr="0" pipeline="0" $kernel_pin="":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
 
     echo "::group:: Build Prep"
     set -eoux pipefail
@@ -262,7 +262,7 @@ build-rechunk image="sarkinite-kde" tag="stable" flavor="main" kernel_pin="":
 # Build Image with GHCR Flag
 [group('Image')]
 build-ghcr image="sarkinite-kde" tag="stable" flavor="main" kernel_pin="":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     if [[ "${UID}" -gt "0" ]]; then
         echo "Must Run with sudo or as root..."
         exit 1
@@ -272,14 +272,14 @@ build-ghcr image="sarkinite-kde" tag="stable" flavor="main" kernel_pin="":
 # Build Image for Pipeline:
 [group('Image')]
 build-pipeline image="sarkinite-kde" tag="stable" flavor="main" kernel_pin="":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     ${SUDOIF} just build {{ image }} {{ tag }} {{ flavor }} 1 1 1 {{ kernel_pin }}
 
 # Rechunk Image
 [group('Image')]
 [private]
 rechunk $image="sarkinite-kde" $tag="stable" $flavor="main" ghcr="0" pipeline="0":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
 
     echo "::group:: Rechunk Prep"
     set -eoux pipefail
@@ -439,7 +439,7 @@ rechunk $image="sarkinite-kde" $tag="stable" $flavor="main" ghcr="0" pipeline="0
 # Load OCI into Podman Store
 [group('Image')]
 load-rechunk image="sarkinite-kde" tag="stable" flavor="main":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     set -eou pipefail
 
     # Validate
@@ -460,7 +460,7 @@ load-rechunk image="sarkinite-kde" tag="stable" flavor="main":
 # Run Container
 [group('Image')]
 run $image="sarkinite-kde" $tag="stable" $flavor="main":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     set -eoux pipefail
 
     # Validate
@@ -481,7 +481,7 @@ run $image="sarkinite-kde" $tag="stable" $flavor="main":
 # Build ISO
 [group('ISO')]
 build-iso $image="sarkinite-kde" $tag="stable" $flavor="main" ghcr="0" pipeline="0":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     set -eoux pipefail
 
     # Validate
@@ -623,7 +623,7 @@ build-iso-ghcr image="sarkinite-kde" tag="stable" flavor="main":
 # Run ISO
 [group('ISO')]
 run-iso $image="sarkinite-kde" $tag="stable" $flavor="main":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     set -eoux pipefail
 
     # Validate
@@ -664,14 +664,14 @@ run-iso $image="sarkinite-kde" $tag="stable" $flavor="main":
 # Test Changelogs
 [group('Changelogs')]
 changelogs branch="stable" handwritten="":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     set -eou pipefail
     python3 ./.github/changelogs.py "{{ branch }}" ./output.env ./changelog.md --workdir . --handwritten "{{ handwritten }}"
 
 # Verify Container with Cosign
 [group('Utility')]
 verify-container container="" registry="ghcr.io/ublue-os" key="":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     set -eou pipefail
 
     # Get Cosign if Needed
@@ -704,7 +704,7 @@ verify-container container="" registry="ghcr.io/ublue-os" key="":
 # Secureboot Check
 [group('Utility')]
 secureboot $image="sarkinite-kde" $tag="stable" $flavor="main":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     set -eou pipefail
 
     # Validate
@@ -756,7 +756,7 @@ secureboot $image="sarkinite-kde" $tag="stable" $flavor="main":
 [group('Utility')]
 [private]
 fedora_version image="sarkinite-kde" tag="stable" flavor="main" $kernel_pin="":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     set -eou pipefail
     just validate {{ image }} {{ tag }} {{ flavor }}
     if [[ ! -f /tmp/manifest.json ]]; then
@@ -777,7 +777,7 @@ fedora_version image="sarkinite-kde" tag="stable" flavor="main" $kernel_pin="":
 [group('Utility')]
 [private]
 image_name image="sarkinite-kde" tag="stable" flavor="main":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     set -eou pipefail
     just validate {{ image }} {{ tag }} {{ flavor }}
     if [[ "{{ flavor }}" =~ main ]]; then
@@ -790,7 +790,7 @@ image_name image="sarkinite-kde" tag="stable" flavor="main":
 # Generate Tags
 [group('Utility')]
 generate-build-tags image="sarkinite-kde" tag="stable" flavor="main" kernel_pin="" ghcr="0" $version="" github_event="" github_number="":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     set -eou pipefail
 
     TODAY="$(date +%A)"
@@ -849,7 +849,7 @@ generate-build-tags image="sarkinite-kde" tag="stable" flavor="main" kernel_pin=
 # Generate Default Tag
 [group('Utility')]
 generate-default-tag tag="stable" ghcr="0":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     set -eou pipefail
 
     # Default Tag
@@ -866,7 +866,7 @@ generate-default-tag tag="stable" ghcr="0":
 # Tag Images
 [group('Utility')]
 tag-images image_name="" default_tag="" tags="":
-    #!/usr/bin/bash
+    #!/usr/bin/env bash
     set -eou pipefail
 
     # Get Image, and untag

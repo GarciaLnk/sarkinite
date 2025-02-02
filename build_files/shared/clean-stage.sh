@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 #shellcheck disable=SC2115
 
 echo "::group:: ===$(basename "$0")==="

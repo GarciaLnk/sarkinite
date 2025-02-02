@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 if test "$(id -u)" -gt "0" && test -d "${HOME}"; then
 	if test ! -e "${HOME}"/.config/autostart/sb-key-notify.desktop; then

@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 #shellcheck disable=SC2076
 
 IMAGE_INFO="/usr/share/ublue-os/image-info.json"

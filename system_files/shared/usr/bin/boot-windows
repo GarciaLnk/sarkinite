@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 # Look up the boot number for Windows in the EFI records
 boot_number=$(efibootmgr | grep -oP "Boot\K\d{4}(?=[\* ]*Windows)" | head -n 1)
