@@ -1,5 +1,6 @@
 app/io.podman_desktop.PodmanDesktop/x86_64/stable
 app/io.github.shiftey.Desktop/x86_64/stable
 app/org.virt_manager.virt-manager/x86_64/stable
+runtime/org.virt_manager.virt_manager.Extension.Qemu/x86_64/stable
 app/io.github.dvlv.boxbuddyrs/x86_64/stable
 app/io.github.getnf.embellish/x86_64/stable
