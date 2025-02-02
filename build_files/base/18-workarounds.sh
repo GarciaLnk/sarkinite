@@ -19,10 +19,10 @@ if [[ ${IMAGE_NAME} =~ "gnome" ]]; then
 elif [[ ${IMAGE_NAME} =~ "kde" ]]; then
 	FLATPAKS="flatpaks_kde/flatpaks"
 fi
-FLATPAK_LIST=($(curl https://raw.githubusercontent.com/GarciaLnk/sarkinite/main/${FLATPAKS}))
+FLATPAK_LIST=($(cat /ctx/${FLATPAKS}))
 if [[ ${IMAGE_NAME} =~ "dx" ]]; then
-	FLATPAK_LIST+=($(curl https://raw.githubusercontent.com/GarciaLnk/sarkinite/main/dx_flatpaks/flatpaks))
+	FLATPAK_LIST+=($(cat /ctx/dx_flatpaks/flatpaks))
 fi
-printf "%s\n" "${FLATPAK_LIST[@]}" > /usr/share/ublue-os/flatpak-list
+printf "%s\n" "${FLATPAK_LIST[@]}" > /usr/share/ublue-os/flatpak_list
 
 echo "::endgroup::"
