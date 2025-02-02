@@ -350,9 +350,9 @@ install-nix:
     chmod +x /tmp/nix-installer
     sudo /tmp/nix-installer install ostree --no-confirm --determinate
     rm -f /tmp/nix-installer
-    sudo tee /etc/sudoers.d/nix-sudo-env <<EOF
+    bash -c "sudo tee /etc/sudoers.d/nix-sudo-env <<EOF
     Defaults  secure_path = /nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:$(printenv PATH)
-    EOF
+    EOF"
     sudo systemctl enable nix-gc.timer
     . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
     nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
@@ -436,7 +436,7 @@ setup-ssh:
     fi
 
     if ! grep -q "SSH_AUTH_SOCK" "$HOME/.profile" 2>/dev/null; then
-      cat >> "$HOME/.profile" << EOF
+      bash -c "cat >> "$HOME/.profile" <<EOF
     if [[ -z \${SSH_AUTH_SOCK} ]]; then
         # Check for a currently running instance of the agent
         RUNNING_AGENT="\$(pgrep -fc 'ssh-agent -s')"
@@ -447,7 +447,7 @@ setup-ssh:
         eval "\$(cat "\${HOME}/.ssh/ssh-agent")" >/dev/null
         ssh-add "\${HOME}/.ssh/id_ed25519" 2>/dev/null
     fi
-    EOF
+    EOF"
     fi
 
 # Add .desktop file to reboot into Windows if dual-booting
@@ -460,7 +460,7 @@ setup-boot-windows:
         echo "Making efibootmgr -n usable without sudo password"
         echo "%wheel ALL=(root) NOPASSWD: /usr/sbin/efibootmgr" | sudo tee /etc/sudoers.d/efibootmgr-config
         echo "Adding shortcut to reboot into Windows"
-        cat <<EOF >"${HOME}/.local/share/applications/reboot-windows.desktop"
+        bash -c "cat <<EOF >"${HOME}/.local/share/applications/reboot-windows.desktop"
     [Desktop Entry]
     Type=Application
     Name=Boot Windows
@@ -469,7 +469,7 @@ setup-boot-windows:
     Icon=windows
     Terminal=false
     Categories=System;
-    EOF
+    EOF"
     else
         echo "Cannot find Windows boot in EFI"
     fi

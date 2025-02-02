@@ -125,7 +125,7 @@ install-gaming-apps:
 install-java:
     #!/usr/bin/env bash
     brew install openjdk
-    cat > "${HOME}/.local/share/applications/openjdk.desktop" <<EOF
+    bash -c "cat > "${HOME}/.local/share/applications/openjdk.desktop" <<EOF
     [Desktop Entry]
     Name=OpenJDK Java Runtime
     Comment=OpenJDK Java Runtime
@@ -136,4 +136,4 @@ install-java:
     Icon=java-jdk
     MimeType=application/x-java-archive;application/java-archive;application/x-jar;
     NoDisplay=true
-    EOF
+    EOF"
