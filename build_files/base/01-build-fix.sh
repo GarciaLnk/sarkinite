@@ -60,6 +60,20 @@ rpm-ostree override replace \
 	elfutils-libs ||
 	true
 
+rpm-ostree override replace \
+	--experimental \
+	--from repo=fedora-multimedia \
+	mesa-filesystem \
+	mesa-libEGL \
+	mesa-dri-drivers \
+	mesa-dri-drivers.i686 \
+	mesa-libgbm \
+	mesa-libglapi \
+	mesa-libGL \
+	mesa-va-drivers \
+	mesa-vulkan-drivers ||
+	true
+
 rpm-ostree override remove \
 	glibc32 ||
 	true
