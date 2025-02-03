@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # shellcheck disable=SC1091
 source /usr/lib/ujust/ujust.sh
 GRUB_STATE="$(sudo grub2-editenv list | grep "^menu_auto_hide=")"

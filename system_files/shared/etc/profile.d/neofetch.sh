@@ -1,3 +1,3 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 alias neofetch=fastfetch

@@ -99,6 +99,7 @@ ACTION=="add", DEVPATH=="/bus/pci/drivers/nvidia", RUN+="/usr/bin/nvidia-ctk sys
 EOF
 
 	# Set nvidia-container-runtime in docker daemon.json
+	mkdir -p /etc/docker
 	cat <<EOF >/etc/docker/daemon.json
 {
     "runtimes": {

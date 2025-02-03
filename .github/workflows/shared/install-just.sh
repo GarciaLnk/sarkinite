@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -eoux pipefail
 while [[ ${JUST_VERSION-} =~ null || -z ${JUST_VERSION-} ]]; do
 	JUST_VERSION=$(curl -L https://api.github.com/repos/casey/just/releases/latest | jq -r '.tag_name')

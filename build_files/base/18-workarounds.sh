@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # shellcheck disable=SC2016
 
 echo "::group:: ===$(basename "$0")==="
@@ -6,7 +6,7 @@ echo "::group:: ===$(basename "$0")==="
 set -eoux pipefail
 
 # alternatives cannot create symlinks on its own during a container build
-if [ -f /usr/bin/ld.bfd ]; then
+if [[ -f /usr/bin/ld.bfd ]]; then
 	ln -sf /usr/bin/ld.bfd /etc/alternatives/ld && ln -sf /etc/alternatives/ld /usr/bin/ld
 fi
 
@@ -19,10 +19,10 @@ if [[ ${IMAGE_NAME} =~ "gnome" ]]; then
 elif [[ ${IMAGE_NAME} =~ "kde" ]]; then
 	FLATPAKS="flatpaks_kde/flatpaks"
 fi
-FLATPAK_LIST=($(cat /ctx/${FLATPAKS}))
+mapfile -t FLATPAK_LIST </ctx/"${FLATPAKS}"
 if [[ ${IMAGE_NAME} =~ "dx" ]]; then
-	FLATPAK_LIST+=($(cat /ctx/dx_flatpaks/flatpaks))
+	mapfile -t -O "${#FLATPAK_LIST[@]}" FLATPAK_LIST </ctx/dx_flatpaks/flatpaks
 fi
-printf "%s\n" "${FLATPAK_LIST[@]}" > /usr/share/ublue-os/flatpak_list
+printf "%s\n" "${FLATPAK_LIST[@]}" >/usr/share/ublue-os/flatpak_list
 
 echo "::endgroup::"
