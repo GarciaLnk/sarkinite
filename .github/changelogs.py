@@ -11,17 +11,17 @@ REGISTRY = "docker://ghcr.io/garcialnk/"
 IMAGE_MATRIX_LATEST = {
     "experience": ["base", "dx"],
     "de": ["kde", "gnome"],
-    "image_flavor": ["main", "nvidia", "hwe", "hwe-nvidia"],
+    "image_flavor": ["main", "nvidia-open"],
 }
 IMAGE_MATRIX_GTS = {
     "experience": ["base", "dx"],
     "de": ["gnome"],
-    "image_flavor": ["main", "nvidia"],
+    "image_flavor": ["main", "nvidia-open"],
 }
 IMAGE_MATRIX = {
     "experience": ["base", "dx"],
-    "de": ["kde", "gnome"],
-    "image_flavor": ["main", "nvidia"],
+    "de": ["kde"],
+    "image_flavor": ["main", "nvidia-open"],
 }
 
 RETRIES = 3
