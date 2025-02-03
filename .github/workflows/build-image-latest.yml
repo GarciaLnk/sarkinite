@@ -21,7 +21,6 @@ jobs:
       image_flavors: '["main", "nvidia-open"]'
       brand_name: ${{ matrix.brand_name }}
       stream_name: latest
-    # This needs splitting, right now a kernel pin will not work due to hwe kernel
 
   generate-release:
     name: Generate Release
