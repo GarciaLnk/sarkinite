@@ -10,7 +10,7 @@ for pkg in kernel kernel-core kernel-modules kernel-modules-core kernel-modules-
 done
 
 # Fetch Kernel
-skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/"${AKMODS_FLAVOR}"-kernel:"$(rpm -E %fedora)"-"${KERNEL}" dir:/tmp/kernel-rpms
+skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/"${AKMODS_FLAVOR}"-kernel:"${FEDORA_MAJOR_VERSION}"-"${KERNEL}" dir:/tmp/kernel-rpms
 KERNEL_TARGZ=$(jq -r '.layers[].digest' </tmp/kernel-rpms/manifest.json | cut -d : -f 2)
 tar -xvzf /tmp/kernel-rpms/"${KERNEL_TARGZ}" -C /
 mv /tmp/rpms/* /tmp/kernel-rpms/
@@ -22,13 +22,13 @@ rpm-ostree install \
 	/tmp/kernel-rpms/kernel-modules-*.rpm
 
 # Fetch Kernel RPMS
-skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/"${AKMODS_FLAVOR}"-kernel:"$(rpm -E %fedora)"-"${KERNEL}" dir:/tmp/kernel-rpms
+skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/"${AKMODS_FLAVOR}"-kernel:"${FEDORA_MAJOR_VERSION}"-"${KERNEL}" dir:/tmp/kernel-rpms
 KERNEL_TARGZ=$(jq -r '.layers[].digest' </tmp/kernel-rpms/manifest.json | cut -d : -f 2)
 tar -xvzf /tmp/kernel-rpms/"${KERNEL_TARGZ}" -C /
 mv /tmp/rpms/* /tmp/kernel-rpms/
 
 # Fetch Common AKMODS
-skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods:"${AKMODS_FLAVOR}"-"$(rpm -E %fedora)"-"${KERNEL}" dir:/tmp/akmods
+skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods:"${AKMODS_FLAVOR}"-"${FEDORA_MAJOR_VERSION}"-"${KERNEL}" dir:/tmp/akmods
 AKMODS_TARGZ=$(jq -r '.layers[].digest' </tmp/akmods/manifest.json | cut -d : -f 2)
 tar -xvzf /tmp/akmods/"${AKMODS_TARGZ}" -C /tmp/
 mv /tmp/rpms/* /tmp/akmods/
@@ -41,17 +41,24 @@ if ! rpm -qa | grep kernel-devel; then
 fi
 
 rpm-ostree install \
+	/tmp/akmods/kmods/*xone*.rpm \
+	xpadneo /tmp/akmods/kmods/*xpadneo*.rpm \
 	/tmp/akmods/kmods/*openrazer*.rpm \
 	/tmp/akmods/kmods/*framework-laptop*.rpm \
 	/tmp/akmods/kmods/*kvmfr*.rpm
 
+# RPMFUSION Dependent AKMODS
 rpm-ostree install \
-	xpadneo akmod-xpadneo v4l2-relayd v4l2loopback akmod-v4l2loopback
+	https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"${FEDORA_MAJOR_VERSION}".noarch.rpm \
+	https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"${FEDORA_MAJOR_VERSION}".noarch.rpm
+rpm-ostree install \
+	v4l2loopback /tmp/akmods/kmods/*v4l2loopback*.rpm
+rpm-ostree uninstall rpmfusion-free-release rpmfusion-nonfree-release
 
 # Nvidia AKMODS
 if [[ ${IMAGE_NAME} =~ nvidia ]]; then
 	# Fetch Nvidia RPMs
-	skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods-nvidia-open:"${AKMODS_FLAVOR}"-"$(rpm -E %fedora)"-"${KERNEL}" dir:/tmp/akmods-rpms
+	skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods-nvidia-open:"${AKMODS_FLAVOR}"-"${FEDORA_MAJOR_VERSION}"-"${KERNEL}" dir:/tmp/akmods-rpms
 	NVIDIA_TARGZ=$(jq -r '.layers[].digest' </tmp/akmods-rpms/manifest.json | cut -d : -f 2)
 	tar -xvzf /tmp/akmods-rpms/"${NVIDIA_TARGZ}" -C /tmp/
 	mv /tmp/rpms/* /tmp/akmods-rpms/
@@ -63,7 +70,7 @@ if [[ ${IMAGE_NAME} =~ nvidia ]]; then
 fi
 
 # Fetch ZFS RPMs
-skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods-zfs:"${AKMODS_FLAVOR}"-"$(rpm -E %fedora)"-"${KERNEL}" dir:/tmp/akmods-zfs
+skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods-zfs:"${AKMODS_FLAVOR}"-"${FEDORA_MAJOR_VERSION}"-"${KERNEL}" dir:/tmp/akmods-zfs
 ZFS_TARGZ=$(jq -r '.layers[].digest' </tmp/akmods-zfs/manifest.json | cut -d : -f 2)
 tar -xvzf /tmp/akmods-zfs/"${ZFS_TARGZ}" -C /tmp/
 mv /tmp/rpms/* /tmp/akmods-zfs/
