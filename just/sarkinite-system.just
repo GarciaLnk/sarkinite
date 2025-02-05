@@ -155,12 +155,12 @@ install-system-flatpaks CURR_LIST_FILE="":
                 notify-send "Welcome to Sarkinite" "New flatpak apps have been installed!" --app-name="Flatpak Manager Service" -u NORMAL
             fi
         else
-            printf "%s\n" "${FLATPAK_LIST[@]}" > "${CURR_LIST_FILE}"
             flatpak --system -y install --or-update "${FLATPAK_LIST[@]}"
+            printf "%s\n" "${FLATPAK_LIST[@]}" > "${CURR_LIST_FILE}"
         fi
     else
         FLATPAK_LIST=($(curl https://raw.githubusercontent.com/GarciaLnk/sarkinite/main/flatpaks))
-        flatpak --system -y install --or-update "${FLATPAK_LIST[@]}"
+        flatpak --system -y install --reinstall --or-update "${FLATPAK_LIST[@]}"
     fi
 
 # Configure grub bootmenu visibility
