@@ -122,7 +122,3 @@
 +rocm-smi
 +ydotool
 +zed
--krfb
--krfb-libs
--noopenh264
--podman-docker

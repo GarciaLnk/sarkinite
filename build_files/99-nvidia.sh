@@ -6,13 +6,13 @@ set -ouex pipefail
 RELEASE="$(rpm -E %fedora)"
 
 ## nvidia install steps
-rpm-ostree install /tmp/akmods-rpms/ublue-os/ublue-os-nvidia-addons-*.rpm
+dnf5 -y install /tmp/akmods-rpms/ublue-os/ublue-os-nvidia-addons-*.rpm
 
 # enable repo provided by ublue-os-nvidia-addons
 sed -i '0,/enabled=0/{s/enabled=0/enabled=1/}' /etc/yum.repos.d/nvidia-container-toolkit.repo
 
 # Enable staging for supergfxctl
-sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/_copr_ublue-os-staging.repo
+dnf5 -y copr enable ublue-os/staging
 
 # Enable fedora-nvidia
 sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/negativo17-fedora-nvidia.repo
@@ -20,21 +20,7 @@ sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/negativo17-fedora-multimedia.r
 
 source /tmp/akmods-rpms/kmods/nvidia-vars
 
-rpm-ostree override replace \
-	--experimental \
-	--from repo=fedora-multimedia \
-	mesa-dri-drivers \
-	mesa-filesystem \
-	mesa-libEGL \
-	mesa-libGL \
-	mesa-libgbm \
-	mesa-libglapi \
-	mesa-libxatracker \
-	mesa-va-drivers \
-	mesa-vulkan-drivers ||
-	true
-
-rpm-ostree install \
+dnf5 -y install \
 	libnvidia-fbc \
 	libnvidia-ml \
 	libva-nvidia-driver \
@@ -46,14 +32,14 @@ rpm-ostree install \
 	nvidia-container-toolkit \
 	/tmp/akmods-rpms/kmods/kmod-nvidia-"${KERNEL_VERSION}"-"${NVIDIA_AKMOD_VERSION}".fc"${RELEASE}".rpm
 
-rpm-ostree install supergfxctl-plasmoid supergfxctl prime-run
+dnf5 -y install supergfxctl-plasmoid supergfxctl prime-run
 
 ## nvidia post-install steps
 # disable repo provided by ublue-os-nvidia-addons
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/nvidia-container-toolkit.repo
 
 # Disable staging
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_ublue-os-staging.repo
+dnf5 -y copr disable ublue-os/staging
 
 # disable fedora-nvidia
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/negativo17-fedora-nvidia.repo

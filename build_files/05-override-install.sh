@@ -5,31 +5,23 @@ echo "::group:: ===$(basename "$0")==="
 set -eoux pipefail
 
 # Patched shells
-rpm-ostree override replace \
-	--experimental \
-	--from repo=terra-extras \
-	kf6-kio-doc \
-	kf6-kio-widgets-libs \
-	kf6-kio-core-libs \
-	kf6-kio-widgets \
-	kf6-kio-file-widgets \
-	kf6-kio-core \
-	kf6-kio-gui
+dnf5 -y swap \
+	--repo=terra-extras \
+	kf6-kio kf6-kio
 
 # Switcheroo patch
-rpm-ostree override replace \
-	--experimental \
-	--from repo=terra-extras \
-	switcheroo-control
+dnf5 -y swap \
+	--repo=terra-extras \
+	switcheroo-control switcheroo-control
 
 # Flahub repo
 mkdir -p /etc/flatpak/remotes.d
 curl --retry 3 -Lo /etc/flatpak/remotes.d/flathub.flatpakrepo https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # Install ublue packages
-sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/_copr_ublue-os-staging.repo
-rpm-ostree install devpod yafti
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_ublue-os-staging.repo
+dnf5 -y copr enable ublue-os/staging
+dnf5 -y install devpod yafti
+dnf5 -y copr disable ublue-os/staging
 
 # Consolidate Just Files
 find /tmp/just -iname '*.just' -exec printf "\n\n" \; -exec cat {} \; >>/usr/share/ublue-os/just/60-custom.just

@@ -16,7 +16,7 @@ tar -xvzf /tmp/kernel-rpms/"${KERNEL_TARGZ}" -C /
 mv /tmp/rpms/* /tmp/kernel-rpms/
 
 # Install Kernel
-rpm-ostree install \
+dnf5 -y install \
 	/tmp/kernel-rpms/kernel-[0-9]*.rpm \
 	/tmp/kernel-rpms/kernel-core-*.rpm \
 	/tmp/kernel-rpms/kernel-modules-*.rpm
@@ -37,10 +37,12 @@ mv /tmp/rpms/* /tmp/akmods/
 sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo
 
 if ! rpm -qa | grep kernel-devel; then
-	rpm-ostree install /tmp/kernel-rpms/kernel-devel-*.rpm
+	dnf5 -y install /tmp/kernel-rpms/kernel-devel-*.rpm
 fi
 
-rpm-ostree install \
+dnf5 versionlock add kernel kernel-devel kernel-devel-matched kernel-core kernel-modules kernel-modules-core kernel-modules-extra
+
+dnf5 -y install \
 	/tmp/akmods/kmods/*xone*.rpm \
 	xpadneo /tmp/akmods/kmods/*xpadneo*.rpm \
 	/tmp/akmods/kmods/*openrazer*.rpm \
@@ -48,12 +50,12 @@ rpm-ostree install \
 	/tmp/akmods/kmods/*kvmfr*.rpm
 
 # RPMFUSION Dependent AKMODS
-rpm-ostree install \
+dnf5 -y install \
 	https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"${FEDORA_MAJOR_VERSION}".noarch.rpm \
 	https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"${FEDORA_MAJOR_VERSION}".noarch.rpm
-rpm-ostree install \
+dnf5 -y install \
 	v4l2loopback /tmp/akmods/kmods/*v4l2loopback*.rpm
-rpm-ostree uninstall rpmfusion-free-release rpmfusion-nonfree-release
+dnf5 -y remove rpmfusion-free-release rpmfusion-nonfree-release
 # disable any remaining rpmfusion repos
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/rpmfusion*.repo
 
@@ -90,7 +92,7 @@ ZFS_RPMS=(
 )
 
 # Install
-rpm-ostree install "${ZFS_RPMS[@]}"
+dnf5 -y install "${ZFS_RPMS[@]}"
 
 # Depmod and autoload
 depmod -a -v "${KERNEL}"

@@ -6,10 +6,10 @@ echo "::group:: ===$(basename "$0")==="
 set -ouex pipefail
 
 # build list of all packages requested for inclusion
-INCLUDED_PACKAGES=($(grep '^\+' /tmp/packages | sed 's/^+//'))
+INCLUDED_PACKAGES=($({ grep '^\+' /tmp/packages || true; } | sed 's/^+//'))
 
 # build list of all packages requested for exclusion
-EXCLUDED_PACKAGES=($(grep '^-' /tmp/packages | sed 's/^-//'))
+EXCLUDED_PACKAGES=($({ grep '^-' /tmp/packages || true; } | sed 's/^-//'))
 
 # store a list of RPMs installed on the image
 INSTALLED_EXCLUDED_PACKAGES=()
@@ -19,18 +19,16 @@ if [[ ${#EXCLUDED_PACKAGES[@]} -gt 0 ]]; then
 	INSTALLED_EXCLUDED_PACKAGES=($(rpm -qa --queryformat='%{NAME} ' ${EXCLUDED_PACKAGES[@]}))
 fi
 
-# simple case to install where no packages need excluding
-if [[ ${#INCLUDED_PACKAGES[@]} -gt 0 && ${#INSTALLED_EXCLUDED_PACKAGES[@]} -eq 0 ]]; then
-	rpm-ostree install \
-		${INCLUDED_PACKAGES[@]}
+# remove excluded packages
+if [[ ${#EXCLUDED_PACKAGES[@]} -gt 0 ]]; then
+	dnf5 -y remove \
+		${EXCLUDED_PACKAGES[@]}
+fi
 
-# install/excluded packages both at same time
-elif [[ ${#INCLUDED_PACKAGES[@]} -gt 0 && ${#INSTALLED_EXCLUDED_PACKAGES[@]} -gt 0 ]]; then
-	rpm-ostree override remove \
-		${INSTALLED_EXCLUDED_PACKAGES[@]} \
-		$(printf -- "--install=%s " ${INCLUDED_PACKAGES[@]})
-else
-	echo "No packages to install."
+# install included packages
+if [[ ${#INCLUDED_PACKAGES[@]} -gt 0 ]]; then
+	dnf5 -y install \
+		${INCLUDED_PACKAGES[@]}
 fi
 
 # check if any excluded packages are still present
@@ -41,7 +39,7 @@ fi
 
 # remove any excluded packages which are still present on image
 if [[ ${#INSTALLED_EXCLUDED_PACKAGES[@]} -gt 0 ]]; then
-	rpm-ostree override remove \
+	dnf5 -y remove \
 		${INSTALLED_EXCLUDED_PACKAGES[@]}
 fi
 
