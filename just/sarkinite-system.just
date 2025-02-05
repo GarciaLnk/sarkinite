@@ -284,7 +284,7 @@ remove-nix:
     sed -i '/eval "$(devbox global shellenv)"/d' "$HOME/.bashrc"
     sed -i '/export XDG_DATA_DIRS=/d' "$HOME/.profile"
     sudo rm /usr/local/bin/devbox
-    rm -rf ~/.cache/devbox
+    rm -rf "$HOME/.cache/devbox"
     rm -rf .local/share/devbox
 
 [group('System')]

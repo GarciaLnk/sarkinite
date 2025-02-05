@@ -34,16 +34,10 @@ sed -i '/<entry name="launchers" type="StringList">/,/<\/entry>/ s/<default>[^<]
 setcap 'cap_net_raw+ep' /usr/libexec/ksysguard/ksgrd_network_helper
 setcap 'cap_sys_admin+p' "$(readlink -f "$(command -v sunshine)")"
 
-# Get Default Font since font fallback doesn't work
-curl --retry 3 --output-dir /tmp -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip
-mkdir -p /usr/share/fonts/fira-nf
-unzip /tmp/FiraCode.zip -d /usr/share/fonts/fira-nf
-fc-cache -f /usr/share/fonts/fira-nf
-
 # Fluent KDE Theme
 git clone https://github.com/vinceliuice/Fluent-kde /tmp/fluent-kde
 cd /tmp/fluent-kde || exit
-./install.sh -c
+./install.sh
 rm -rf /usr/share/plasma/look-and-feel/com.github.vinceliuice.Fluent*
 rm -rf /usr/share/plasma/plasmoids/org.kde.plasma.splitdigitalclock
 
