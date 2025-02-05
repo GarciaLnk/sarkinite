@@ -3,27 +3,9 @@ import re
 import subprocess
 import time
 from collections import defaultdict
-from itertools import product
 from typing import Any
 
 REGISTRY = "docker://ghcr.io/garcialnk/"
-
-IMAGE_MATRIX_LATEST = {
-    "experience": ["base", "dx"],
-    "de": ["kde", "gnome"],
-    "image_flavor": ["main", "nvidia-open"],
-}
-IMAGE_MATRIX_GTS = {
-    "experience": ["base", "dx"],
-    "de": ["gnome"],
-    "image_flavor": ["main", "nvidia-open"],
-}
-IMAGE_MATRIX = {
-    "experience": ["base", "dx"],
-    "de": ["kde"],
-    "image_flavor": ["main", "nvidia-open"],
-}
-
 RETRIES = 3
 RETRY_WAIT = 5
 FEDORA_PATTERN = re.compile(r"\.fc\d\d")
@@ -57,15 +39,10 @@ From previous `{target}` version `{prev}` there have been the following changes.
 | Name | Version |
 | --- | --- |
 | **Kernel** | {pkgrel:kernel} |
-| **Gnome** | {pkgrel:gnome-control-center-filesystem} |
 | **KDE** | {pkgrel:plasma-desktop} |
 | **Mesa** | {pkgrel:mesa-filesystem} |
 | **Podman** | {pkgrel:podman} |
 | **Nvidia** | {pkgrel:nvidia-driver} |
-
-### Major DX packages
-| Name | Version |
-| --- | --- |
 | **Incus** | {pkgrel:incus} |
 | **Docker** | {pkgrel:docker-ce} |
 | **Devpod** | {pkgrel:devpod} |
@@ -90,7 +67,6 @@ This is an automatically generated changelog for release `{curr}`."""
 
 BLACKLIST_VERSIONS = [
     "kernel",
-    "gnome-control-center-filesystem",
     "plasma-desktop",
     "mesa-filesystem",
     "podman",
@@ -102,34 +78,22 @@ BLACKLIST_VERSIONS = [
 
 
 def get_images(target: str):
-    if "latest" in target:
-        matrix = IMAGE_MATRIX_LATEST
-    elif "gts" in target:
-        matrix = IMAGE_MATRIX_GTS
-    else:
-        matrix = IMAGE_MATRIX
+    image_flavors = ["main", "nvidia"]
 
-    for experience, de, image_flavor in product(*matrix.values()):
-        img = ""
-        if de == "gnome":
-            continue
-        elif de == "kde":
-            img += "sarkinite-kde"
-
-        if experience == "dx":
-            img += "-dx"
+    for image_flavor in image_flavors:
+        img = "sarkinite"
 
         if image_flavor != "main":
             img += "-"
             img += image_flavor
 
-        yield img, experience, de, image_flavor
+        yield img, image_flavor
 
 
 def get_manifests(target: str):
     out = {}
     imgs = list(get_images(target))
-    for j, (img, _, _, _) in enumerate(imgs):
+    for j, (img, _) in enumerate(imgs):
         output = None
         print(f"Getting {img}:{target} manifest ({j+1}/{len(imgs)}).")
         for i in range(RETRIES):
@@ -201,7 +165,7 @@ def get_package_groups(target: str, prev: dict[str, Any], manifests: dict[str, A
 
     # Find common packages
     first = True
-    for img, _, _, _ in get_images(target):
+    for img, _ in get_images(target):
         if img not in pkg:
             continue
 
@@ -218,19 +182,11 @@ def get_package_groups(target: str, prev: dict[str, Any], manifests: dict[str, A
     # Find other packages
     for t, other in others.items():
         first = True
-        for img, experience, de, image_flavor in get_images(target):
+        for img, image_flavor in get_images(target):
             if img not in pkg:
                 continue
 
             if t == "nvidia" and "nvidia" not in image_flavor:
-                continue
-            if t == "kde" and de != "kde":
-                continue
-            if t == "gnome" and de != "gnome":
-                continue
-            if t == "base" and experience != "base":
-                continue
-            if t == "dx" and experience != "dx":
                 continue
 
             if first:
@@ -387,11 +343,6 @@ def generate_changelog(
     title = CHANGELOG_TITLE.format_map(defaultdict(str, tag=curr, pretty=pretty))
 
     changelog = CHANGELOG_FORMAT
-
-    if target == "gts":
-        changelog = changelog.splitlines()
-        del changelog[9]
-        changelog = "\n".join(changelog)
 
     changelog = (
         changelog.replace(

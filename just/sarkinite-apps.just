@@ -44,12 +44,6 @@ incus:
 install-incus:
     #!/usr/bin/env bash
     source /usr/lib/ujust/ujust.sh
-    CURRENT_IMAGE=$(cat /etc/ublue/image_name)
-    if ! grep -e "-dx" <<< $CURRENT_IMAGE ; then
-        echo "Developer mode is currently ${b}${red}Disabled${n}."
-        echo "Run \"just devmode\" to turn on Developer mode."
-        exit
-    fi
     echo 'Installing and configuring Incus.'
     /usr/libexec/sarkinite-incus
 

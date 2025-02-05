@@ -19,97 +19,9 @@ sarkinite-cli:
 devmode:
     @ujust toggle-devmode
 
-# Toggle Developer Experience
-[group('System')]
-toggle-devmode:
-    #!/usr/bin/env bash
-    source /usr/lib/ujust/ujust.sh
-    CURRENT_IMAGE=$(cat /etc/ublue/image_name)
-    if grep -q "/var/ublue-os/image" <<< $CURRENT_IMAGE ; then
-        bash -c "cat <<EOF
-    Before we can switch to the Sarkinite Developer Experience
-    the current system needs an update. Please run 'ujust update'
-    and reboot your system when the update is finished
-    EOF"
-        exit
-    fi
-    if /bin/grep -q "\-dx" <<< $CURRENT_IMAGE ; then
-        CURRENT_STATE="enabled"
-    else
-        CURRENT_STATE="disabled"
-    fi
-    echo "Developer mode is currently ${CURRENT_STATE}"
-    echo "Enable or Disable developer mode"
-    OPTION=$(Choose Enable Disable)
-    if [[ "${OPTION,,}" =~ ^enable ]]; then
-        if [ "$CURRENT_STATE" = "enabled" ] ; then
-            echo "You are already on a developer image"
-            exit 0
-        fi
-        echo "Rebasing to a developer image"
-        if [[ "${CURRENT_IMAGE}" =~ "sarkinite-kde" ]]; then
-            NEW_IMAGE=$(sed "s/sarkinite-kde/sarkinite-kde-dx/" <<< $CURRENT_IMAGE)
-        elif [[ "${CURRENT_IMAGE}" =~ "sarkinite-gnome" ]]; then
-            NEW_IMAGE=$(sed "s/sarkinite-gnome/sarkinite-gnome-dx/" <<< $CURRENT_IMAGE)
-        fi
-        rpm-ostree rebase $NEW_IMAGE
-        echo -e "\nUse `ujust dx-group` to add your user to the correct groups and complete the installation"
-    fi
-    if [[ "${OPTION,,}" =~ ^disable ]]; then
-        if [ "$CURRENT_STATE" != "enabled" ]; then
-            echo "You are currently not on a developer image"
-            exit 0
-        fi
-        echo "Rebasing to a non developer image"
-        # Remove -dx suffix from image, specifies ":" to mark the end of the image name
-        NEW_IMAGE=$(sed "s/\-dx//" <<< $CURRENT_IMAGE)
-        rpm-ostree rebase $NEW_IMAGE
-    fi
-
-# alias for gnome-vrr
-[group('System')]
-gnome-vrr:
-    @ujust toggle-gnome-vrr
-
-# Enable or Disable Gnome-VRR
-[group('System')]
-toggle-gnome-vrr:
-    #!/usr/bin/env bash
-    source /usr/lib/ujust/ujust.sh
-    if gsettings get org.gnome.mutter experimental-features | grep -q "variable-refresh-rate" ; then
-        CURRENT_STATE="Enabled"
-    else
-        CURRENT_STATE="Disabled"
-    fi
-    echo "Gnome-VRR is currently ${CURRENT_STATE}"
-    echo "Enable or Disable Gnome-VRR"
-    OPTION=$(Choose Enable Disable)
-    CURRENT_SETTINGS=($(gsettings get org.gnome.mutter experimental-features | tr -d "[]'," | xargs -n1))
-    if [[ "${OPTION,,}" =~ ^enable ]]; then
-        echo "Enabling Gnome-VRR"
-        CURRENT_SETTINGS+=("variable-refresh-rate")
-        FINAL_ARRAY=()
-        for item in "${CURRENT_SETTINGS[@]}"; do
-            FINAL_ARRAY+=("\"$item\"")
-        done
-        FINAL=$(printf "[%s]\n" "$(IFS=,; echo "${FINAL_ARRAY[*]}")")
-        gsettings set org.gnome.mutter experimental-features "${FINAL}"
-    fi
-    if [[ "${OPTION,,}" =~ ^disable ]]; then
-        echo "Disabling Gnome-VRR"
-        NO_VRR_ARRAY=($(printf "%s\n" "${CURRENT_SETTINGS[@]}" | grep -v "variable-refresh-rate"))
-        FINAL_ARRAY=()
-        for item in "${NO_VRR_ARRAY[@]}"; do
-            FINAL_ARRAY+=("\"$item\"")
-        done
-        FINAL=$(printf "[%s]\n" "$(IFS=,; echo "${FINAL_ARRAY[*]}")")
-        gsettings set org.gnome.mutter experimental-features "${FINAL}"
-    fi
-    echo "To apply the changes make sure you logout and restart your session"
-
 # Configure docker,incus-admin,libvirt container manager permissions
 [group('System')]
-dx-group:
+groups:
     #!/usr/bin/env bash
     append_group() {
         local group_name="$1"
@@ -135,16 +47,6 @@ setup-vfio:
 configure-vfio ACTION="":
     #!/usr/bin/env bash
     source /usr/lib/ujust/ujust.sh
-    CURRENT_IMAGE=$(cat /etc/ublue/image_name)
-    if grep -q "dx" <<< $CURRENT_IMAGE ; then
-        DEVMODE="enabled"
-    else
-        DEVMODE="disabled"
-    fi
-    if [ "$DEVMODE" == "disabled" ]; then
-        echo "Please run "ujust devmode" first"
-        exit 0
-    fi
     OPTION={{ ACTION }}
     if [ "$OPTION" == "help" ]; then
         bash -c "cat <<EOF
@@ -231,7 +133,7 @@ configure-vfio ACTION="":
             $VFIO_IDS_KARG
         fi
     elif [[ "${OPTION,,}" =~ kvmfr ]]; then
-        sudo /usr/libexec/sarkinite-dx-kvmfr-setup
+        sudo /usr/libexec/sarkinite-kvmfr-setup
     fi
 
 # Install system flatpaks for rebasers
@@ -257,18 +159,7 @@ install-system-flatpaks CURR_LIST_FILE="":
             flatpak --system -y install --or-update "${FLATPAK_LIST[@]}"
         fi
     else
-        IMAGE_NAME=$(jq -r '."image-name"' < "/usr/share/ublue-os/image-info.json")
-        if [[ ${IMAGE_NAME} =~ "gnome" ]]; then
-            FLATPAKS="flatpaks_gnome/flatpaks"
-        elif [[ ${IMAGE_NAME} =~ "kde" ]]; then
-            FLATPAKS="flatpaks_kde/flatpaks"
-        fi
-        FLATPAK_LIST=($(curl https://raw.githubusercontent.com/GarciaLnk/sarkinite/main/${FLATPAKS}))
-
-        if [[ ${IMAGE_NAME} =~ "dx" ]]; then
-            FLATPAK_LIST+=($(curl https://raw.githubusercontent.com/GarciaLnk/sarkinite/main/dx_flatpaks/flatpaks))
-        fi
-
+        FLATPAK_LIST=($(curl https://raw.githubusercontent.com/GarciaLnk/sarkinite/main/flatpaks))
         flatpak --system -y install --or-update "${FLATPAK_LIST[@]}"
     fi
 
@@ -309,22 +200,6 @@ toggle-tailscale:
     if [ "$TAILSCALED" == "Installed" ]; then
         echo "Enable or disable Tailscale?"
         TS_OPTION=$(Choose Enable Disable)
-
-        # gnome-extensions is only available on Gnome
-        if [ "$VARIANT" == "Silverblue" ]; then
-            TAILSCALE_QS="$(gnome-extensions list | grep -q "tailscale@joaophi.github.com"; echo $?)"
-            if [ "$TAILSCALE_QS" == 0 ]; then
-                TAILSCALE_QS="Installed"
-            else
-                echo "The Tailscale QS extension for Gnome is not installed. Please install it and then run this script again."
-            fi
-
-            if [[ "${TS_OPTION,,}" =~ ^enable ]]; then
-                gnome-extensions enable tailscale@joaophi.github.com
-            elif [[ "${TS_OPTION,,}" =~ ^disable ]]; then
-                gnome-extensions disable tailscale@joaophi.github.com
-            fi
-        fi
 
         if [ "$TS_OPTION" = "Enable" ]; then
             systemctl enable --now tailscaled

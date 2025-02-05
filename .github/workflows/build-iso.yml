@@ -1,0 +1,24 @@
+name: ISO
+on:
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      brand_name:
+        description: "Image Brand to Build"
+        default: '["sarkinite"]'
+        type: choice
+        options:
+          - '["sarkinite"]'
+
+jobs:
+  build-iso:
+    name: Build ISO
+    uses: ./.github/workflows/reusable-build-iso.yml
+    secrets: inherit
+    strategy:
+      fail-fast: false
+      matrix:
+        brand_name: ${{ fromJson(inputs.brand_name || '["sarkinite"]') }}
+    with:
+      brand_name: ${{ matrix.brand_name }}
+      stream_name: stable

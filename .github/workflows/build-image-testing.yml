@@ -1,20 +1,21 @@
-name: Stable Images
+name: Testing Images
 on:
-  merge_group: # Make Stable-Daily run on merge groups
+  merge_group:
   pull_request:
     branches:
       - main
+      - testing
     paths-ignore:
       - "**.md"
   schedule:
-    - cron: "50 5 * * 1,2,3,4,5,6" # 5:50 UTC everyday
-    - cron: "50 5 * * 0" # 5:50 UTC sunday
+    - cron: "40 4 * * 1,2,3,4,5,6" # 4:40 UTC everyday
+    - cron: "40 4 * * 0" # 4:40 UTC Sunday
   workflow_call:
   workflow_dispatch:
 
 jobs:
-  build-image-stable:
-    name: Build Stable Images
+  build-image-testing:
+    name: Build Testing Images
     uses: ./.github/workflows/reusable-build.yml
     secrets: inherit
     strategy:
@@ -23,12 +24,12 @@ jobs:
         brand_name: ["sarkinite"]
     with:
       brand_name: ${{ matrix.brand_name }}
-      stream_name: stable
+      stream_name: testing
 
   generate-release:
     name: Generate Release
-    needs: [build-image-stable]
+    needs: [build-image-testing]
     secrets: inherit
     uses: ./.github/workflows/generate-release.yml
     with:
-      stream_name: '["stable", "stable-daily"]'
+      stream_name: '["testing"]'

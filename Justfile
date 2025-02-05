@@ -2,21 +2,15 @@ repo_organization := "garcialnk"
 rechunker_image := "ghcr.io/hhd-dev/rechunk:v1.0.1"
 iso_builder_image := "ghcr.io/jasonn3/build-container-installer:v1.2.3"
 images := '(
-    [sarkinite-kde]=sarkinite-kde
-    [sarkinite-kde-dx]=sarkinite-kde-dx
-    [sarkinite-gnome]=sarkinite-gnome
-    [sarkinite-gnome-dx]=sarkinite-gnome-dx
+    [sarkinite]=sarkinite
 )'
 flavors := '(
     [main]=main
     [nvidia]=nvidia
-    [nvidia-open]=nvidia-open
 )'
 tags := '(
-    [gts]=gts
     [stable]=stable
-    [latest]=latest
-    [beta]=beta
+    [testing]=testing
 )'
 export SUDO_DISPLAY := if `if [ -n "${DISPLAY:-}" ] || [ -n "${WAYLAND_DISPLAY:-}" ]; then echo true; fi` == "true" { "true" } else { "false" }
 export SUDOIF := if `id -u` == "0" { "" } else if SUDO_DISPLAY == "true" { "sudo --askpass" } else { "sudo" }
@@ -92,14 +86,10 @@ validate $image $tag $flavor:
         echo "Invalid flavor..."
         exit 1
     fi
-    if [[ "$checktag" =~ gts && "$checkimage" =~ sarkinite-kde ]]; then
-        echo "KDE Does not build GTS..."
-        exit 1
-    fi
 
 # Build Image
 [group('Image')]
-build $image="sarkinite-kde" $tag="stable" $flavor="main" rechunk="0" ghcr="0" pipeline="0" $kernel_pin="":
+build $image="sarkinite" $tag="stable" $flavor="main" rechunk="0" ghcr="0" pipeline="0" $kernel_pin="":
     #!/usr/bin/env bash
 
     echo "::group:: Build Prep"
@@ -111,28 +101,11 @@ build $image="sarkinite-kde" $tag="stable" $flavor="main" rechunk="0" ghcr="0" p
     # Image Name
     image_name=$(just image_name {{ image }} {{ tag }} {{ flavor }})
 
-    # Base Image
-    if [[ "${image}" =~ sarkinite-gnome ]]; then
-        base_image_name="silverblue"
-    elif [[ "${image}" =~ sarkinite-kde ]]; then
-        base_image_name="kinoite"
-    fi
-
     # Target
-    if [[ "${image}" =~ dx ]]; then
-        target="dx"
-    else
-        target="base"
-    fi
+    target="base"
 
     # AKMODS Flavor and Kernel Version
-    if [[ "${tag}" =~ gts|stable ]]; then
-        akmods_flavor="coreos-stable"
-    elif [[ "${tag}" =~ beta ]]; then
-        akmods_flavor="coreos-testing"
-    else
-        akmods_flavor="main"
-    fi
+    akmods_flavor="coreos-${tag}"
 
     # Fedora Version
     if [[ {{ ghcr }} == "0" ]]; then
@@ -141,7 +114,7 @@ build $image="sarkinite-kde" $tag="stable" $flavor="main" rechunk="0" ghcr="0" p
     fedora_version=$(just fedora_version '{{ image }}' '{{ tag }}' '{{ flavor }}' '{{ kernel_pin }}')
 
     # Verify Base Image with cosign
-    just verify-container "${base_image_name}-main:${fedora_version}"
+    just verify-container "kinoite-main:${fedora_version}"
 
     # Kernel Release/Pin
     if [[ -z "${kernel_pin:-}" ]]; then
@@ -156,10 +129,8 @@ build $image="sarkinite-kde" $tag="stable" $flavor="main" rechunk="0" ghcr="0" p
     if [[ "${akmods_flavor}" =~ coreos ]]; then
         just verify-container "akmods-zfs:${akmods_flavor}-${fedora_version}-${kernel_release}"
     fi
-    if [[ "${flavor}" =~ nvidia-open ]]; then
+    if [[ "${flavor}" =~ nvidia ]]; then
         just verify-container "akmods-nvidia-open:${akmods_flavor}-${fedora_version}-${kernel_release}"
-    elif [[ "${flavor}" =~ nvidia ]]; then
-        just verify-container "akmods-nvidia:${akmods_flavor}-${fedora_version}-${kernel_release}"
     fi
 
     # Get Version
@@ -168,8 +139,8 @@ build $image="sarkinite-kde" $tag="stable" $flavor="main" rechunk="0" ghcr="0" p
     else
         ver="${tag}-${fedora_version}.$(date +%Y%m%d)"
     fi
-    skopeo list-tags docker://ghcr.io/{{ repo_organization }}/${image_name} > /tmp/repotags.json
-    if [[ $(jq "any(.Tags[]; contains(\"$ver\"))" < /tmp/repotags.json) == "true" ]]; then
+
+    if skopeo list-tags docker://ghcr.io/{{ repo_organization }}/${image_name} > /tmp/repotags.json 2>/dev/null && [[ $(jq "any(.Tags[]; contains(\"$ver\"))" < /tmp/repotags.json) == "true" ]]; then
         POINT="1"
         while $(jq -e "any(.Tags[]; contains(\"$ver.$POINT\"))" < /tmp/repotags.json)
         do
@@ -183,7 +154,6 @@ build $image="sarkinite-kde" $tag="stable" $flavor="main" rechunk="0" ghcr="0" p
     # Build Arguments
     BUILD_ARGS=()
     BUILD_ARGS+=("--build-arg" "AKMODS_FLAVOR=${akmods_flavor}")
-    BUILD_ARGS+=("--build-arg" "BASE_IMAGE_NAME=${base_image_name}")
     BUILD_ARGS+=("--build-arg" "FEDORA_MAJOR_VERSION=${fedora_version}")
     BUILD_ARGS+=("--build-arg" "IMAGE_NAME=${image_name}")
     BUILD_ARGS+=("--build-arg" "IMAGE_VENDOR={{ repo_organization }}")
@@ -238,12 +208,12 @@ build $image="sarkinite-kde" $tag="stable" $flavor="main" rechunk="0" ghcr="0" p
 
 # Build Image and Rechunk
 [group('Image')]
-build-rechunk image="sarkinite-kde" tag="stable" flavor="main" kernel_pin="":
+build-rechunk image="sarkinite" tag="stable" flavor="main" kernel_pin="":
     @just build {{ image }} {{ tag }} {{ flavor }} 1 0 0 {{ kernel_pin }}
 
 # Build Image with GHCR Flag
 [group('Image')]
-build-ghcr image="sarkinite-kde" tag="stable" flavor="main" kernel_pin="":
+build-ghcr image="sarkinite" tag="stable" flavor="main" kernel_pin="":
     #!/usr/bin/env bash
     if [[ "${UID}" -gt "0" ]]; then
         echo "Must Run with sudo or as root..."
@@ -253,14 +223,14 @@ build-ghcr image="sarkinite-kde" tag="stable" flavor="main" kernel_pin="":
 
 # Build Image for Pipeline:
 [group('Image')]
-build-pipeline image="sarkinite-kde" tag="stable" flavor="main" kernel_pin="":
+build-pipeline image="sarkinite" tag="stable" flavor="main" kernel_pin="":
     #!/usr/bin/env bash
     ${SUDOIF} just build {{ image }} {{ tag }} {{ flavor }} 1 1 1 {{ kernel_pin }}
 
 # Rechunk Image
 [group('Image')]
 [private]
-rechunk $image="sarkinite-kde" $tag="stable" $flavor="main" ghcr="0" pipeline="0":
+rechunk $image="sarkinite" $tag="stable" $flavor="main" ghcr="0" pipeline="0":
     #!/usr/bin/env bash
 
     echo "::group:: Rechunk Prep"
@@ -323,15 +293,10 @@ rechunk $image="sarkinite-kde" $tag="stable" $flavor="main" ghcr="0" pipeline="0
 
     # Cleanup Space during Github Action
     if [[ "{{ ghcr }}" == "1" ]]; then
-        if [[ "${image_name}" =~ sarkinite-gnome ]]; then
-            base_image_name=silverblue-main
-        elif [[ "${image_name}" =~ sarkinite-kde ]]; then
-            base_image_name=kinoite-main
-        fi
         if [[ "${tag}" =~ stable ]]; then
             tag="stable-daily"
         fi
-        ID=$(${SUDOIF} ${PODMAN} images --filter reference=ghcr.io/{{ repo_organization }}/"${base_image_name}":${fedora_version} --format "{{ '{{.ID}}' }}")
+        ID=$(${SUDOIF} ${PODMAN} images --filter reference=ghcr.io/{{ repo_organization }}/"kinoite-main":${fedora_version} --format "{{ '{{.ID}}' }}")
         if [[ -n "$ID" ]]; then
             ${PODMAN} rmi "$ID"
         fi
@@ -420,7 +385,7 @@ rechunk $image="sarkinite-kde" $tag="stable" $flavor="main" ghcr="0" pipeline="0
 
 # Load OCI into Podman Store
 [group('Image')]
-load-rechunk image="sarkinite-kde" tag="stable" flavor="main":
+load-rechunk image="sarkinite" tag="stable" flavor="main":
     #!/usr/bin/env bash
     set -eou pipefail
 
@@ -441,7 +406,7 @@ load-rechunk image="sarkinite-kde" tag="stable" flavor="main":
 
 # Run Container
 [group('Image')]
-run $image="sarkinite-kde" $tag="stable" $flavor="main":
+run $image="sarkinite" $tag="stable" $flavor="main":
     #!/usr/bin/env bash
     set -eoux pipefail
 
@@ -462,7 +427,7 @@ run $image="sarkinite-kde" $tag="stable" $flavor="main":
 
 # Build ISO
 [group('ISO')]
-build-iso $image="sarkinite-kde" $tag="stable" $flavor="main" ghcr="0" pipeline="0":
+build-iso $image="sarkinite" $tag="stable" $flavor="main" ghcr="0" pipeline="0":
     #!/usr/bin/env bash
     set -eoux pipefail
 
@@ -504,26 +469,12 @@ build-iso $image="sarkinite-kde" $tag="stable" $flavor="main" ghcr="0" pipeline=
         rm -rf "${COPYTMP}"
     fi
 
-    # Flatpak list for KDE/GNOME
-    if [[ "${image_name}" =~ sarkinite-kde ]]; then
-        FLATPAK_DIR_SHORTNAME="flatpaks_kde"
-    elif [[ "${image_name}" =~ sarkinite-gnome ]]; then
-        FLATPAK_DIR_SHORTNAME="flatpaks_gnome"
-    fi
-
     # Generate Flatpak List
     TEMP_FLATPAK_INSTALL_DIR="$(mktemp -d -p /tmp flatpak-XXXXX)"
     flatpak_refs=()
     while IFS= read -r line; do
         flatpak_refs+=("$line")
-    done < "${FLATPAK_DIR_SHORTNAME}/flatpaks"
-
-    # Add DX Flatpaks if needed
-    if [[ "${image_name}" =~ dx ]]; then
-        while IFS= read -r line; do
-            flatpak_refs+=("$line")
-        done < "dx_flatpaks/flatpaks"
-    fi
+    done < "flatpaks"
 
     echo "Flatpak refs: ${flatpak_refs[@]}"
 
@@ -581,11 +532,7 @@ build-iso $image="sarkinite-kde" $tag="stable" $flavor="main" ghcr="0" pipeline=
     iso_build_args+=(IMAGE_TAG="${tag}")
     iso_build_args+=(ISO_NAME="/github/workspace/${build_dir}/${image_name}-${tag}.iso")
     iso_build_args+=(SECURE_BOOT_KEY_URL="https://github.com/ublue-os/akmods/raw/main/certs/public_key.der")
-    if [[ "${image_name}" =~ sarkinite-gnome ]]; then
-        iso_build_args+=(VARIANT="Silverblue")
-    else
-        iso_build_args+=(VARIANT="Kinoite")
-    fi
+    iso_build_args+=(VARIANT="Kinoite")
     iso_build_args+=(VERSION="${FEDORA_VERSION}")
     iso_build_args+=(WEB_UI="false")
 
@@ -599,12 +546,12 @@ build-iso $image="sarkinite-kde" $tag="stable" $flavor="main" ghcr="0" pipeline=
 
 # Build ISO using GHCR Image
 [group('ISO')]
-build-iso-ghcr image="sarkinite-kde" tag="stable" flavor="main":
+build-iso-ghcr image="sarkinite" tag="stable" flavor="main":
     @just build-iso {{ image }} {{ tag }} {{ flavor }} 1
 
 # Run ISO
 [group('ISO')]
-run-iso $image="sarkinite-kde" $tag="stable" $flavor="main":
+run-iso $image="sarkinite" $tag="stable" $flavor="main":
     #!/usr/bin/env bash
     set -eoux pipefail
 
@@ -685,7 +632,7 @@ verify-container container="" registry="ghcr.io/ublue-os" key="":
 
 # Secureboot Check
 [group('Utility')]
-secureboot $image="sarkinite-kde" $tag="stable" $flavor="main":
+secureboot $image="sarkinite" $tag="stable" $flavor="main":
     #!/usr/bin/env bash
     set -eou pipefail
 
@@ -737,17 +684,12 @@ secureboot $image="sarkinite-kde" $tag="stable" $flavor="main":
 # Get Fedora Version of an image
 [group('Utility')]
 [private]
-fedora_version image="sarkinite-kde" tag="stable" flavor="main" $kernel_pin="":
+fedora_version image="sarkinite" tag="stable" flavor="main" $kernel_pin="":
     #!/usr/bin/env bash
     set -eou pipefail
     just validate {{ image }} {{ tag }} {{ flavor }}
     if [[ ! -f /tmp/manifest.json ]]; then
-        if [[ "{{ tag }}" =~ stable ]]; then
-            # CoreOS does not uses cosign
-            skopeo inspect --retry-times 3 docker://quay.io/fedora/fedora-coreos:stable > /tmp/manifest.json
-        else
-            skopeo inspect --retry-times 3 docker://ghcr.io/ublue-os/base-main:"{{ tag }}" > /tmp/manifest.json
-        fi
+        skopeo inspect --retry-times 3 docker://quay.io/fedora/fedora-coreos:{{ tag }} > /tmp/manifest.json
     fi
     fedora_version=$(jq -r '.Labels["ostree.linux"]' < /tmp/manifest.json | grep -oP 'fc\K[0-9]+')
     if [[ -n "${kernel_pin:-}" ]]; then
@@ -758,7 +700,7 @@ fedora_version image="sarkinite-kde" tag="stable" flavor="main" $kernel_pin="":
 # Image Name
 [group('Utility')]
 [private]
-image_name image="sarkinite-kde" tag="stable" flavor="main":
+image_name image="sarkinite" tag="stable" flavor="main":
     #!/usr/bin/env bash
     set -eou pipefail
     just validate {{ image }} {{ tag }} {{ flavor }}
@@ -771,7 +713,7 @@ image_name image="sarkinite-kde" tag="stable" flavor="main":
 
 # Generate Tags
 [group('Utility')]
-generate-build-tags image="sarkinite-kde" tag="stable" flavor="main" kernel_pin="" ghcr="0" $version="" github_event="" github_number="":
+generate-build-tags image="sarkinite" tag="stable" flavor="main" kernel_pin="" ghcr="0" $version="" github_event="" github_number="":
     #!/usr/bin/env bash
     set -eou pipefail
 
@@ -816,7 +758,7 @@ generate-build-tags image="sarkinite-kde" tag="stable" flavor="main" kernel_pin=
         BUILD_TAGS+=("stable" "stable-${version}" "stable-${version:3}")
     elif [[ "{{ tag }}" =~ "stable" && "{{ ghcr }}" == "0" ]]; then
         BUILD_TAGS+=("stable" "stable-${version}" "stable-${version:3}")
-    elif [[ ! "{{ tag }}" =~ stable|beta ]]; then
+    else
         BUILD_TAGS+=("${FEDORA_VERSION}" "${FEDORA_VERSION}-${version}" "${FEDORA_VERSION}-${version:3}")
     fi
 

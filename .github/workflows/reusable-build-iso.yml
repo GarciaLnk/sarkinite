@@ -4,14 +4,14 @@ on:
     inputs:
       image_flavors:
         description: "JSON string of flavors to build, '[main, nvidia]'"
-        default: "['main', 'nvidia-open']"
+        default: "['main', 'nvidia']"
         type: string
       brand_name:
-        description: "The Desktop Environment: 'sarkinite-kde' or 'sarkinite-gnome'"
+        description: "The Desktop Environment: 'sarkinite'"
         required: true
         type: string
       stream_name:
-        description: "The Fedora Version: gts, stable, or latest"
+        description: "The Fedora Version: stable or testing"
         required: true
         type: string
 env:
@@ -32,7 +32,7 @@ jobs:
       fail-fast: false
       matrix:
         image_flavor: ${{ fromJson(inputs.image_flavors) }}
-        base_name: ["${{ inputs.brand_name }}", "${{ inputs.brand_name }}-dx"]
+        base_name: ["${{ inputs.brand_name }}"]
         stream_name: ["${{ inputs.stream_name }}"]
 
     steps:
