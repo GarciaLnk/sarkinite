@@ -43,6 +43,7 @@
 +ifuse
 +igt-gpu-tools
 +input-remapper
++intel-one-mono-fonts
 +libimobiledevice
 +libxcrypt-compat
 +libvdpau-va-gl
@@ -50,6 +51,7 @@
 +lm_sensors
 +make
 +mesa-libGLU
++meslo-nerd-fonts
 +mozilla-openh264
 +mpv
 +noto-nerd-fonts
@@ -65,6 +67,7 @@
 +rclone
 +restic
 +rom-properties-kf6
++rsms-inter-fonts
 +samba-dcerpc
 +samba-ldb-ldap-modules
 +samba-winbind-clients
@@ -80,6 +83,7 @@
 +tmux
 +topgrade
 +ubuntu-nerd-fonts
++ubuntumono-nerd-fonts
 +usbmuxd
 +waydroid
 +wireguard-tools
