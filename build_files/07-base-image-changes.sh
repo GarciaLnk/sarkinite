@@ -4,16 +4,6 @@ echo "::group:: ===$(basename "$0")==="
 
 set -ouex pipefail
 
-# Tela Icon Theme
-git clone https://github.com/vinceliuice/Tela-icon-theme.git /tmp/tela-icon-theme
-cd /tmp/tela-icon-theme || exit
-./install.sh -c
-
-# Fluent GTK Theme
-git clone https://github.com/vinceliuice/Fluent-gtk-theme /tmp/fluent-gtk-theme
-cd /tmp/fluent-gtk-theme || exit
-./install.sh -s compact -l
-
 # Modify Firefox .desktop to use wrapper
 sed -i 's@Exec=firefox@Exec=/usr/bin/firefox-wrapper@g' /usr/share/applications/org.mozilla.firefox.desktop
 
@@ -33,13 +23,6 @@ sed -i '/<entry name="launchers" type="StringList">/,/<\/entry>/ s/<default>[^<]
 # Fix caps
 setcap 'cap_net_raw+ep' /usr/libexec/ksysguard/ksgrd_network_helper
 setcap 'cap_sys_admin+p' "$(readlink -f "$(command -v sunshine)")"
-
-# Fluent KDE Theme
-git clone https://github.com/vinceliuice/Fluent-kde /tmp/fluent-kde
-cd /tmp/fluent-kde || exit
-./install.sh
-rm -rf /usr/share/plasma/look-and-feel/com.github.vinceliuice.Fluent*
-rm -rf /usr/share/plasma/plasmoids/org.kde.plasma.splitdigitalclock
 
 # Nvidia Configurations
 if [[ ${IMAGE_NAME} =~ "nvidia" ]]; then

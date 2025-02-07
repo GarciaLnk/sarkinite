@@ -49,11 +49,6 @@ if [[ -f "/var/lib/waydroid/lxc/waydroid/config" ]]; then
 	sed -i '/lxc\.apparmor\.profile\s*=\s*unconfined/d' "/var/lib/waydroid/lxc/waydroid/config"
 fi
 
-# pkgx
-curl --retry 3 -Lo ./pkgx "https://pkgx.sh/$(uname)/$(uname -m)"
-chmod +x ./pkgx
-mv ./pkgx /usr/bin/pkgx
-
 # ls-iommu helper tool for listing devices in iommu groups (PCI Passthrough)
 DOWNLOAD_URL=$(curl https://api.github.com/repos/HikariKnight/ls-iommu/releases/latest | jq -r '.assets[] | select(.name| test(".*x86_64.tar.gz$")).browser_download_url')
 curl --retry 3 -Lo /tmp/ls-iommu.tar.gz "${DOWNLOAD_URL}"
