@@ -61,7 +61,7 @@ configure-vfio ACTION="":
         bash -c "cat <<EOF
     ${bold}VFIO and kvmfr Configuration${normal}
     This is only used for GPU passthrough of a secondary dGPU.
-    It will enable vfio and configure kvmfr for use with $(Urllink "https://looking-glass.io" "Looking Glass")
+    It will enable vfio and configure kvmfr for use with $(Urllink "https://looking-glass.io" "Looking Glass").
     If you do not plan to use any of this then press ESC.
     ${bold}NOTE:${normal} Since this is a niche use case, support will be ${b}very limited${n}
     EOF"
@@ -97,8 +97,8 @@ configure-vfio ACTION="":
                 sudo chmod +x /etc/libvirt/hooks/qemu
                 sudo grep -A1 -B1 "# Add" /etc/libvirt/hooks/qemu | sed 's/^# //g'
                 echo ""
-                if sudo test ! -d "/etc/libvirt/hooks/qemu/qemu.d"; then
-                    sudo mkdir /etc/libvirt/hooks/qemu/qemu.d
+                if sudo test ! -d "/etc/libvirt/hooks/qemu.d"; then
+                    sudo mkdir /etc/libvirt/hooks/qemu.d
                 fi
             fi
             echo "VFIO will be enabled on next boot, make sure you enable IOMMU, VT-d or AMD-v in your BIOS!"
@@ -107,7 +107,7 @@ configure-vfio ACTION="":
             echo 'rpm-ostree kargs --append-if-missing="vfio-pci.ids=xxxx:yyyy,xxxx:yyzz"'
             echo 'you can find these using "ls-iommu -gr" or "ls-iommu -grr"'
             echo 'for a dedicated gpu there will be at least 1 vga device and 1 audio device.'
-            echo "NOTE: Your second GPU will not be usable by the host after you do this!"
+            echo "NOTE: The GPU you bound to vfio-pci will not be usable by the host after you do this!"
         fi
     elif [[ "${OPTION,,}" =~ (^disable[[:space:]]vfio|vfio-off) ]]; then
         echo ""
