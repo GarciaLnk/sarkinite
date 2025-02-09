@@ -1,7 +1,7 @@
 app/com.github.tchx84.Flatseal/x86_64/stable
 app/io.github.flattool.Warehouse/x86_64/stable
 app/org.fedoraproject.MediaWriter/x86_64/stable
-app/net.nokyan.Resources/x86_64/stable
+app/io.missioncenter.MissionCenter/x86_64/stable
 app/it.mijorus.gearlever/x86_64/stable
 app/com.usebottles.bottles/x86_64/stable
 app/com.github.wwmm.easyeffects/x86_64/stable
@@ -19,11 +19,11 @@ app/org.kde.akregator/x86_64/stable
 app/org.kde.kolourpaint/x86_64/stable
 app/org.fkoehler.KTailctl/x86_64/stable
 app/org.rncbc.qpwgraph/x86_64/stable
-runtime/org.gtk.Gtk3theme.Breeze/x86_64/3.22
-runtime/org.kde.KStyle.Adwaita/x86_64/6.8
 app/io.podman_desktop.PodmanDesktop/x86_64/stable
 app/io.github.shiftey.Desktop/x86_64/stable
 app/org.virt_manager.virt-manager/x86_64/stable
-runtime/org.virt_manager.virt_manager.Extension.Qemu/x86_64/stable
 app/io.github.dvlv.boxbuddyrs/x86_64/stable
 app/io.github.getnf.embellish/x86_64/stable
+runtime/org.virt_manager.virt_manager.Extension.Qemu/x86_64/stable
+runtime/org.gtk.Gtk3theme.Breeze/x86_64/3.22
+runtime/org.kde.KStyle.Adwaita/x86_64/6.8
