@@ -34,19 +34,6 @@ install-jetbrains-toolbox:
     echo "Launching JetBrains Toolbox"
     ./jetbrains-toolbox-"${BUILD_VERSION}"/jetbrains-toolbox
 
-# alias for install-incus
-[group('Apps')]
-incus:
-    @ujust install-incus
-
-# Install and configure Incus
-[group('Apps')]
-install-incus:
-    #!/usr/bin/env bash
-    source /usr/lib/ujust/ujust.sh
-    echo 'Installing and configuring Incus.'
-    /usr/libexec/sarkinite-incus
-
 alias spotify := setup-spotify
 
 # Configure Spotify with Spicetify

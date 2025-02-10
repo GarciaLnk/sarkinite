@@ -19,7 +19,7 @@ sarkinite-cli:
 devmode:
     @ujust toggle-devmode
 
-# Configure docker,incus-admin,libvirt container manager permissions
+# Configure docker,libvirt,kvm container manager permissions
 [group('System')]
 groups:
     #!/usr/bin/env bash
@@ -30,12 +30,12 @@ groups:
             grep "^$group_name:" /usr/lib/group | sudo tee -a /etc/group > /dev/null
         fi
     }
-    GROUPS_ADD=("docker" "incus-admin" "libvirt")
+    GROUPS_ADD=("docker" "libvirt" "kvm")
     for GROUP_ADD in "${GROUPS_ADD[@]}" ; do
         append_group $GROUP_ADD
         pkexec usermod -aG $GROUP_ADD $USER
     done
-    echo "Reboot system and log back in to use docker, incus-admin, libvirt."
+    echo "Reboot system and log back in to use docker, libvirt, kvm."
 
 # alias for configure-vfio
 [group('System')]

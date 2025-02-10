@@ -98,8 +98,6 @@
 +edk2-ovmf
 +flatpak-builder
 +genisoimage
-+incus
-+incus-agent
 +iotop
 +libvirt
 +libvirt-nss

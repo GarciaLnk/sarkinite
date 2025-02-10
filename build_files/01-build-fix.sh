@@ -25,7 +25,9 @@ rpm-ostree override replace \
 	qt6-qtbase \
 	qt6-qtbase-common \
 	qt6-qtbase-mysql \
-	qt6-qtbase-gui ||
+	qt6-qtbase-gui \
+	qt6-qtwebsockets \
+	qt6-qtwebview ||
 	true
 
 rpm-ostree override replace \

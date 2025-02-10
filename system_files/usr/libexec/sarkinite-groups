@@ -22,14 +22,14 @@ append_group() {
 
 # Setup Groups
 append_group docker
-append_group incus-admin
 append_group libvirt
+append_group kvm
 
 mapfile -t wheelarray < <(getent group wheel | cut -d ":" -f 4 | tr ',' '\n')
 for user in "${wheelarray[@]}"; do
 	usermod -aG docker "${user}"
-	usermod -aG incus-admin "${user}"
 	usermod -aG libvirt "${user}"
+	usermod -aG kvm "${user}"
 done
 
 # Prevent future executions

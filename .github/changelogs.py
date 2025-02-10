@@ -43,7 +43,6 @@ From previous `{target}` version `{prev}` there have been the following changes.
 | **Mesa** | {pkgrel:mesa-filesystem} |
 | **Podman** | {pkgrel:podman} |
 | **Nvidia** | {pkgrel:nvidia-driver} |
-| **Incus** | {pkgrel:incus} |
 | **Docker** | {pkgrel:docker-ce} |
 | **Devpod** | {pkgrel:devpod} |
 
@@ -71,7 +70,6 @@ BLACKLIST_VERSIONS = [
     "mesa-filesystem",
     "podman",
     "docker-ce",
-    "incus",
     "devpod",
     "nvidia-driver",
 ]
