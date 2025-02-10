@@ -1,5 +1,5 @@
 {
-	"editor.fontFamily": "'FiraCode Nerd Font', 'Droid Sans Mono', 'monospace', monospace",
+	"editor.fontFamily": "'FiraCode Nerd Font', 'monospace', 'Symbols Nerd Font Mono'",
 	"files.autoSave": "onFocusChange",
 	"files.trimTrailingWhitespace": true,
 	"files.trimFinalNewlines": true,

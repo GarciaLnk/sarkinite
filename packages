@@ -43,7 +43,6 @@
 +ifuse
 +igt-gpu-tools
 +input-remapper
-+intel-one-mono-fonts
 +libimobiledevice
 +libxcrypt-compat
 +libvdpau-va-gl
@@ -51,12 +50,10 @@
 +lm_sensors
 +make
 +mesa-libGLU
-+meslo-nerd-fonts
 +mozilla-openh264
 +mpv
-+noto-nerd-fonts
++nerdfontssymbolsonly-nerd-fonts
 +open-in-mpv
-+opendyslexic-nerd-fonts
 +plasma-wallpapers-dynamic
 +powertop
 +printer-driver-brlaser
@@ -82,8 +79,6 @@
 +timg
 +tmux
 +topgrade
-+ubuntu-nerd-fonts
-+ubuntumono-nerd-fonts
 +usbmuxd
 +waydroid
 +wireguard-tools
@@ -93,7 +88,6 @@
 +xprop
 +zsh
 +android-tools
-+cascadiacode-nerd-fonts
 +code
 +containerd.io
 +dbus-x11
@@ -101,17 +95,12 @@
 +docker-ce-cli
 +docker-buildx-plugin
 +docker-compose-plugin
-+droidsansmono-nerd-fonts
 +edk2-ovmf
-+firamono-nerd-fonts
 +flatpak-builder
 +genisoimage
-+go-mono-nerd-fonts
-+ibmplexmono-nerd-fonts
 +incus
 +incus-agent
 +iotop
-+jetbrainsmono-nerd-fonts
 +libvirt
 +libvirt-nss
 +lxc
