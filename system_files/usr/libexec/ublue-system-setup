@@ -124,6 +124,11 @@ else
 	grub2-mkconfig -o /etc/grub2.cfg
 fi
 
+# Initialize etckeeper
+if [[ ! -d /etc/.git ]]; then
+	etckeeper init
+fi
+
 echo "${IMAGE_NAME}" >"${KNOWN_IMAGE_NAME_FILE}"
 echo "${IMAGE_FLAVOR}" >"${KNOWN_IMAGE_FLAVOR_FILE}"
 echo "${HWS_VER}" >"${HWS_VER_FILE}"
