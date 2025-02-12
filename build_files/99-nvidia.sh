@@ -5,25 +5,17 @@ set -ouex pipefail
 
 RELEASE="$(rpm -E %fedora)"
 
-# disable any remaining rpmfusion repos
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/rpmfusion*.repo
-
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/fedora-cisco-openh264.repo
-
 ## nvidia install steps
 rpm-ostree install /tmp/akmods-rpms/ublue-os/ublue-os-nvidia-addons-*.rpm
 
 # enable repo provided by ublue-os-nvidia-addons
 sed -i '0,/enabled=0/{s/enabled=0/enabled=1/}' /etc/yum.repos.d/nvidia-container-toolkit.repo
 
-# disable negativo17-fedora-nvidia.repo
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/negativo17-fedora-nvidia.repo
-
 # Enable staging for supergfxctl
 sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/_copr_ublue-os-staging.repo
 
 # Enable fedora-nvidia
-curl --retry 3 -Lo /etc/yum.repos.d/fedora-nvidia.repo https://negativo17.org/repos/fedora-nvidia.repo
+sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/negativo17-fedora-nvidia.repo
 sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/negativo17-fedora-multimedia.repo
 
 source /tmp/akmods-rpms/kmods/nvidia-vars
@@ -60,12 +52,12 @@ rpm-ostree install supergfxctl-plasmoid supergfxctl prime-run
 # disable repo provided by ublue-os-nvidia-addons
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/nvidia-container-toolkit.repo
 
-# disable fedora-nvidia
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/fedora-nvidia.repo
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/negativo17-fedora-multimedia.repo
-
 # Disable staging
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_ublue-os-staging.repo
+
+# disable fedora-nvidia
+sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/negativo17-fedora-nvidia.repo
+sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/negativo17-fedora-multimedia.repo
 
 # ensure kernel.conf matches NVIDIA_FLAVOR (which must be nvidia or nvidia-open)
 # kmod-nvidia-common defaults to 'nvidia-open' but this will match our akmod image

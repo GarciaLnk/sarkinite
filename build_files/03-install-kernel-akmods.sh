@@ -54,6 +54,8 @@ rpm-ostree install \
 rpm-ostree install \
 	v4l2loopback /tmp/akmods/kmods/*v4l2loopback*.rpm
 rpm-ostree uninstall rpmfusion-free-release rpmfusion-nonfree-release
+# disable any remaining rpmfusion repos
+sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/rpmfusion*.repo
 
 # Nvidia AKMODS
 if [[ ${IMAGE_NAME} =~ nvidia ]]; then
