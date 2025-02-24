@@ -8,7 +8,9 @@ set -eoux pipefail
 systemctl enable tailscaled.service
 systemctl enable dconf-update.service
 systemctl --global enable ublue-flatpak-manager.service
-systemctl enable ublue-update.timer
+systemctl enable rpm-ostreed-automatic.timer
+systemctl enable flatpak-system-update.timer
+systemctl --global enable flatpak-user-update.timer
 systemctl enable ublue-system-setup.service
 systemctl enable ublue-guest-user.service
 systemctl enable brew-setup.service
@@ -50,6 +52,7 @@ sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/negativo17-fedora-multimedia.r
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/tailscale.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/charm.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_ublue-os-staging.repo
+sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_ublue-os-packages.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_kylegospo-rom-properties.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_kylegospo-webapp-manager.repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/firefoxpwa.repo

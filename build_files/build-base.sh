@@ -9,7 +9,6 @@ mkdir -p /var/lib/alternatives
 # Copy Files to Container
 cp -r /ctx/just /tmp/just
 cp /ctx/packages /tmp/packages
-cp /ctx/system_files/etc/ublue-update/ublue-update.toml /tmp/ublue-update.toml
 rsync -rvK /ctx/system_files/ /
 echo "::endgroup::"
 

@@ -77,6 +77,7 @@
 +timg
 +tmux
 +topgrade
++ublue-brew
 +usbmuxd
 +waydroid
 +wireguard-tools
@@ -125,4 +126,3 @@
 -krfb-libs
 -noopenh264
 -podman-docker
--ublue-os-update-services
