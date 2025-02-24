@@ -8,6 +8,9 @@ set -eoux pipefail
 curl --retry 3 -Lo /etc/yum.repos.d/_copr_ublue-os-staging.repo https://copr.fedorainfracloud.org/coprs/ublue-os/staging/repo/fedora-"${FEDORA_MAJOR_VERSION}"/ublue-os-staging-fedora-"${FEDORA_MAJOR_VERSION}".repo
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_ublue-os-staging.repo
 
+# ublue-os packages
+curl --retry 3 -Lo /etc/yum.repos.d/_copr_ublue-os-packages.repo https://copr.fedorainfracloud.org/coprs/ublue-os/packages/repo/fedora-"${FEDORA_MAJOR_VERSION}"/ublue-os-packages-fedora-"${FEDORA_MAJOR_VERSION}".repo
+
 # disable negativo17-fedora-multimedia
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/negativo17-fedora-multimedia.repo
 
