@@ -28,15 +28,7 @@ function brew-bundle() {
 # Check if bling is already sourced
 function check-bling() {
 	shell="$1"
-	if [[ ${shell} == "fish" ]]; then
-		line=$(grep -n "source /usr/share/ublue-os/sarkinite-cli/bling.fish" \
-			"${XDG_CONFIG_HOME:-${HOME}/.config}/fish/config.fish" |
-			grep -Eo '^[^:]+')
-		if [[ -n ${line} ]]; then
-			return 1
-		fi
-		return 0
-	elif [[ ${shell} == "zsh" ]]; then
+	if [[ ${shell} == "zsh" ]]; then
 		line=$(grep -n "source /usr/share/ublue-os/sarkinite-cli/bling.sh" \
 			"${ZDOTDIR:-${HOME}}/.zshrc" |
 			grep -Eo '^[^:]+')
@@ -65,14 +57,7 @@ function add-bling() {
 		Exiting
 	fi
 	echo 'Setting up your Shell 🐚🐚🐚'
-	if [[ ${shell} == "fish" ]]; then
-		echo 'Adding bling to your config.fish 🐟🐟🐟'
-		cat <<-EOF >>"${XDG_CONFIG_HOME:-${HOME}/.config}/fish/config.fish"
-			### bling.fish source start
-			test -f /usr/share/ublue-os/sarkinite-cli/bling.fish && source /usr/share/ublue-os/sarkinite-cli/bling.fish
-			### bling.fish source end
-		EOF
-	elif [[ ${shell} == "zsh" ]]; then
+	if [[ ${shell} == "zsh" ]]; then
 		echo 'Adding bling to your .zshrc 💤💤💤'
 		cat <<-EOF >>"${ZDOTDIR:-${HOME}}/.zshrc"
 			### bling.sh source start
@@ -94,14 +79,7 @@ function add-bling() {
 # Remove bling, handle if old method
 function remove-bling() {
 	shell="$1"
-	if [[ ${shell} == "fish" ]]; then
-		sed -i '/### bling.fish source start/,/### bling.fish source end/d' \
-			"${XDG_CONFIG_HOME:-${HOME}/.config}/fish/config.fish" ||
-			line=$(grep -n "source /usr/share/ublue-os/sarkinite-cli/bling.fish" \
-				"${XDG_CONFIG_HOME:-${HOME}/.config}/fish/config.fish" |
-				grep -Eo '^[^:]+') && sed -i "${line}"d \
-			"${XDG_CONFIG_HOME:-${HOME}/.config}/fish/config.fish"
-	elif [[ ${shell} == "zsh" ]]; then
+	if [[ ${shell} == "zsh" ]]; then
 		sed -i '/### bling.sh source start/,/### bling.sh source end/d' \
 			"${ZDOTDIR:-${HOME}}/.zshrc" ||
 			line=$(grep -n "source /usr/share/ublue-os/sarkinite-cli/bling.sh" \
