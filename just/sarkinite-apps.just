@@ -60,6 +60,24 @@ setup-spotify:
     spicetify config extensions adblock.js
     spicetify apply
 
+# Install GitHub Copilot CLI
+[group('Apps')]
+install-copilot-cli:
+    #!/usr/bin/env bash
+    echo "Installing GitHub Copilot CLI..."
+    if [[ -n $(command -v gh) ]]; then
+        if [[ -z $(gh auth status) ]]; then
+            gh auth login
+        fi
+        gh extension install github/gh-copilot --force
+        if ! grep -q 'gh copilot alias' ~/.bashrc; then
+            echo 'eval "$(gh copilot alias -- bash)"' >> ~/.bashrc
+        fi
+        echo "Start using GitHub Copilot by typing 'ghcs' in a new terminal."
+    else
+        echo "GitHub CLI is not installed. Please install it first."
+    fi
+
 # Install Kubernetes CLI dev tools
 [group('Apps')]
 install-k8s-dev-tools:
