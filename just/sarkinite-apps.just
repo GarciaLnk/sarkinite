@@ -100,7 +100,7 @@ install-svp:
     echo "Installing SVP, set install directory to ${HOME}/.local/share/svp4"
     /tmp/svp4-linux-64.run
     rm -f /tmp/svp4-linux-x64.tar.bz2 /tmp/svp4-linux-64.run
-    SCRIPTS_DIR="${HOME}/.config/mpv/scripts"
+    SCRIPTS_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}/mpv/scripts"
     curl "https://raw.githubusercontent.com/wis/mpvSockets/master/mpvSockets.lua" --create-dirs -o "${SCRIPTS_DIR}/mpvSockets.lua"
     echo "SVP has been installed."
 

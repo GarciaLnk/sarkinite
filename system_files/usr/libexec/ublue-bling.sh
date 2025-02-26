@@ -145,6 +145,11 @@ function main() {
 		if check-bling "${shell}"; then
 			trap ctrl_c SIGINT
 			add-bling "${shell}"
+			# set preset for starship
+			STARSHIP_CONFIG="${XDG_CONFIG_HOME:-${HOME}/.config}/starship.toml"
+			if [[ -n "$(command -v starship)" ]]; then
+				starship preset nerd-font-symbols -o "${STARSHIP_CONFIG}"
+			fi
 			printf "%s%sInstallation Complete%s ... please close and reopen your terminal!" "${green}" "${bold}" "${normal}"
 		else
 			main "Bling is already configured ..."
