@@ -4,6 +4,3 @@ font-family = FiraCode Nerd Font
 font-feature = -liga
 font-feature = -calt
 font-feature = -dlig
-gtk-wide-tabs = false
-gtk-titlebar = false
-gtk-adwaita = false
