@@ -42,7 +42,12 @@ alias changelog := changelogs
 # Show the changelog
 changelogs:
     #!/usr/bin/env bash
-    CONTENT=$(curl -s https://api.github.com/repos/ublue-os/bluefin/releases/latest | jq -r '.body')
+    . /etc/os-release
+    # Strip Fedora's VERSION_ID from the IMAGE_VERSION
+    VERSION_ID_PREFIX="${VERSION_ID}."
+    IMAGE_VERSION_TAG=${IMAGE_VERSION/#"$VERSION_ID_PREFIX"}
+    CONTENT=$(curl -s "https://api.github.com/repos/GarciaLnk/sarkinite/releases/tags/${RELEASE_TYPE}-${IMAGE_VERSION_TAG}"  | jq -r '.body')
+    CONTENT=$(curl -s https://api.github.com/repos/GarciaLnk/sarkinite/releases/latest | jq -r '.body')
     echo "${CONTENT}" | glow -
 
 changelogs-fedora:
