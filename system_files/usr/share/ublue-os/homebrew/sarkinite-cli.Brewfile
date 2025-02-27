@@ -31,6 +31,7 @@ brew "trash-cli"
 brew "ugrep"
 brew "watchexec"
 brew "xh"
+brew "yazi"
 brew "yq"
 brew "zoxide"
 
