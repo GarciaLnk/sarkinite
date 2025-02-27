@@ -44,9 +44,6 @@ sysctl -p
 # Base Image Changes
 /ctx/build_files/07-base-image-changes.sh
 
-# Install Brew
-/ctx/build_files/10-brew.sh
-
 ## late stage changes
 
 # Systemd and Remove Items
