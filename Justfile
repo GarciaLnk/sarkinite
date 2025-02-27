@@ -166,6 +166,11 @@ build $image="sarkinite" $tag="stable" $flavor="main" rechunk="0" ghcr="0" pipel
         BUILD_ARGS+=("--progress" "plain")
     fi
 
+    # Pull in most recent upstream base image
+    if [[ {{ ghcr }} == "0" ]]; then
+        ${PODMAN} pull "ghcr.io/ublue-os/kinoite-main:${fedora_version}"
+    fi
+
     # Labels
     LABELS=()
     LABELS+=("--label" "org.opencontainers.image.title=${image_name}")
