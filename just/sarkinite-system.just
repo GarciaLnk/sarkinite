@@ -75,6 +75,13 @@ configure-vfio ACTION="":
         echo "Enabling VFIO..."
         CPU_VENDOR=$(grep "vendor_id" "/proc/cpuinfo" | uniq | awk -F": " '{ print $2 }')
         VENDOR_KARG="unset"
+        echo "Downloading ls-iommu helper tool for listing devices in iommu groups"
+        DOWNLOAD_URL=$(curl https://api.github.com/repos/HikariKnight/ls-iommu/releases/latest | jq -r '.assets[] | select(.name| test(".*x86_64.tar.gz$")).browser_download_url')
+        curl --retry 3 -Lo /tmp/ls-iommu.tar.gz "${DOWNLOAD_URL}"
+        mkdir /tmp/ls-iommu
+        tar --no-same-owner --no-same-permissions --no-overwrite-dir -xvzf /tmp/ls-iommu.tar.gz -C /tmp/ls-iommu
+        mv /tmp/ls-iommu/ls-iommu ${HOME}/.local/bin/ls-iommu
+        rm -rf /tmp/ls-iommu*
         if [[ ${CPU_VENDOR} == "AuthenticAMD" ]]; then
             VENDOR_KARG="amd_iommu=on"
         elif [[ ${CPU_VENDOR} == "GenuineIntel" ]]; then

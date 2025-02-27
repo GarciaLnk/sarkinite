@@ -23,10 +23,6 @@ dnf5 -y swap \
 	--repo=terra-extras \
 	switcheroo-control switcheroo-control
 
-# Flahub repo
-mkdir -p /etc/flatpak/remotes.d
-curl --retry 3 -Lo /etc/flatpak/remotes.d/flathub.flatpakrepo https://dl.flathub.org/repo/flathub.flatpakrepo
-
 # Install ublue packages
 dnf5 -y copr enable ublue-os/staging
 dnf5 -y install devpod yafti
@@ -37,18 +33,8 @@ find /tmp/just -iname '*.just' -exec printf "\n\n" \; -exec cat {} \; >>/usr/sha
 
 # Waydroid
 sed -i~ -E 's/=.\$\(command -v (nft|ip6?tables-legacy).*/=/g' /usr/lib/waydroid/data/scripts/waydroid-net.sh
-curl --retry 3 -Lo /usr/bin/waydroid-choose-gpu https://raw.githubusercontent.com/KyleGospo/waydroid-scripts/main/waydroid-choose-gpu.sh
-chmod +x /usr/bin/waydroid-choose-gpu
 if [[ -f "/var/lib/waydroid/lxc/waydroid/config" ]]; then
 	sed -i '/lxc\.apparmor\.profile\s*=\s*unconfined/d' "/var/lib/waydroid/lxc/waydroid/config"
 fi
-
-# ls-iommu helper tool for listing devices in iommu groups (PCI Passthrough)
-DOWNLOAD_URL=$(curl https://api.github.com/repos/HikariKnight/ls-iommu/releases/latest | jq -r '.assets[] | select(.name| test(".*x86_64.tar.gz$")).browser_download_url')
-curl --retry 3 -Lo /tmp/ls-iommu.tar.gz "${DOWNLOAD_URL}"
-mkdir /tmp/ls-iommu
-tar --no-same-owner --no-same-permissions --no-overwrite-dir -xvzf /tmp/ls-iommu.tar.gz -C /tmp/ls-iommu
-mv /tmp/ls-iommu/ls-iommu /usr/bin/
-rm -rf /tmp/ls-iommu*
 
 echo "::endgroup::"
