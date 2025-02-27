@@ -44,9 +44,6 @@ sysctl -p
 # Base Image Changes
 /ctx/build_files/07-base-image-changes.sh
 
-# Get Firmare for Framework
-/ctx/build_files/08-firmware.sh
-
 # Install Brew
 /ctx/build_files/10-brew.sh
 
