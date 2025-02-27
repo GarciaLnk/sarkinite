@@ -10,7 +10,7 @@ for pkg in kernel kernel-core kernel-modules kernel-modules-core kernel-modules-
 done
 
 # Fetch Common AKMODS & Kernel RPMS
-skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods:"${AKMODS_FLAVOR}"-"$(rpm -E %fedora)"-"${KERNEL}" dir:/tmp/akmods
+skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods:"${AKMODS_FLAVOR}"-"${FEDORA_MAJOR_VERSION}"-"${KERNEL}" dir:/tmp/akmods
 AKMODS_TARGZ=$(jq -r '.layers[].digest' </tmp/akmods/manifest.json | cut -d : -f 2)
 tar -xvzf /tmp/akmods/"${AKMODS_TARGZ}" -C /tmp/
 mv /tmp/rpms/* /tmp/akmods/
@@ -22,21 +22,15 @@ dnf5 -y install \
 	/tmp/kernel-rpms/kernel-core-*.rpm \
 	/tmp/kernel-rpms/kernel-modules-*.rpm
 
-# Fetch Kernel RPMS
-skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/"${AKMODS_FLAVOR}"-kernel:"${FEDORA_MAJOR_VERSION}"-"${KERNEL}" dir:/tmp/kernel-rpms
-KERNEL_TARGZ=$(jq -r '.layers[].digest' </tmp/kernel-rpms/manifest.json | cut -d : -f 2)
-tar -xvzf /tmp/kernel-rpms/"${KERNEL_TARGZ}" -C /
-mv /tmp/rpms/* /tmp/kernel-rpms/
-
-# Everyone
-sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo
-
-if ! rpm -qa | grep kernel-devel; then
-	dnf5 -y install /tmp/kernel-rpms/kernel-devel-*.rpm
-fi
+# TODO: Figure out why akmods cache is pulling in akmods/kernel-devel
+dnf5 -y install \
+	/tmp/kernel-rpms/kernel-devel-*.rpm
 
 dnf5 versionlock add kernel kernel-devel kernel-devel-matched kernel-core kernel-modules kernel-modules-core kernel-modules-extra
 
+# Everyone
+# NOTE: we won't use dnf5 copr plugin for ublue-os/akmods until our upstream provides the COPR standard naming
+sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo
 dnf5 -y install \
 	/tmp/akmods/kmods/*xone*.rpm \
 	xpadneo /tmp/akmods/kmods/*xpadneo*.rpm \

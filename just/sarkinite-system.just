@@ -249,25 +249,25 @@ install-nix:
       nix-env -iA nixgl.auto.nixGLNvidia
       nix-env -iA nixgl.auto.nixVulkanNvidia
     fi
-    if [ ! -f "$HOME/.config/nixpkgs/config.nix" ]; then
-      mkdir -p "$HOME/.config/nixpkgs"
+    if [ ! -f "${XDG_CONFIG_HOME:-${HOME}/.config}/nixpkgs/config.nix" ]; then
+      mkdir -p "${XDG_CONFIG_HOME:-${HOME}/.config}/nixpkgs"
       echo "{
       allowUnfree = true;
-    }" > "$HOME/.config/nixpkgs/config.nix"
+    }" > "${XDG_CONFIG_HOME:-${HOME}/.config}/nixpkgs/config.nix"
     fi
     echo 'Installing devbox!'
     curl -Lo /tmp/devbox-installer https://get.jetify.com/devbox
     chmod +x /tmp/devbox-installer
     /tmp/devbox-installer -f
     rm -f /tmp/devbox-installer
-    if ! grep -q 'eval "$(devbox global shellenv)"' "$HOME/.bashrc"; then
-      echo 'eval "$(devbox global shellenv)"' | sudo tee -a "$HOME/.bashrc" > /dev/null
+    if ! grep -q 'eval "$(devbox global shellenv)"' "${HOME}/.bashrc"; then
+      echo 'eval "$(devbox global shellenv)"' | sudo tee -a "${HOME}/.bashrc" > /dev/null
     fi
-    if ! grep -q "export XDG_DATA_DIRS=" "$HOME/.profile" 2>/dev/null; then
-      if [ ! -f "$HOME/.profile" ]; then
-        touch "$HOME/.profile"
+    if ! grep -q "export XDG_DATA_DIRS=" "${HOME}/.profile" 2>/dev/null; then
+      if [ ! -f "${HOME}/.profile" ]; then
+        touch "${HOME}/.profile"
       fi
-      echo "export XDG_DATA_DIRS=\"$(devbox global path)/.devbox/nix/profile/default/share:$HOME/.nix-profile/share:\$XDG_DATA_DIRS\"" | tee -a "$HOME/.profile" > /dev/null
+      echo "export XDG_DATA_DIRS=\"$(devbox global path)/.devbox/nix/profile/default/share:${HOME}/.nix-profile/share:\$XDG_DATA_DIRS\"" | tee -a "${HOME}/.profile" > /dev/null
     fi
     echo 'Open a new shell to continue'
 
@@ -288,10 +288,10 @@ remove-nix:
     echo 'Removing Nix'
     /nix/nix-installer uninstall
     sudo systemctl disable nix-gc.timer
-    sed -i '/eval "$(devbox global shellenv)"/d' "$HOME/.bashrc"
-    sed -i '/export XDG_DATA_DIRS=/d' "$HOME/.profile"
+    sed -i '/eval "$(devbox global shellenv)"/d' "${HOME}/.bashrc"
+    sed -i '/export XDG_DATA_DIRS=/d' "${HOME}/.profile"
     sudo rm /usr/local/bin/devbox
-    rm -rf "$HOME/.cache/devbox"
+    rm -rf "${HOME}/.cache/devbox"
     rm -rf .local/share/devbox
 
 [group('System')]
@@ -310,17 +310,17 @@ alias hostname := configure-hostname
 [group('System')]
 setup-ssh:
     #!/usr/bin/env bash
-    if ! [[ -f "$HOME/.ssh/authorized_keys" ]]; then
-      mkdir -p "$HOME/.ssh"
-      chmod 700 "$HOME/.ssh"
-      ssh-keygen -t ed25519 -f "$HOME/.ssh/id_ed25519" -N "" -C "$USER@$HOSTNAME"
-      cat "$HOME/.ssh/id_ed25519.pub" >> "$HOME/.ssh/authorized_keys"
+    if ! [[ -f "${HOME}/.ssh/authorized_keys" ]]; then
+      mkdir -p "${HOME}/.ssh"
+      chmod 700 "${HOME}/.ssh"
+      ssh-keygen -t ed25519 -f "${HOME}/.ssh/id_ed25519" -N "" -C "$USER@$HOSTNAME"
+      cat "${HOME}/.ssh/id_ed25519.pub" >> "${HOME}/.ssh/authorized_keys"
       eval "$(ssh-agent -s)"
-      ssh-add "$HOME/.ssh/id_ed25519"
+      ssh-add "${HOME}/.ssh/id_ed25519"
     fi
 
-    if ! grep -q "SSH_AUTH_SOCK" "$HOME/.profile" 2>/dev/null; then
-      bash -c "cat >> "$HOME/.profile" <<EOF
+    if ! grep -q "SSH_AUTH_SOCK" "${HOME}/.profile" 2>/dev/null; then
+      bash -c "cat >> "${HOME}/.profile" <<EOF
     if [[ -z \${SSH_AUTH_SOCK} ]]; then
         # Check for a currently running instance of the agent
         RUNNING_AGENT="\$(pgrep -fc 'ssh-agent -s')"
