@@ -25,8 +25,10 @@ dnf5 -y swap \
 
 # Install ublue packages
 dnf5 -y copr enable ublue-os/staging
+sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/terra.repo
 dnf5 -y install devpod yafti
 dnf5 -y copr disable ublue-os/staging
+sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/terra.repo
 
 # Waydroid
 sed -i~ -E 's/=.\$\(command -v (nft|ip6?tables-legacy).*/=/g' /usr/lib/waydroid/data/scripts/waydroid-net.sh
