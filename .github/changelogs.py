@@ -44,7 +44,7 @@ From previous `{target}` version `{prev}` there have been the following changes.
 | **Podman** | {pkgrel:podman} |
 | **Nvidia** | {pkgrel:nvidia-driver} |
 | **Docker** | {pkgrel:docker-ce} |
-| **Devpod** | {pkgrel:devpod} |
+| **VSCode** | {pkgrel:code} |
 
 {changes}
 
@@ -70,7 +70,7 @@ BLACKLIST_VERSIONS = [
     "mesa-filesystem",
     "podman",
     "docker-ce",
-    "devpod",
+    "code",
     "nvidia-driver",
 ]
 

@@ -14,7 +14,7 @@ on:
         required: true
         type: choice
         options:
-          - '["stable"]'
+          - '["stable", "testing"]'
 
 permissions:
   contents: write
@@ -34,20 +34,11 @@ jobs:
         with:
           fetch-depth: 500
 
-      - name: Install Just
-        shell: bash
-        run: bash .github/workflows/shared/install-just.sh
-
-      - name: Check Just Syntax
-        shell: bash
-        run: |
-          just check
-
       - name: Generate Release Text
         id: generate-release-text
         shell: bash
         run: |
-          just changelogs "${{ matrix.version }}" "${{ inputs.handwritten }}"
+          python3 .github/changelogs.py --workdir . "${{ matrix.version }}" ./output.env ./changelog.md --handwritten "${{ inputs.handwritten }}"
           source ./output.env
           echo "title=${TITLE}" >> $GITHUB_OUTPUT
           echo "tag=${TAG}" >> $GITHUB_OUTPUT

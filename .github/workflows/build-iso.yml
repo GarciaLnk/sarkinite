@@ -9,6 +9,11 @@ on:
         type: choice
         options:
           - '["sarkinite"]'
+      upload-to-cloudflare:
+        description: "Upload to Cloudflare"
+        required: false
+        default: true
+        type: boolean
 
 jobs:
   build-iso:
@@ -22,3 +27,4 @@ jobs:
     with:
       brand_name: ${{ matrix.brand_name }}
       stream_name: stable
+      upload-to-cloudflare: ${{ inputs.upload-to-cloudflare }}
