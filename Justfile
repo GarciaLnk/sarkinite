@@ -478,7 +478,7 @@ build-iso $image="sarkinite" $tag="stable" $flavor="main" ghcr="0" pipeline="0":
     flatpak_refs=()
     while IFS= read -r line; do
         flatpak_refs+=("$line")
-    done < "flatpaks"
+    done < "system_files/usr/share/ublue-os/system-flatpaks.list"
 
     echo "Flatpak refs: ${flatpak_refs[@]}"
 

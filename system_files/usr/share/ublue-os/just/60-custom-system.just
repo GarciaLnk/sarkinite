@@ -151,7 +151,7 @@ install-system-flatpaks CURR_LIST_FILE="":
     CURR_LIST_FILE={{ CURR_LIST_FILE }}
 
     if [[ -n ${CURR_LIST_FILE} ]]; then
-        FLATPAK_LIST=($(cat /usr/share/ublue-os/flatpak-list))
+        FLATPAK_LIST=($(cat /usr/share/ublue-os/system-flatpaks.list))
         if [[ -f "${CURR_LIST_FILE}" ]]; then
             mapfile -t CURRENT_FLATPAK_LIST < "${CURR_LIST_FILE}"
             # convert arrays to sorted newline-separated strings to compare lists and get new flatpaks
@@ -166,7 +166,7 @@ install-system-flatpaks CURR_LIST_FILE="":
             printf "%s\n" "${FLATPAK_LIST[@]}" > "${CURR_LIST_FILE}"
         fi
     else
-        FLATPAK_LIST=($(curl https://raw.githubusercontent.com/GarciaLnk/sarkinite/main/flatpaks))
+        FLATPAK_LIST=($(curl https://raw.githubusercontent.com/GarciaLnk/sarkinite/main/system_files/usr/share/ublue-os/system-flatpaks.list))
         flatpak --system -y install --reinstall --or-update "${FLATPAK_LIST[@]}"
     fi
 
