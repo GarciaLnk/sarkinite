@@ -1,6 +1,6 @@
 # vim: set ft=make :
 ########################
-### sarkinite-apps.just
+### 60-custom-apps.just
 ########################
 ## Standardized verbs
 # configure- = configure something that is pre-installed on the image

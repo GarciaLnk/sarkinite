@@ -28,9 +28,6 @@ dnf5 -y copr enable ublue-os/staging
 dnf5 -y install devpod yafti
 dnf5 -y copr disable ublue-os/staging
 
-# Consolidate Just Files
-find /tmp/just -iname '*.just' -exec printf "\n\n" \; -exec cat {} \; >>/usr/share/ublue-os/just/60-custom.just
-
 # Waydroid
 sed -i~ -E 's/=.\$\(command -v (nft|ip6?tables-legacy).*/=/g' /usr/lib/waydroid/data/scripts/waydroid-net.sh
 if [[ -f "/var/lib/waydroid/lxc/waydroid/config" ]]; then
