@@ -58,6 +58,7 @@ jobs:
       - name: Setup Just
         run: |
           pipx install rust-just
+          sudo mv $(which just) /usr/local/bin/just
 
       - name: Check Just Syntax
         shell: bash
@@ -68,7 +69,7 @@ jobs:
         uses: ublue-os/remove-unwanted-software@cc0becac701cf642c8f0a6613bbdaf5dc36b259e # v9
         with:
           remove-codeql: true
-    
+
       - name: Image Name
         shell: bash
         run: |
