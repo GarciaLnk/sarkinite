@@ -10,10 +10,8 @@
 # fix-       = apply fix/patch/workaround for something
 # foo        = no verb is used for shortcuts or something deemed important enough to use a super memorable name
 
-# alias for install-jetbrains-toolbox
-[group('Apps')]
-jetbrains-toolbox:
-    @ujust install-jetbrains-toolbox
+alias jetbrains-toolbox := install-jetbrains-toolbox
+alias spotify := setup-spotify
 
 # Install JetBrains Toolbox | https://www.jetbrains.com/toolbox-app/
 [group('Apps')]
@@ -33,8 +31,6 @@ install-jetbrains-toolbox:
     tar zxf jetbrains-toolbox-"${BUILD_VERSION}".tar.gz
     echo "Launching JetBrains Toolbox"
     ./jetbrains-toolbox-"${BUILD_VERSION}"/jetbrains-toolbox
-
-alias spotify := setup-spotify
 
 # Configure Spotify with Spicetify
 [group('Apps')]

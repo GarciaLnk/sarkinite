@@ -10,37 +10,18 @@
 # fix-       = apply fix/patch/workaround for something
 # foo        = no verb is used for shortcuts or something deemed important enough to use a super memorable name
 
+alias devmode := toggle-devmode
+alias setup-vfio := configure-vfio
+alias switch-stream := rebase-helper
+alias switch-streams := rebase-helper
+alias rollback-helper := rebase-helper
+alias setup-nix := install-nix
+alias hostname := configure-hostname
+
 # Configure Sarkinite-CLI Terminal Experience with Brew
 [group('System')]
 sarkinite-cli:
     @/usr/libexec/ublue-bling.sh
-
-# alias for toggle-devmode
-devmode:
-    @ujust toggle-devmode
-
-# Configure docker,libvirt,kvm container manager permissions
-[group('System')]
-groups:
-    #!/usr/bin/env bash
-    append_group() {
-        local group_name="$1"
-        if ! grep -q "^$group_name:" /etc/group; then
-            echo "Appending $group_name to /etc/group"
-            grep "^$group_name:" /usr/lib/group | sudo tee -a /etc/group > /dev/null
-        fi
-    }
-    GROUPS_ADD=("docker" "libvirt" "kvm")
-    for GROUP_ADD in "${GROUPS_ADD[@]}" ; do
-        append_group $GROUP_ADD
-        pkexec usermod -aG $GROUP_ADD $USER
-    done
-    echo "Reboot system and log back in to use docker, libvirt, kvm."
-
-# alias for configure-vfio
-[group('System')]
-setup-vfio:
-    @ujust configure-vfio
 
 # Configure system to use vfio and kvmfr
 [group('System')]
@@ -175,10 +156,6 @@ install-system-flatpaks CURR_LIST_FILE="":
 configure-grub:
     @/usr/libexec/configure-grub.sh
 
-alias switch-stream := rebase-helper
-alias switch-streams := rebase-helper
-alias rollback-helper := rebase-helper
-
 # Rebase assistant
 [group('System')]
 rebase-helper:
@@ -271,8 +248,6 @@ install-nix:
     fi
     echo 'Open a new shell to continue'
 
-alias setup-nix := install-nix
-
 # Update Nix and Devbox
 [group('System')]
 update-nix:
@@ -294,6 +269,7 @@ remove-nix:
     rm -rf "${HOME}/.cache/devbox"
     rm -rf .local/share/devbox
 
+# Change hostname
 [group('System')]
 configure-hostname:
     #!/usr/bin/env bash
@@ -303,8 +279,6 @@ configure-hostname:
     read NEW_HOSTNAME
     sudo hostnamectl set-hostname $NEW_HOSTNAME
     echo "Hostname changed to $NEW_HOSTNAME"
-
-alias hostname := configure-hostname
 
 # Setup SSH keys
 [group('System')]
