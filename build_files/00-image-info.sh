@@ -19,7 +19,7 @@ cat >/usr/share/ublue-os/image-info.json <<EOF
   "image-flavor": "${IMAGE_FLAVOR}",
   "image-vendor": "${IMAGE_VENDOR}",
   "image-ref": "${IMAGE_REF}",
-  "image-tag":"${UBLUE_IMAGE_TAG}",
+  "image-tag":"${IMAGE_TAG}",
   "fedora-version": "${FEDORA_MAJOR_VERSION}"
 }
 EOF

@@ -161,7 +161,7 @@ build $image="sarkinite" $tag="stable" $flavor="main" rechunk="0" ghcr="0" pipel
     if [[ -z "$(git status -s)" ]]; then
         BUILD_ARGS+=("--build-arg" "SHA_HEAD_SHORT=$(git rev-parse --short HEAD)")
     fi
-    BUILD_ARGS+=("--build-arg" "UBLUE_IMAGE_TAG=${tag}")
+    BUILD_ARGS+=("--build-arg" "IMAGE_TAG=${tag}")
     if [[ "${PODMAN}" =~ docker && "${TERM}" == "dumb" ]]; then
         BUILD_ARGS+=("--progress" "plain")
     fi

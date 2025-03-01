@@ -18,7 +18,6 @@ if [[ -d /usr/libexec/rpm-ostree/wrapped ]]; then
 fi
 
 # Copy Files to Container
-cp -r /ctx/just /tmp/just
 cp /ctx/packages /tmp/packages
 rsync -rvK /ctx/system_files/ /
 echo "::endgroup::"
