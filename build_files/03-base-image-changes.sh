@@ -43,7 +43,8 @@ pref("widget.dmabuf.force-enabled", true);
 EOF
 
 	# Nvidia Just commands
-	cat <<EOF >/usr/share/ublue-os/just/95-nvidia.just
+	cat <<EOF >>/usr/share/ublue-os/just/60-custom.just
+
 enable-supergfxctl:
 systemctl enable --now supergfxd.service
 EOF

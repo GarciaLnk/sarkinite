@@ -5,7 +5,7 @@ set -ouex pipefail
 RELEASE="$(rpm -E %fedora)"
 
 ## nvidia install steps
-dnf5 -y install /tmp/akmods-rpms/ublue-os/ublue-os-nvidia-addons-*.rpm
+dnf5 --repo=fedora,updates -y install /tmp/akmods-rpms/ublue-os/ublue-os-nvidia-addons-*.rpm
 
 # shellcheck disable=SC1091
 source /tmp/akmods-rpms/kmods/nvidia-vars

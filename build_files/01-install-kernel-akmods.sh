@@ -17,27 +17,29 @@ mv /tmp/rpms/* /tmp/akmods/
 # NOTE: kernel-rpms should auto-extract into correct location
 
 # Install Kernel
-dnf5 -y install \
+dnf5 --repo=fedora,updates -y install \
 	/tmp/kernel-rpms/kernel-[0-9]*.rpm \
 	/tmp/kernel-rpms/kernel-core-*.rpm \
 	/tmp/kernel-rpms/kernel-modules-*.rpm
 
 # TODO: Figure out why akmods cache is pulling in akmods/kernel-devel
-dnf5 -y install \
+dnf5 --repo=fedora,updates -y install \
 	/tmp/kernel-rpms/kernel-devel-*.rpm
 
 dnf5 versionlock add kernel kernel-devel kernel-devel-matched kernel-core kernel-modules kernel-modules-core kernel-modules-extra
 
 # Everyone
 dnf5 --repofrompath=ublue-os-akmods,https://download.copr.fedorainfracloud.org/results/ublue-os/akmods/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
-	--repofrompath=hikariknight-looking-glass-kvmfr,https://download.copr.fedorainfracloud.org/results/hikariknight/looking-glass-kvmfr/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
 	--repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}" \
-	--repo=fedora,updates,ublue-os-akmods,hikariknight-looking-glass-kvmfr,terra --no-gpgchecks -y install \
-	v4l2loopback /tmp/akmods/kmods/*v4l2loopback*.rpm \
+	--repo=fedora,updates,ublue-os-akmods,terra --no-gpgchecks -y install \
+	v4l2loopback v4l2-relayd /tmp/akmods/kmods/*v4l2loopback*.rpm \
 	xone-firmware /tmp/akmods/kmods/*xone*.rpm \
 	xpadneo /tmp/akmods/kmods/*xpadneo*.rpm \
 	/tmp/akmods/kmods/*openrazer*.rpm \
-	/tmp/akmods/kmods/*framework-laptop*.rpm \
+	/tmp/akmods/kmods/*framework-laptop*.rpm
+
+dnf5 --repofrompath=hikariknight-looking-glass-kvmfr,https://download.copr.fedorainfracloud.org/results/hikariknight/looking-glass-kvmfr/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
+	--repo=fedora,updates,hikariknight-looking-glass-kvmfr --no-gpgchecks -y install \
 	/tmp/akmods/kmods/*kvmfr*.rpm
 
 # Nvidia AKMODS
@@ -73,7 +75,7 @@ ZFS_RPMS=(
 )
 
 # Install
-dnf5 -y install "${ZFS_RPMS[@]}"
+dnf5 --repo=fedora,updates -y install "${ZFS_RPMS[@]}"
 
 # Depmod and autoload
 depmod -a -v "${KERNEL}"

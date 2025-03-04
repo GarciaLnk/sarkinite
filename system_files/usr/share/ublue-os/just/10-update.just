@@ -1,6 +1,9 @@
 # vim: set ft=make :
 
 alias upgrade := update
+alias auto-update := toggle-updates
+alias changelog := changelogs-fedora
+alias changelogs := changelogs-fedora
 
 # Update system, flatpaks, and containers all at once
 update:
@@ -8,8 +11,6 @@ update:
     TOPGRADE_CONFIG="/usr/share/ublue-os/topgrade"
     /usr/bin/grep "^LockLayering=true" /etc/rpm-ostreed.conf &>/dev/null && TOPGRADE_CONFIG="${TOPGRADE_CONFIG}-bootc"
     /usr/bin/topgrade --config "${TOPGRADE_CONFIG}.toml" --keep
-
-alias auto-update := toggle-updates
 
 # Turn automatic updates on or off
 toggle-updates ACTION="prompt":
@@ -37,10 +38,8 @@ toggle-updates ACTION="prompt":
         sudo systemctl disable rpm-ostreed-automatic.timer
     fi
 
-alias changelog := changelogs
-
 # Show the changelog
-changelogs:
+changelogs-sarkinite:
     #!/usr/bin/env bash
     . /etc/os-release
     # Strip Fedora's VERSION_ID from the IMAGE_VERSION
