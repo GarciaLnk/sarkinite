@@ -37,7 +37,7 @@ flatpak remote-modify --user --enable flathub
 ujust setup-boot-windows
 
 # Handle privileged tasks
-pkexec /usr/libexec/ublue-privileged-user-setup
+pkexec /usr/libexec/ublue-privileged-setup
 
 # Prevent future executions
 echo "Writing state file"

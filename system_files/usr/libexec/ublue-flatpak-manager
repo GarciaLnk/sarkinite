@@ -59,6 +59,17 @@ flatpak override \
 	--filesystem=/run/media \
 	com.github.Matoking.protontricks
 
+# Fix permissions for Chrome
+flatpak override \
+	--filesystem=~/.local/share/applications \
+	--filesystem=~/.local/share/icons \
+	com.google.Chrome
+
+# Fix permissions for Code
+flatpak override \
+	--filesystem=xdg-run/podman \
+	com.visualstudio.code
+
 # Fixes too many flatpaks to list
 flatpak override \
 	--socket=session-bus \
