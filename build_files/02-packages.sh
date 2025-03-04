@@ -126,7 +126,8 @@ dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSIO
 	keyd \
 	nerdfontssymbolsonly-nerd-fonts \
 	tela-icon-theme \
-	topgrade
+	topgrade \
+	zed
 
 dnf5 --repofrompath=kylegospo-rom-properties,https://download.copr.fedorainfracloud.org/results/kylegospo/rom-properties/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
 	--repo=fedora,kylegospo-rom-properties --no-gpgchecks -y install \
