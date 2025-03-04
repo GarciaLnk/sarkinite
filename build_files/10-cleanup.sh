@@ -41,35 +41,20 @@ systemctl enable sarkinite-groups.service
 systemctl enable --global sarkinite-user-vscode.service
 systemctl enable docker-prune.timer
 
+# Disable all repos
+dnf5 config-manager setopt "*.enabled=0"
+
 # Hide Desktop Files. Hidden removes mime associations
 sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nHidden=true@g' /usr/share/applications/htop.desktop
 sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nHidden=true@g' /usr/share/applications/nvtop.desktop
 sed -i 's@Exec=waydroid first-launch@Exec=/usr/bin/waydroid-launcher first-launch\nX-Steam-Library-Capsule=/usr/share/applications/Waydroid/capsule.png\nX-Steam-Library-Hero=/usr/share/applications/Waydroid/hero.png\nX-Steam-Library-Logo=/usr/share/applications/Waydroid/logo.png\nX-Steam-Library-StoreCapsule=/usr/share/applications/Waydroid/store-logo.png\nX-Steam-Controller-Template=Desktop@g' /usr/share/applications/Waydroid.desktop
 
-# Disable all COPRs and RPM Fusion Repos
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/negativo17-fedora-multimedia.repo
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/tailscale.repo
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/charm.repo
-dnf5 -y copr disable ublue-os/staging
-dnf5 -y copr disable ublue-os/packages
-dnf5 -y copr disable kylegospo/rom-properties
-dnf5 -y copr disable kylegospo/webapp-manager
-dnf5 -y copr disable lizardbyte/stable
-dnf5 -y copr disable hikariknight/looking-glass-kvmfr
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/firefoxpwa.repo
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/terra.repo
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/fedora-cisco-openh264.repo
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/vscode.repo
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/docker-ce.repo
-# NOTE: we won't use dnf5 copr plugin for ublue-os/akmods until our upstream provides the COPR standard naming
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo
+# Patch btrfs-assistant-launcher to not pass $XDG_RUNTIME_DIR so that it does not break flatpaks
+# shellcheck disable=SC2016
+sed -i 's/ --xdg-runtime=\\"${XDG_RUNTIME_DIR}\\"//g' /usr/bin/btrfs-assistant-launcher
 
-for i in /etc/yum.repos.d/rpmfusion-*; do
-	sed -i 's@enabled=1@enabled=0@g' "${i}"
-done
-
-if [[ -f /etc/yum.repos.d/fedora-coreos-pool.repo ]]; then
-	sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/fedora-coreos-pool.repo
-fi
+QUALIFIED_KERNEL="$(rpm -qa | grep -P 'kernel-(\d+\.\d+\.\d+)' | sed -E 's/kernel-//')"
+/usr/bin/dracut --no-hostonly --kver "${QUALIFIED_KERNEL}" --reproducible -v --add ostree -f "/lib/modules/${QUALIFIED_KERNEL}/initramfs.img"
+chmod 0600 "/lib/modules/${QUALIFIED_KERNEL}/initramfs.img"
 
 echo "::endgroup::"

@@ -24,6 +24,12 @@ sed -i '/<entry name="launchers" type="StringList">/,/<\/entry>/ s/<default>[^<]
 setcap 'cap_net_raw+ep' /usr/libexec/ksysguard/ksgrd_network_helper
 setcap 'cap_sys_admin+p' "$(readlink -f "$(command -v sunshine)")"
 
+# Waydroid
+sed -i~ -E 's/=.\$\(command -v (nft|ip6?tables-legacy).*/=/g' /usr/lib/waydroid/data/scripts/waydroid-net.sh
+if [[ -f "/var/lib/waydroid/lxc/waydroid/config" ]]; then
+	sed -i '/lxc\.apparmor\.profile\s*=\s*unconfined/d' "/var/lib/waydroid/lxc/waydroid/config"
+fi
+
 # Nvidia Configurations
 if [[ ${IMAGE_NAME} =~ "nvidia" ]]; then
 	# Disable GSP on -nvidia builds
@@ -37,7 +43,7 @@ pref("widget.dmabuf.force-enabled", true);
 EOF
 
 	# Nvidia Just commands
-	cat <<EOF >/tmp/just/95-nvidia.just
+	cat <<EOF >/usr/share/ublue-os/just/95-nvidia.just
 enable-supergfxctl:
 systemctl enable --now supergfxd.service
 EOF

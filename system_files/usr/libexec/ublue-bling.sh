@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#shellcheck disable=SC2154,SC1091
 
 set -ou pipefail
 

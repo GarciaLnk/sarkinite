@@ -18,7 +18,6 @@ if [[ -d /usr/libexec/rpm-ostree/wrapped ]]; then
 fi
 
 # Copy Files to Container
-cp /ctx/packages /tmp/packages
 rsync -rvK /ctx/system_files/ /
 echo "::endgroup::"
 
@@ -28,31 +27,18 @@ sysctl -p
 # Generate image-info.json
 /ctx/build_files/00-image-info.sh
 
-# Get COPR Repos
-/ctx/build_files/02-install-copr-repos.sh
-
 # Install Kernel and Akmods
-/ctx/build_files/03-install-kernel-akmods.sh
+/ctx/build_files/01-install-kernel-akmods.sh
 
 # Install Additional Packages
-/ctx/build_files/04-packages.sh
-
-# Install Overrides and Fetch Install
-/ctx/build_files/05-override-install.sh
+/ctx/build_files/02-packages.sh
 
 # Base Image Changes
-/ctx/build_files/07-base-image-changes.sh
+/ctx/build_files/03-base-image-changes.sh
 
 ## late stage changes
-
-# Systemd and Remove Items
-/ctx/build_files/17-cleanup.sh
-
-# Run workarounds for lf (Likely not needed)
-/ctx/build_files/18-workarounds.sh
-
-# Regenerate initramfs
-/ctx/build_files/19-initramfs.sh
+# Systemd, Remove Items and Regenerate initramfs
+/ctx/build_files/10-cleanup.sh
 
 # Clean Up
 echo "::group:: Cleanup"

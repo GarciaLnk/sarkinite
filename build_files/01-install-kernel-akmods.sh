@@ -29,24 +29,16 @@ dnf5 -y install \
 dnf5 versionlock add kernel kernel-devel kernel-devel-matched kernel-core kernel-modules kernel-modules-core kernel-modules-extra
 
 # Everyone
-# NOTE: we won't use dnf5 copr plugin for ublue-os/akmods until our upstream provides the COPR standard naming
-sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo
-dnf5 -y install \
-	/tmp/akmods/kmods/*xone*.rpm \
+dnf5 --repofrompath=ublue-os-akmods,https://download.copr.fedorainfracloud.org/results/ublue-os/akmods/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
+	--repofrompath=hikariknight-looking-glass-kvmfr,https://download.copr.fedorainfracloud.org/results/hikariknight/looking-glass-kvmfr/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
+	--repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}" \
+	--repo=fedora,updates,ublue-os-akmods,hikariknight-looking-glass-kvmfr,terra --no-gpgchecks -y install \
+	v4l2loopback /tmp/akmods/kmods/*v4l2loopback*.rpm \
+	xone-firmware /tmp/akmods/kmods/*xone*.rpm \
 	xpadneo /tmp/akmods/kmods/*xpadneo*.rpm \
 	/tmp/akmods/kmods/*openrazer*.rpm \
 	/tmp/akmods/kmods/*framework-laptop*.rpm \
 	/tmp/akmods/kmods/*kvmfr*.rpm
-
-# RPMFUSION Dependent AKMODS
-dnf5 -y install \
-	https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"${FEDORA_MAJOR_VERSION}".noarch.rpm \
-	https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"${FEDORA_MAJOR_VERSION}".noarch.rpm
-dnf5 -y install \
-	v4l2loopback /tmp/akmods/kmods/*v4l2loopback*.rpm
-dnf5 -y remove rpmfusion-free-release rpmfusion-nonfree-release
-# disable any remaining rpmfusion repos
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/rpmfusion*.repo
 
 # Nvidia AKMODS
 if [[ ${IMAGE_NAME} =~ nvidia ]]; then
@@ -86,7 +78,5 @@ dnf5 -y install "${ZFS_RPMS[@]}"
 # Depmod and autoload
 depmod -a -v "${KERNEL}"
 echo "zfs" >/usr/lib/modules-load.d/zfs.conf
-
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo
 
 echo "::endgroup::"

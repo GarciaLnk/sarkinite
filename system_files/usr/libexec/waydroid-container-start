@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1091
 
 # Import defaults if WIDTH/HEIGHT is not defined by an external script
 if [[ -z ${WAYDROID_WIDTH-} ]] || [[ -z ${WAYDROID_HEIGHT-} ]]; then

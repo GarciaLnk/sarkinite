@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1091
 source /usr/lib/ujust/ujust.sh
 
 # Required disclaimer and where to report issues first

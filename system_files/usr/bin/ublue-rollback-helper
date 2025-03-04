@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-#shellcheck disable=1091
 source /usr/lib/ujust/ujust.sh
 IMAGE_INFO="/usr/share/ublue-os/image-info.json"
 IMAGE_NAME=$(jq -r '."image-name"' <"${IMAGE_INFO}")
@@ -22,7 +21,6 @@ function rebase_helper() {
 	if [[ ${choose_target} != "date" && ${choose_target} != "cancel" ]]; then
 		rebase_target="${base_image}:${choose_target}"
 	elif [[ ${choose_target} == "date" ]]; then
-		# shellcheck disable=SC2207
 		echo "Warning: This will pin you to a specific version, do not forget to rebase back to a channel to resume receiving updates."
 		mapfile -t valid_tags < <(list_tags | sed 's/\"//g' | sed 's/,//g')
 		target_tag=$(Choose cancel "${valid_tags[@]}")

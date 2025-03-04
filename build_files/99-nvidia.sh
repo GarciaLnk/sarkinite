@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1091
 
 set -ouex pipefail
 
@@ -8,19 +7,10 @@ RELEASE="$(rpm -E %fedora)"
 ## nvidia install steps
 dnf5 -y install /tmp/akmods-rpms/ublue-os/ublue-os-nvidia-addons-*.rpm
 
-# enable repo provided by ublue-os-nvidia-addons
-sed -i '0,/enabled=0/{s/enabled=0/enabled=1/}' /etc/yum.repos.d/nvidia-container-toolkit.repo
-
-# Enable staging for supergfxctl
-dnf5 -y copr enable ublue-os/staging
-
-# Enable fedora-nvidia
-sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/negativo17-fedora-nvidia.repo
-sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/negativo17-fedora-multimedia.repo
-
+# shellcheck disable=SC1091
 source /tmp/akmods-rpms/kmods/nvidia-vars
 
-dnf5 -y install \
+dnf5 --repo=fedora,updates,fedora-nvidia,fedora-multimedia,nvidia-container-toolkit -y install \
 	libnvidia-fbc \
 	libnvidia-ml \
 	libva-nvidia-driver \
@@ -32,19 +22,15 @@ dnf5 -y install \
 	nvidia-container-toolkit \
 	/tmp/akmods-rpms/kmods/kmod-nvidia-"${KERNEL_VERSION}"-"${NVIDIA_AKMOD_VERSION}".fc"${RELEASE}".rpm
 
-dnf5 -y install supergfxctl-plasmoid supergfxctl prime-run
+dnf5 --repofrompath=ublue-os-staging,https://download.copr.fedorainfracloud.org/results/ublue-os/staging/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
+	--repo=fedora,updates,ublue-os-staging --no-gpgchecks -y install \
+	supergfxctl-plasmoid supergfxctl
+
+dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}" \
+	--repo=terra --no-gpgchecks -y install \
+	prime-run
 
 ## nvidia post-install steps
-# disable repo provided by ublue-os-nvidia-addons
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/nvidia-container-toolkit.repo
-
-# Disable staging
-dnf5 -y copr disable ublue-os/staging
-
-# disable fedora-nvidia
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/negativo17-fedora-nvidia.repo
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/negativo17-fedora-multimedia.repo
-
 # ensure kernel.conf matches NVIDIA_FLAVOR (which must be nvidia or nvidia-open)
 # kmod-nvidia-common defaults to 'nvidia-open' but this will match our akmod image
 sed -i "s/^MODULE_VARIANT=.*/MODULE_VARIANT=${KERNEL_MODULE_TYPE}/" /etc/nvidia/kernel.conf
