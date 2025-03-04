@@ -395,9 +395,8 @@ install-nix:
     chmod +x /tmp/devbox-installer
     /tmp/devbox-installer -f
     rm -f /tmp/devbox-installer
-    if ! grep -q 'eval "$(devbox global shellenv)"' "${HOME}/.bashrc"; then
-      echo 'eval "$(devbox global shellenv)"' | sudo tee -a "${HOME}/.bashrc" > /dev/null
-    fi
+    echo 'eval "$(devbox global shellenv)"' | sudo tee /etc/profile.d/devbox.sh > /dev/null
+    sudo chmod +x /etc/profile.d/devbox.sh
     if ! grep -q "export XDG_DATA_DIRS=" "${HOME}/.profile" 2>/dev/null; then
       if [ ! -f "${HOME}/.profile" ]; then
         touch "${HOME}/.profile"
@@ -421,9 +420,9 @@ remove-nix:
     echo 'Removing Nix'
     /nix/nix-installer uninstall
     sudo systemctl disable nix-gc.timer
-    sed -i '/eval "$(devbox global shellenv)"/d' "${HOME}/.bashrc"
+    sudo rm -f /etc/profile.d/devbox.sh
     sed -i '/export XDG_DATA_DIRS=/d' "${HOME}/.profile"
-    sudo rm /usr/local/bin/devbox
+    sudo rm -f /usr/local/bin/devbox
     rm -rf "${HOME}/.cache/devbox"
     rm -rf .local/share/devbox
 
