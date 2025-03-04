@@ -136,6 +136,10 @@ dnf5 --repofrompath=kylegospo-webapp-manager,https://download.copr.fedorainfracl
 	--repo=fedora,updates,kylegospo-webapp-manager --no-gpgchecks -y install \
 	webapp-manager
 
+dnf5 --repofrompath=firefoxpwa,https://packagecloud.io/filips/FirefoxPWA/rpm_any/rpm_any/x86_64 \
+	--repo=firefoxpwa --no-gpgchecks -y install \
+	firefoxpwa
+
 dnf5 --repofrompath=lizardbyte-stable,https://download.copr.fedorainfracloud.org/results/lizardbyte/stable/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
 	--repo=fedora,lizardbyte-stable --no-gpgchecks -y install \
 	Sunshine
