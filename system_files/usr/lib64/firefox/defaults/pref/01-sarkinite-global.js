@@ -16,3 +16,6 @@ pref("media.hardwaremediakeys.enabled", false);
 
 // Use native file picker
 pref("widget.use-xdg-desktop-portal.file-picker", 1);
+
+// Fix blurry fonts on Zen
+pref("zen.view.experimental-rounded-view", false);

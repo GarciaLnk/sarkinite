@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Script Version
-VER=8
+VER=9
 LOCAL_UBLUE_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/ublue"
 VER_FILE="${LOCAL_UBLUE_DIR}/flatpak_manager_version"
 VER_RAN=$(cat "${VER_FILE}")
@@ -10,6 +10,12 @@ mkdir -p "${LOCAL_UBLUE_DIR}" || exit 1
 
 # Install flatpaks if the list has been updated
 ujust install-system-flatpaks "${LOCAL_UBLUE_DIR}/current-flatpaks.list"
+
+# update themes and icons
+[[ ! -d "${HOME}/.local/share/themes" ]] && mkdir -p "${HOME}/.local/share/themes"
+[[ ! -d "${HOME}/.local/share/icons" ]] && mkdir -p "${HOME}/.local/share/icons"
+rsync -a /usr/share/themes/ "${HOME}/.local/share/themes/"
+rsync -a /usr/share/icons/ "${HOME}/.local/share/icons/"
 
 # Run script if updated
 if [[ -f ${VER_FILE} && ${VER} == "${VER_RAN}" ]]; then
@@ -22,10 +28,6 @@ flatpak remote-add --if-not-exists --system flathub /etc/flatpak/remotes.d/flath
 flatpak remote-modify --system --enable flathub
 
 # Flatpak theming support
-[[ ! -d "${HOME}/.local/share/themes" ]] && mkdir -p "${HOME}/.local/share/themes"
-[[ ! -d "${HOME}/.local/share/icons" ]] && mkdir -p "${HOME}/.local/share/icons"
-rsync -a /usr/share/themes/ "${HOME}/.local/share/themes/"
-rsync -a /usr/share/icons/ "${HOME}/.local/share/icons/"
 [[ ! -L "${HOME}/.themes" ]] && ln -s "${HOME}/.local/share/themes" "${HOME}/.themes"
 [[ ! -L "${HOME}/.icons" ]] && ln -s "${HOME}/.local/share/icons" "${HOME}/.icons"
 
@@ -70,6 +72,15 @@ flatpak override \
 	--filesystem=xdg-run/podman \
 	com.visualstudio.code
 
+# Fix permissions for Zen
+flatpak override \
+	--filesystem=xdg-data/flatpak/runtime/org.kde.Platform:ro \
+	--filesystem=/var/lib/flatpak/runtime/org.kde.Platform:ro \
+	--talk-name=org.kde.plasma.browser.integration \
+	--persist=.mozilla \
+	--env=MOZ_ENABLE_WAYLAND=1 \
+	app.zen_browser.zen
+
 # Fixes too many flatpaks to list
 flatpak override \
 	--socket=session-bus \
@@ -77,21 +88,55 @@ flatpak override \
 	--socket=wayland
 
 # Set up Zen default configuration
-mkdir -p "/var/lib/flatpak/extension/io.github.zen_browser.zen.systemconfig/$(arch)/stable/defaults/pref"
-rm -f "/var/lib/flatpak/extension/io.github.zen_browser.zen.systemconfig/$(arch)/stable/defaults/pref/{*sarkinite*,*arkenfox*,*betterfox*}.js"
-/usr/bin/cp -rf /usr/lib64/firefox/defaults/pref/* "/var/lib/flatpak/extension/io.github.zen_browser.zen.systemconfig/$(arch)/stable/defaults/pref/"
+mkdir -p "/var/lib/flatpak/extension/app.zen_browser.zen.systemconfig/$(arch)/stable/defaults/pref"
+rm -f "/var/lib/flatpak/extension/app.zen_browser.zen.systemconfig/$(arch)/stable/defaults/pref/{*sarkinite*,*arkenfox*,*betterfox*}.js"
+/usr/bin/cp -rf /usr/lib64/firefox/defaults/pref/* "/var/lib/flatpak/extension/app.zen_browser.zen.systemconfig/$(arch)/stable/defaults/pref/"
+
+if [[ ! -d "${HOME}/.var/app/app.zen_browser.zen/.mozilla/native-messaging-hosts" ]]; then
+	mkdir -p "${HOME}/.var/app/app.zen_browser.zen/.mozilla/native-messaging-hosts"
+fi
+cat <<EOF >"${HOME}/.var/app/app.zen_browser.zen/.mozilla/native-messaging-hosts/org.kde.plasma.browser_integration.json"
+{
+  "name": "org.kde.plasma.browser_integration",
+  "description": "Native connector for KDE Plasma",
+  "path": "${HOME}/.var/app/app.zen_browser.zen/data/bin/plasma-browser-integration-host-wrapper.sh",
+  "type": "stdio",
+  "allowed_extensions": ["plasma-browser-integration@kde.org"]
+}
+EOF
+cat <<EOF >"${HOME}/.var/app/app.zen_browser.zen/.mozilla/native-messaging-hosts/firefoxpwa.json"
+{
+  "name": "firefoxpwa",
+  "description": "The native part of the PWAsForFirefox project",
+  "path": "${HOME}/.var/app/app.zen_browser.zen/data/bin/firefoxpwa-connector-host-wrapper.sh",
+  "type": "stdio",
+  "allowed_extensions": ["firefoxpwa@filips.si"]
+}
+EOF
+
+if [[ ! -d "${HOME}/.var/app/app.zen_browser.zen/data/bin" ]]; then
+	mkdir -p "${HOME}/.var/app/app.zen_browser.zen/data/bin"
+fi
+cat <<EOF >"${HOME}/.var/app/app.zen_browser.zen/data/bin/plasma-browser-integration-host-wrapper.sh"
+#!/usr/bin/env bash
+flatpak-spawn --host /usr/bin/plasma-browser-integration-host "$@"
+EOF
+chmod +x "${HOME}/.var/app/app.zen_browser.zen/data/bin/plasma-browser-integration-host-wrapper.sh"
+cat <<EOF >"${HOME}/.var/app/app.zen_browser.zen/data/bin/firefoxpwa-connector-host-wrapper.sh"
+#!/usr/bin/env bash
+flatpak-spawn --host /usr/libexec/firefoxpwa-connector "$@"
+EOF
+chmod +x "${HOME}/.var/app/app.zen_browser.zen/data/bin/firefoxpwa-connector-host-wrapper.sh"
 
 # Params needed for HW accelerated video on Nvidia
 if [[ $(cat /etc/ublue/image_flavor) =~ "nvidia" ]] && [[ "$(grep -o "\-display" <<<"$(lshw -C display)")" -le 1 ]] && grep -q "vendor: NVIDIA Corporation" <<<"$(lshw -C display)"; then
 	flatpak override \
-		--env=MOZ_ENABLE_WAYLAND=1 \
 		--env=MOZ_DISABLE_RDD_SANDBOX=1 \
-		io.github.zen_browser.zen
+		app.zen_browser.zen
 else
 	flatpak override \
-		--env=MOZ_ENABLE_WAYLAND=1 \
 		--unset-env=MOZ_DISABLE_RDD_SANDBOX \
-		io.github.zen_browser.zen
+		app.zen_browser.zen
 fi
 
 # Use until yafti rework is done
