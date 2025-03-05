@@ -41,6 +41,9 @@ systemctl enable sarkinite-groups.service
 systemctl enable --global sarkinite-user-vscode.service
 systemctl enable docker-prune.timer
 
+# Enable polkit rules for fingerprint sensors via fprintd
+authselect enable-feature with-fingerprint
+
 # Disable all repos
 dnf5 config-manager setopt "*.enabled=0"
 

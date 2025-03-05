@@ -29,11 +29,11 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	etckeeper \
 	fastfetch \
 	fcitx5 \
+	ffmpegthumbnailer \
 	firewall-config \
 	flatpak-builder \
 	foo2zjs \
 	fuse-encfs \
-	gcc \
 	genisoimage \
 	git-credential-libsecret \
 	glow \
@@ -53,6 +53,7 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	kvantum \
 	ifuse \
 	igt-gpu-tools \
+	imv \
 	input-remapper \
 	libimobiledevice \
 	libxcrypt-compat \
@@ -104,6 +105,8 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	setools-console \
 	skanpage \
 	snapd \
+	system-reinstall-bootc \
+	timg \
 	tmux \
 	usbmuxd \
 	waydroid \
@@ -123,6 +126,7 @@ dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSIO
 	fluent-kde-theme \
 	fluent-theme \
 	ghostty \
+	jetbrainsmono-nerd-fonts \
 	keyd \
 	nerdfontssymbolsonly-nerd-fonts \
 	tela-icon-theme \
@@ -168,5 +172,16 @@ dnf5 --repofrompath=vscode,https://packages.microsoft.com/yumrepos/vscode \
 dnf5 --repofrompath=tailscale,https://pkgs.tailscale.com/stable/fedora/x86_64 \
 	--repo=tailscale --no-gpgchecks -y install \
 	tailscale
+
+# This is required so homebrew works indefinitely.
+# Symlinking it makes it so whenever another GCC version gets released it will break if the user has updated it without-
+# the homebrew package getting updated through our builds.
+# We could get some kind of static binary for GCC but this is the cleanest and most tested alternative. This Sucks.
+dnf --repo=fedora,updates --setopt=install_weak_deps=False -y install gcc
+
+# Upstream ublue-os-signing bug, we are using /usr/etc for the container signing and bootc gets mad at this
+# FIXME: remove this once https://github.com/ublue-os/packages/issues/245 is closed
+cp -avf /usr/etc/. /etc
+rm -rvf /usr/etc
 
 echo "::endgroup::"

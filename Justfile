@@ -45,7 +45,7 @@ fix:
 
 # Clean Repo
 [group('Utility')]
-clean:
+clean $image="sarkinite" $tag="stable" $flavor="main":
     #!/usr/bin/env bash
     set -eoux pipefail
     touch _build
@@ -53,6 +53,8 @@ clean:
     rm -f previous.manifest.json
     rm -f changelog.md
     rm -f output.env
+    image_name=$(just image_name {{ image }} {{ tag }} {{ flavor }})
+    ${PODMAN} rmi localhost/"${image_name}":"${tag}" || true
 
 # Check if valid combo
 [group('Utility')]

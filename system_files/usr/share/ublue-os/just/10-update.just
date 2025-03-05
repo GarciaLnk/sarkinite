@@ -38,7 +38,7 @@ toggle-updates ACTION="prompt":
         sudo systemctl disable rpm-ostreed-automatic.timer
     fi
 
-# Show the changelog
+# Show the changelog between released versions
 changelogs-sarkinite:
     #!/usr/bin/env bash
     . /etc/os-release
@@ -49,5 +49,6 @@ changelogs-sarkinite:
     CONTENT=$(curl -s https://api.github.com/repos/GarciaLnk/sarkinite/releases/latest | jq -r '.body')
     echo "${CONTENT}" | glow -
 
+# Show the changelog from previous deployment
 changelogs-fedora:
     rpm-ostree db diff --changelogs

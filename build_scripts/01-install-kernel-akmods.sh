@@ -32,7 +32,7 @@ dnf5 versionlock add kernel kernel-devel kernel-devel-matched kernel-core kernel
 dnf5 --repofrompath=ublue-os-akmods,https://download.copr.fedorainfracloud.org/results/ublue-os/akmods/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
 	--repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}" \
 	--repo=fedora,updates,ublue-os-akmods,terra --no-gpgchecks -y install \
-	v4l2loopback v4l2-relayd /tmp/akmods/kmods/*v4l2loopback*.rpm \
+	v4l2loopback v4l2-relayd libcamera-v4l2 /tmp/akmods/kmods/*v4l2loopback*.rpm \
 	xone-firmware /tmp/akmods/kmods/*xone*.rpm \
 	xpadneo /tmp/akmods/kmods/*xpadneo*.rpm \
 	/tmp/akmods/kmods/*openrazer*.rpm \
@@ -51,7 +51,7 @@ if [[ ${IMAGE_NAME} =~ nvidia ]]; then
 	mv /tmp/rpms/* /tmp/akmods-rpms/
 
 	# Install Nvidia RPMs
-	/ctx/build_files/99-nvidia.sh
+	/var/tmp/build_scripts/99-nvidia.sh
 	rm -f /usr/share/vulkan/icd.d/nouveau_icd.*.json
 	ln -sf libnvidia-ml.so.1 /usr/lib64/libnvidia-ml.so
 fi

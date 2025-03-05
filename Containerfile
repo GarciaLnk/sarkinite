@@ -1,8 +1,4 @@
 ARG FEDORA_MAJOR_VERSION
-
-FROM scratch AS ctx
-COPY / /
-
 FROM ghcr.io/ublue-os/kinoite-main:${FEDORA_MAJOR_VERSION} AS base
 
 ARG AKMODS_FLAVOR
@@ -14,8 +10,8 @@ ARG SHA_HEAD_SHORT
 ARG IMAGE_TAG
 ARG VERSION
 
-RUN --mount=type=cache,dst=/var/cache/libdnf5 \
-    --mount=type=cache,dst=/var/cache/rpm-ostree \
-    --mount=type=tmpfs,dst=/tmp \
-    --mount=type=bind,from=ctx,source=/,target=/ctx \
-    /ctx/build_files/build-base.sh
+COPY system_files /
+COPY build_scripts /var/tmp/build_scripts
+
+RUN --mount=type=tmpfs,dst=/tmp \
+    /var/tmp/build_scripts/build-base.sh

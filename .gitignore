@@ -9,3 +9,4 @@ previous.manifest.json
 changelog.md
 output.env
 version.txt
+podman_scp.*
