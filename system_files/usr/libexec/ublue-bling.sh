@@ -21,7 +21,7 @@ function ctrl_c() {
 # Brew Bundle Install
 function brew-bundle() {
 	echo 'Installing bling from Homebrew 🍻🍻🍻'
-	brew bundle --file /usr/share/ublue-os/homebrew/sarkinite-cli.Brewfile --no-lock
+	brew bundle --file /usr/share/ublue-os/homebrew/sarkinite-cli.Brewfile
 }
 
 # Check if bling is already sourced
