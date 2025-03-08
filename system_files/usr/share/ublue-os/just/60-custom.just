@@ -12,7 +12,6 @@
 
 alias jetbrains-toolbox := install-jetbrains-toolbox
 alias spotify := setup-spotify
-alias devmode := toggle-devmode
 alias setup-vfio := configure-vfio
 alias switch-stream := rebase-helper
 alias switch-streams := rebase-helper
