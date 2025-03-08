@@ -46,7 +46,7 @@ EOF
 	cat <<EOF >>/usr/share/ublue-os/just/60-custom.just
 
 enable-supergfxctl:
-systemctl enable --now supergfxd.service
+	systemctl enable --now supergfxd.service
 EOF
 
 	# Add udev rules to workaround NVML error (https://github.com/NVIDIA/nvidia-container-toolkit/issues/48)
