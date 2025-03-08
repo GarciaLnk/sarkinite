@@ -55,6 +55,7 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	igt-gpu-tools \
 	imv \
 	input-remapper \
+	intel-undervolt \
 	libimobiledevice \
 	libxcrypt-compat \
 	libvdpau-va-gl \
