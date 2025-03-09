@@ -4,16 +4,6 @@ echo "::group:: ===$(basename "$0")==="
 
 set -ouex pipefail
 
-dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
-	--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
-	--repo=terra-extras -y swap \
-	kf6-kio kf6-kio-"$(rpm -q --qf '%{VERSION}' kf6-kcoreaddons)"
-
-dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
-	--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
-	--repo=terra-extras -y swap \
-	switcheroo-control switcheroo-control
-
 dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	android-tools \
 	bash-color-prompt \
@@ -149,6 +139,7 @@ dnf5 --repofrompath=kylegospo-webapp-manager,https://download.copr.fedorainfracl
 
 dnf5 --repofrompath=firefoxpwa,https://packagecloud.io/filips/FirefoxPWA/rpm_any/rpm_any/x86_64 \
 	--setopt=firefoxpwa.gpgkey=https://packagecloud.io/filips/FirefoxPWA/gpgkey \
+	--setopt=firefoxpwa.gpgcheck=0 \
 	--repo=firefoxpwa -y install \
 	firefoxpwa
 
@@ -190,6 +181,16 @@ dnf5 --repofrompath=tailscale,https://pkgs.tailscale.com/stable/fedora/x86_64 \
 # Symlinking it makes it so whenever another GCC version gets released it will break if the user has updated it without-
 # the homebrew package getting updated through our builds.
 # We could get some kind of static binary for GCC but this is the cleanest and most tested alternative. This Sucks.
-dnf --repo=fedora,updates --setopt=install_weak_deps=False -y install gcc
+dnf5 --repo=fedora,updates --setopt=install_weak_deps=False -y install gcc
+
+dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
+	--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
+	--repo=terra-extras -y swap \
+	kf6-kio kf6-kio-"$(rpm -q --qf '%{VERSION}' kf6-kcoreaddons)"
+
+dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
+	--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
+	--repo=terra-extras -y swap \
+	switcheroo-control switcheroo-control
 
 echo "::endgroup::"
