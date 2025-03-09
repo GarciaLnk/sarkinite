@@ -5,11 +5,13 @@ echo "::group:: ===$(basename "$0")==="
 set -ouex pipefail
 
 dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
-	--repo=terra-extras --no-gpgchecks -y swap \
+	--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
+	--repo=terra-extras -y swap \
 	kf6-kio kf6-kio-"$(rpm -q --qf '%{VERSION}' kf6-kcoreaddons)"
 
 dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
-	--repo=terra-extras --no-gpgchecks -y swap \
+	--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
+	--repo=terra-extras -y swap \
 	switcheroo-control switcheroo-control
 
 dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
@@ -119,7 +121,8 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	zsh
 
 dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}" \
-	--repo=fedora,updates,terra --no-gpgchecks -y install \
+	--setopt=terra.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"/key.asc \
+	--repo=fedora,updates,terra -y install \
 	coolercontrol \
 	devpod \
 	espanso-wayland \
@@ -135,31 +138,38 @@ dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSIO
 	zed
 
 dnf5 --repofrompath=kylegospo-rom-properties,https://download.copr.fedorainfracloud.org/results/kylegospo/rom-properties/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
-	--repo=fedora,kylegospo-rom-properties --no-gpgchecks -y install \
+	--setopt=kylegospo-rom-properties.gpgkey=https://download.copr.fedorainfracloud.org/results/kylegospo/rom-properties/pubkey.gpg \
+	--repo=fedora,kylegospo-rom-properties -y install \
 	rom-properties-kf6
 
 dnf5 --repofrompath=kylegospo-webapp-manager,https://download.copr.fedorainfracloud.org/results/kylegospo/webapp-manager/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
-	--repo=fedora,updates,kylegospo-webapp-manager --no-gpgchecks -y install \
+	--setopt=kylegospo-webapp-manager.gpgkey=https://download.copr.fedorainfracloud.org/results/kylegospo/webapp-manager/pubkey.gpg \
+	--repo=fedora,updates,kylegospo-webapp-manager -y install \
 	webapp-manager
 
 dnf5 --repofrompath=firefoxpwa,https://packagecloud.io/filips/FirefoxPWA/rpm_any/rpm_any/x86_64 \
-	--repo=firefoxpwa --no-gpgchecks -y install \
+	--setopt=firefoxpwa.gpgkey=https://packagecloud.io/filips/FirefoxPWA/gpgkey \
+	--repo=firefoxpwa -y install \
 	firefoxpwa
 
 dnf5 --repofrompath=lizardbyte-stable,https://download.copr.fedorainfracloud.org/results/lizardbyte/stable/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
-	--repo=fedora,lizardbyte-stable --no-gpgchecks -y install \
+	--setopt=lizardbyte-stable.gpgkey=https://download.copr.fedorainfracloud.org/results/lizardbyte/stable/pubkey.gpg \
+	--repo=fedora,lizardbyte-stable -y install \
 	Sunshine
 
 dnf5 --repofrompath=ublue-os-packages,https://download.copr.fedorainfracloud.org/results/ublue-os/packages/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
-	--repo=fedora,updates,ublue-os-packages --no-gpgchecks -y install \
+	--setopt=ublue-os-packages.gpgkey=https://download.copr.fedorainfracloud.org/results/ublue-os/packages/pubkey.gpg \
+	--repo=fedora,updates,ublue-os-packages -y install \
 	ublue-brew
 
 dnf5 --repofrompath=ublue-os-staging,https://download.copr.fedorainfracloud.org/results/ublue-os/staging/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
-	--repo=fedora,updates,ublue-os-staging --no-gpgchecks -y install \
+	--setopt=ublue-os-staging.gpgkey=https://download.copr.fedorainfracloud.org/results/ublue-os/staging/pubkey.gpg \
+	--repo=fedora,updates,ublue-os-staging -y install \
 	yafti
 
 dnf5 --repofrompath=docker-ce,https://download.docker.com/linux/fedora/"${FEDORA_MAJOR_VERSION}"/x86_64/stable \
-	--repo=fedora,docker-ce --no-gpgchecks -y install \
+	--setopt=docker-ce.gpgkey=https://download.docker.com/linux/fedora/gpg \
+	--repo=fedora,docker-ce -y install \
 	containerd.io \
 	docker-ce \
 	docker-ce-cli \
@@ -167,11 +177,13 @@ dnf5 --repofrompath=docker-ce,https://download.docker.com/linux/fedora/"${FEDORA
 	docker-compose-plugin
 
 dnf5 --repofrompath=vscode,https://packages.microsoft.com/yumrepos/vscode \
-	--repo=vscode --no-gpgchecks -y install \
+	--setopt=vscode.gpgkey=https://packages.microsoft.com/keys/microsoft.asc \
+	--repo=vscode -y install \
 	code
 
 dnf5 --repofrompath=tailscale,https://pkgs.tailscale.com/stable/fedora/x86_64 \
-	--repo=tailscale --no-gpgchecks -y install \
+	--setopt=tailscale.gpgkey=https://pkgs.tailscale.com/stable/fedora/repo.gpg \
+	--repo=tailscale -y install \
 	tailscale
 
 # This is required so homebrew works indefinitely.
@@ -179,10 +191,5 @@ dnf5 --repofrompath=tailscale,https://pkgs.tailscale.com/stable/fedora/x86_64 \
 # the homebrew package getting updated through our builds.
 # We could get some kind of static binary for GCC but this is the cleanest and most tested alternative. This Sucks.
 dnf --repo=fedora,updates --setopt=install_weak_deps=False -y install gcc
-
-# Upstream ublue-os-signing bug, we are using /usr/etc for the container signing and bootc gets mad at this
-# FIXME: remove this once https://github.com/ublue-os/packages/issues/245 is closed
-cp -avf /usr/etc/. /etc
-rm -rvf /usr/etc
 
 echo "::endgroup::"

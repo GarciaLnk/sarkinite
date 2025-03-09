@@ -23,11 +23,13 @@ dnf5 --repo=fedora,updates,fedora-nvidia,fedora-multimedia,nvidia-container-tool
 	/tmp/akmods-rpms/kmods/kmod-nvidia-"${KERNEL_VERSION}"-"${NVIDIA_AKMOD_VERSION}".fc"${RELEASE}".rpm
 
 dnf5 --repofrompath=ublue-os-staging,https://download.copr.fedorainfracloud.org/results/ublue-os/staging/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
-	--repo=fedora,updates,ublue-os-staging --no-gpgchecks -y install \
+	--setopt=ublue-os-staging.gpgkey=https://download.copr.fedorainfracloud.org/results/ublue-os/staging/pubkey.gpg \
+	--repo=fedora,updates,ublue-os-staging -y install \
 	supergfxctl-plasmoid supergfxctl
 
 dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}" \
-	--repo=terra --no-gpgchecks -y install \
+	--setopt=terra.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"/key.asc \
+	--repo=terra -y install \
 	prime-run
 
 ## nvidia post-install steps

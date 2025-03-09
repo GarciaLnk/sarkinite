@@ -31,7 +31,9 @@ dnf5 versionlock add kernel kernel-devel kernel-devel-matched kernel-core kernel
 # Everyone
 dnf5 --repofrompath=ublue-os-akmods,https://download.copr.fedorainfracloud.org/results/ublue-os/akmods/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
 	--repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}" \
-	--repo=fedora,updates,ublue-os-akmods,terra --no-gpgchecks -y install \
+	--setopt=terra.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"/key.asc \
+	--setopt=ublue-os-akmods.gpgkey=https://download.copr.fedorainfracloud.org/results/ublue-os/akmods/pubkey.gpg \
+	--repo=fedora,updates,ublue-os-akmods,terra -y install \
 	v4l2loopback v4l2-relayd libcamera-v4l2 /tmp/akmods/kmods/*v4l2loopback*.rpm \
 	xone-firmware /tmp/akmods/kmods/*xone*.rpm \
 	xpadneo /tmp/akmods/kmods/*xpadneo*.rpm \
@@ -39,7 +41,8 @@ dnf5 --repofrompath=ublue-os-akmods,https://download.copr.fedorainfracloud.org/r
 	/tmp/akmods/kmods/*framework-laptop*.rpm
 
 dnf5 --repofrompath=hikariknight-looking-glass-kvmfr,https://download.copr.fedorainfracloud.org/results/hikariknight/looking-glass-kvmfr/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
-	--repo=fedora,updates,hikariknight-looking-glass-kvmfr --no-gpgchecks -y install \
+	--setopt=hikariknight-looking-glass-kvmfr.gpgkey=https://download.copr.fedorainfracloud.org/results/hikariknight/looking-glass-kvmfr/pubkey.gpg \
+	--repo=fedora,updates,hikariknight-looking-glass-kvmfr -y install \
 	/tmp/akmods/kmods/*kvmfr*.rpm
 
 # Nvidia AKMODS
