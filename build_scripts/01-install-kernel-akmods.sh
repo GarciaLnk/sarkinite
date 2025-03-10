@@ -81,7 +81,7 @@ ZFS_RPMS=(
 dnf5 --repo=fedora,updates -y install "${ZFS_RPMS[@]}"
 
 # Depmod and autoload
-depmod -a -v "${KERNEL}"
+depmod -a "${KERNEL}"
 echo "zfs" >/usr/lib/modules-load.d/zfs.conf
 
 echo "::endgroup::"
