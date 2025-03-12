@@ -17,6 +17,7 @@ app/org.kde.kweather/x86_64/stable
 app/org.kde.kclock/x86_64/stable
 app/org.kde.akregator/x86_64/stable
 app/org.kde.kolourpaint/x86_64/stable
+app/org.kde.skanpage/x86_64/stable
 app/org.fkoehler.KTailctl/x86_64/stable
 app/org.rncbc.qpwgraph/x86_64/stable
 app/io.podman_desktop.PodmanDesktop/x86_64/stable

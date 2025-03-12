@@ -96,7 +96,6 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	samba-winbind-modules \
 	samba \
 	setools-console \
-	skanpage \
 	snapd \
 	system-reinstall-bootc \
 	timg \
