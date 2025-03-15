@@ -20,7 +20,7 @@ fi
 if mokutil --test-key "${KEY_DER_FILE}"; then
 	echo "${WARNING_MSG}" >"${KEY_WARN_FILE}"
 else
-	[[ -e ${KEY_WARN_FILE} ]] && rm "${KEY_WARN_FILE}"
+	[[ -e ${KEY_WARN_FILE} ]] && rm -f "${KEY_WARN_FILE}"
 fi
 
 exit 0
