@@ -612,7 +612,7 @@ user_pref("privacy.sanitize.sanitizeOnShutdown", true);
 /* 2811: set/enforce clearOnShutdown items (if 2810 is true) [SETUP-CHROME] [FF128+] ***/
 user_pref("privacy.clearOnShutdown_v2.cache", true); // [DEFAULT: true]
 user_pref("privacy.clearOnShutdown_v2.historyFormDataAndDownloads", false); // [DEFAULT: true]
-   // user_pref("privacy.clearOnShutdown_v2.siteSettings", false); // [DEFAULT: false]
+// user_pref("privacy.clearOnShutdown_v2.siteSettings", false); // [DEFAULT: false]
 /* 2812: set/enforce clearOnShutdown items [FF136+] ***/
 user_pref("privacy.clearOnShutdown_v2.browsingHistoryAndDownloads", false); // [DEFAULT: true]
 user_pref("privacy.clearOnShutdown_v2.downloads", true);
@@ -650,7 +650,7 @@ user_pref("privacy.clearSiteData.formdata", true);
 user_pref("privacy.clearHistory.cache", true); // [DEFAULT: true]
 user_pref("privacy.clearHistory.cookiesAndStorage", false);
 +user_pref("privacy.clearHistory.historyFormDataAndDownloads", true); // [DEFAULT: true]
-   // user_pref("privacy.clearHistory.siteSettings", false); // [DEFAULT: false]
+// user_pref("privacy.clearHistory.siteSettings", false); // [DEFAULT: false]
 /* 2831: set manual "Clear History" items [FF136+] ***/
 user_pref("privacy.clearHistory.browsingHistoryAndDownloads", true); // [DEFAULT: true]
 user_pref("privacy.clearHistory.formdata", true);
@@ -996,19 +996,19 @@ user_pref("extensions.webcompat-reporter.enabled", false); // [DEFAULT: false]
  * [WHY] https://support.mozilla.org/kb/quarantined-domains */
 user_pref("extensions.quarantinedDomains.enabled", true); // [DEFAULT: true]
 /* 6050: prefsCleaner: reset previously active items removed from arkenfox FF128+ ***/
-   // user_pref("privacy.clearOnShutdown.cache", "");
-   // user_pref("privacy.clearOnShutdown.cookies", "");
-   // user_pref("privacy.clearOnShutdown.downloads", "");
-   // user_pref("privacy.clearOnShutdown.formdata", "");
-   // user_pref("privacy.clearOnShutdown.history", "");
-   // user_pref("privacy.clearOnShutdown.offlineApps", "");
-   // user_pref("privacy.clearOnShutdown.sessions", "");
-   // user_pref("privacy.cpd.cache", "");
-   // user_pref("privacy.cpd.cookies", "");
-   // user_pref("privacy.cpd.formdata", "");
-   // user_pref("privacy.cpd.history", "");
-   // user_pref("privacy.cpd.offlineApps", "");
-   // user_pref("privacy.cpd.sessions", "");
+// user_pref("privacy.clearOnShutdown.cache", "");
+// user_pref("privacy.clearOnShutdown.cookies", "");
+// user_pref("privacy.clearOnShutdown.downloads", "");
+// user_pref("privacy.clearOnShutdown.formdata", "");
+// user_pref("privacy.clearOnShutdown.history", "");
+// user_pref("privacy.clearOnShutdown.offlineApps", "");
+// user_pref("privacy.clearOnShutdown.sessions", "");
+// user_pref("privacy.cpd.cache", "");
+// user_pref("privacy.cpd.cookies", "");
+// user_pref("privacy.cpd.formdata", "");
+// user_pref("privacy.cpd.history", "");
+// user_pref("privacy.cpd.offlineApps", "");
+// user_pref("privacy.cpd.sessions", "");
 
 /*** [SECTION 7000]: DON'T BOTHER ***/
 /* 7001: disable APIs
