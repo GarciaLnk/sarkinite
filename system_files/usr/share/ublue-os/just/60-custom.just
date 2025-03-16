@@ -142,7 +142,6 @@ install-java:
     NoDisplay=true
     EOF"
 
-
 # Install OpenTabletDriver, an open source, cross-platform, user-mode tablet driver
 [group('Apps')]
 install-opentabletdriver:

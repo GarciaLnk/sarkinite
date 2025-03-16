@@ -485,7 +485,7 @@ build-iso $image="sarkinite" $tag="stable" $flavor="main" ghcr="0" pipeline="0":
     echo "Flatpak refs: ${flatpak_refs[@]}"
 
     # Generate Install Script for Flatpaks
-    tee "${TEMP_FLATPAK_INSTALL_DIR}/install-flatpaks.sh"<<EOF
+    bash -c "tee "${TEMP_FLATPAK_INSTALL_DIR}/install-flatpaks.sh"<<EOF
     mkdir -p /flatpak/flatpak /flatpak/triggers
     mkdir -p /var/tmp
     chmod -R 1777 /var/tmp
@@ -493,7 +493,7 @@ build-iso $image="sarkinite" $tag="stable" $flavor="main" ghcr="0" pipeline="0":
     flatpak remote-add --system flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak install --system -y flathub ${flatpak_refs[@]}
     ostree refs --repo=\${FLATPAK_SYSTEM_DIR}/repo | grep '^deploy/' | grep -v 'org\.freedesktop\.Platform\.openh264' | sed 's/^deploy\///g' > /output/flatpaks-with-deps
-    EOF
+    EOF"
 
     # Create Flatpak List with dependencies
     flatpak_list_args=()
@@ -810,3 +810,15 @@ tag-images image_name="" default_tag="" tags="":
 
     # Show Images
     ${PODMAN} images
+
+# Runs trunk check
+[group('Utility')]
+lint:
+    #!/usr/bin/env bash
+    trunk check
+
+# Runs trunk format
+[group('Utility')]
+format:
+    #!/usr/bin/env bash
+    trunk fmt
