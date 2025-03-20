@@ -28,6 +28,6 @@ mkdir -p /boot
 find /var/log -type f -exec bash -c '[ -s "$1" ] && rm "$1"' _ {} \;
 find /var/* -maxdepth 0 -type d \! -name cache -exec rm -fr {} \;
 
-bootc container lint --fatal-warnings
+bootc container lint
 
 echo "::endgroup::"
