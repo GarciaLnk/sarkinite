@@ -13,8 +13,10 @@ dnf5 clean all
 
 # Upstream ublue-os-signing bug, we are using /usr/etc for the container signing and bootc gets mad at this
 # FIXME: remove this once https://github.com/ublue-os/packages/issues/245 is closed
-cp -avf /usr/etc/. /etc
-rm -rvf /usr/etc
+if [[ -d /usr/etc ]]; then
+	cp -avf /usr/etc/. /etc
+	rm -rvf /usr/etc
+fi
 
 # shellcheck disable=SC2114
 rm -rf /.gitkeep \
