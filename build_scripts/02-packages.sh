@@ -185,7 +185,7 @@ dnf5 --repo=fedora,updates --setopt=install_weak_deps=False -y install gcc
 dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
 	--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
 	--repo=terra-extras -y swap \
-	kf6-kio kf6-kio.switcheroo-"$(rpm -q --qf '%{VERSION}' kf6-kcoreaddons)"
+	kf6-kio kf6-kio-"$(rpm -q --qf '%{VERSION}' kf6-kcoreaddons)"
 
 dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
 	--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
