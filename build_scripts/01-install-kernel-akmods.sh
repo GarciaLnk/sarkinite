@@ -36,7 +36,6 @@ dnf5 --repofrompath=ublue-os-akmods,https://download.copr.fedorainfracloud.org/r
 	--repo=fedora,updates,ublue-os-akmods,terra -y install \
 	v4l2loopback v4l2-relayd libcamera-v4l2 /tmp/akmods/kmods/*v4l2loopback*.rpm \
 	xone-firmware /tmp/akmods/kmods/*xone*.rpm \
-	xpadneo /tmp/akmods/kmods/*xpadneo*.rpm \
 	/tmp/akmods/kmods/*openrazer*.rpm \
 	/tmp/akmods/kmods/*framework-laptop*.rpm
 
