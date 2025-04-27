@@ -8,9 +8,6 @@ set -eoux pipefail
 systemctl enable tailscaled.service
 systemctl enable dconf-update.service
 systemctl --global enable ublue-flatpak-manager.service
-systemctl enable rpm-ostreed-automatic.timer
-systemctl enable flatpak-system-update.timer
-systemctl --global enable flatpak-user-update.timer
 systemctl enable ublue-system-setup.service
 systemctl enable ublue-guest-user.service
 systemctl enable brew-setup.service
@@ -42,6 +39,7 @@ systemctl enable --global sarkinite-user-vscode.service
 systemctl enable docker-prune.timer
 systemctl --global disable sunshine.service
 systemctl disable flatpak-add-fedora-repos.service
+systemctl enable uupd.timer
 
 # systemd-remount-fs.service fails w/ btfs and composefs enabled
 # track for F42: https://bugzilla.redhat.com/show_bug.cgi?id=2348934

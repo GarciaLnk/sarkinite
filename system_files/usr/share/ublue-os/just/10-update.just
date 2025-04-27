@@ -9,7 +9,7 @@ alias changelogs := changelogs-fedora
 update:
     #!/usr/bin/env bash
     TOPGRADE_CONFIG="/usr/share/ublue-os/topgrade"
-    /usr/bin/grep "^LockLayering=true" /etc/rpm-ostreed.conf &>/dev/null && TOPGRADE_CONFIG="${TOPGRADE_CONFIG}-bootc"
+    /usr/bin/grep "^LockLayering=true" /etc/rpm-ostreed.conf &>/dev/null && TOPGRADE_CONFIG="${TOPGRADE_CONFIG}"
     /usr/bin/topgrade --config "${TOPGRADE_CONFIG}.toml" --keep
 
 # Turn automatic updates on or off
@@ -17,7 +17,7 @@ toggle-updates ACTION="prompt":
     #!/usr/bin/env bash
     source /usr/lib/ujust/ujust.sh
     CURRENT_STATE="Disabled"
-    if systemctl is-enabled rpm-ostreed-automatic.timer | grep -q enabled; then
+    if systemctl is-enabled uupd.timer | grep -q enabled; then
         CURRENT_STATE="Enabled"
     fi
     OPTION={{ ACTION }}
@@ -33,9 +33,9 @@ toggle-updates ACTION="prompt":
         exit 0
     fi
     if [ "${OPTION,,}" == "enable" ]; then
-        sudo systemctl enable rpm-ostreed-automatic.timer
+        sudo systemctl enable uupd.timer
     elif [ "${OPTION,,}" == "disable" ]; then
-        sudo systemctl disable rpm-ostreed-automatic.timer
+        sudo systemctl disable uupd.timer
     fi
 
 # Show the changelog between released versions

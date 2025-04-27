@@ -8,6 +8,7 @@ disable = [
   "helm",
   "nix",
   "spicetify",
+  "system",
 ]
 ignore_failures = [
   "distrobox",
@@ -29,8 +30,6 @@ ignore_failures = [
 assume_yes = true
 no_retry = false
 
-[linux]
-rpm_ostree = true
-
 [commands]
+"System update" = "sudo bootc upgrade"
 "Nix" = "command -v nix && ujust update-nix || true"
