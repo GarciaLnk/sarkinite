@@ -490,7 +490,8 @@ build-iso $image="sarkinite" $tag="stable" $flavor="main" ghcr="0" pipeline="0":
     mkdir -p /var/tmp
     chmod -R 1777 /var/tmp
     flatpak config --system --set languages "*"
-    flatpak remote-add --system flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak remote-add --system --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak remote-delete --system fedora
     flatpak install --system -y flathub ${flatpak_refs[@]}
     ostree refs --repo=\${FLATPAK_SYSTEM_DIR}/repo | grep '^deploy/' | grep -v 'org\.freedesktop\.Platform\.openh264' | sed 's/^deploy\///g' > /output/flatpaks-with-deps
     EOF"
