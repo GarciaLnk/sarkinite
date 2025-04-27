@@ -30,6 +30,9 @@ if [[ -f "/var/lib/waydroid/lxc/waydroid/config" ]]; then
 	sed -i '/lxc\.apparmor\.profile\s*=\s*unconfined/d' "/var/lib/waydroid/lxc/waydroid/config"
 fi
 
+# Plasma Discover
+sed -i 's/^Exec=plasma-discover/& --backends flatpak-backend/' /usr/share/applications/org.kde.discover.desktop
+
 # Nvidia Configurations
 if [[ ${IMAGE_NAME} =~ "nvidia" ]]; then
 	# Disable GSP on -nvidia builds
