@@ -36,6 +36,15 @@ sed -i 's/^Exec=plasma-discover/& --backends flatpak-backend/' /usr/share/applic
 # Remove Just docs since they contain non-ascii characters in filenames
 rm -rf /usr/share/doc/just/README.*.md
 
+# Make Samba usershares work OOTB
+mkdir -p /var/lib/samba/usershares
+chown -R root:usershares /var/lib/samba/usershares
+firewall-offline-cmd --service=samba --service=samba-client
+setsebool -P samba_enable_home_dirs=1
+setsebool -P samba_export_all_ro=1
+setsebool -P samba_export_all_rw=1
+sed -i '/^\[homes\]/,/^\[/{/^\[homes\]/d;/^\[/!d}' /etc/samba/smb.conf
+
 # Nvidia Configurations
 if [[ ${IMAGE_NAME} =~ "nvidia" ]]; then
 	# Disable GSP on -nvidia builds
