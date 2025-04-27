@@ -33,6 +33,9 @@ fi
 # Plasma Discover
 sed -i 's/^Exec=plasma-discover/& --backends flatpak-backend/' /usr/share/applications/org.kde.discover.desktop
 
+# Remove Just docs since they contain non-ascii characters in filenames
+rm -rf /usr/share/doc/just/README.*.md
+
 # Nvidia Configurations
 if [[ ${IMAGE_NAME} =~ "nvidia" ]]; then
 	# Disable GSP on -nvidia builds
