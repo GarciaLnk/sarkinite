@@ -29,10 +29,6 @@ if [[ -f ${USER_SETUP_VER_FILE} && ${USER_SETUP_VER} == "${USER_SETUP_VER_RAN}" 
 	exit 0
 fi
 
-# Enable Flathub
-flatpak remote-add --if-not-exists --user flathub /etc/flatpak/remotes.d/flathub.flatpakrepo
-flatpak remote-modify --user --enable flathub
-
 # Add shortcut to boot into windows
 ujust setup-boot-windows
 

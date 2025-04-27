@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Script Version
-VER=9
+VER=10
 LOCAL_UBLUE_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/ublue"
 VER_FILE="${LOCAL_UBLUE_DIR}/flatpak_manager_version"
 VER_RAN=$(cat "${VER_FILE}")
@@ -24,8 +24,15 @@ if [[ -f ${VER_FILE} && ${VER} == "${VER_RAN}" ]]; then
 fi
 
 # Ensure Flathub is enabled
-flatpak remote-add --if-not-exists --system flathub /etc/flatpak/remotes.d/flathub.flatpakrepo
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak remote-modify --system --enable flathub
+
+# Disable Fedora Flatpak remotes
+for remote in fedora fedora-testing; do
+	if flatpak remote-list | grep -q "${remote}"; then
+		flatpak remote-delete --system "${remote}"
+	fi
+done
 
 # Flatpak theming support
 [[ ! -L "${HOME}/.themes" ]] && ln -s "${HOME}/.local/share/themes" "${HOME}/.themes"
