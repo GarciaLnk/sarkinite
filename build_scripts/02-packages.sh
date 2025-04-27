@@ -176,7 +176,7 @@ dnf5 --repofrompath=tailscale,https://pkgs.tailscale.com/stable/fedora/x86_64 \
 
 dnf5 --repofrompath=fedora-uld,https://negativo17.org/repos/uld/fedora-"${FEDORA_MAJOR_VERSION}"/x86_64/ \
 	--setopt=fedora-uld.gpgkey=https://negativo17.org/repos/RPM-GPG-KEY-slaanesh \
-	--repo=fedora-uld -y install \
+	--repo=fedora,fedora-uld -y install \
 	uld
 
 # This is required so homebrew works indefinitely.
