@@ -52,12 +52,12 @@ screens:
           packages:
             - AntiMicroX: io.github.antimicrox.antimicrox
             - Ares: dev.ares.ares
+            - Azahar: org.azahar_emu.Azahar
             - Bottles: com.usebottles.bottles
             - Cemu: info.cemu.Cemu
             - Dolphin: org.DolphinEmu.dolphin-emu
             - DuckStation: org.duckstation.DuckStation
             - Heroic Games Launcher: com.heroicgameslauncher.hgl
-            - Lime3DS: io.github.lime3ds.Lime3DS
             - Lutris: net.lutris.Lutris
             - MangoHUD: org.freedesktop.Platform.VulkanLayer.MangoHud
             - melonDS: net.kuribo64.melonDS
