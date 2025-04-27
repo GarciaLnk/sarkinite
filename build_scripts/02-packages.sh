@@ -111,7 +111,6 @@ dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSIO
 	--setopt=terra.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"/key.asc \
 	--repo=fedora,updates,terra -y install \
 	coolercontrol \
-	devpod \
 	espanso-wayland \
 	firacode-nerd-fonts \
 	fluent-kde-theme \
