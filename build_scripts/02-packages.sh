@@ -16,8 +16,6 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	ddcutil \
 	edk2-ovmf \
 	evtest \
-	epson-inkjet-printer-escpr \
-	epson-inkjet-printer-escpr2 \
 	etckeeper \
 	fastfetch \
 	fcitx5 \
