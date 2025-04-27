@@ -115,6 +115,7 @@ install-gaming-apps:
                                             app/com.heroicgameslauncher.hgl/x86_64/stable \
                                             app/net.lutris.Lutris/x86_64/stable \
                                             app/com.vysp3r.ProtonPlus/x86_64/stable \
+                                            app/io.github.ilya_zlobintsev.LACT/x86_64/stable \
                                             app/com.github.Matoking.protontricks/x86_64/stable \
                                             runtime/com.obsproject.Studio.Plugin.OBSVkCapture/x86_64/stable \
                                             runtime/org.freedesktop.Platform.VulkanLayer.gamescope/x86_64/23.08 \
