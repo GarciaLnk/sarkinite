@@ -1,6 +1,7 @@
 polkit.addRule(function(action, subject) {
     if ((action.id == "org.ublue.policykit.waydroid.container.start" ||
          action.id == "org.ublue.policykit.waydroid.container.stop" ||
+         action.id == "org.ublue.policykit.waydroid.container.restart" ||
          action.id == "org.ublue.policykit.waydroid.fix.controllers") &&
          subject.isInGroup("wheel")) {
         return polkit.Result.YES;
