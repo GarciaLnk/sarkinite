@@ -82,6 +82,11 @@ EOF
 }
 EOF
 
+	# Bootc kargs for Nvidia
+	tee /usr/lib/bootc/kargs.d/00-nvidia.toml <<EOF
+kargs = ["rd.driver.blacklist=nouveau", "modprobe.blacklist=nouveau", "nvidia-drm.modeset=1", "initcall_blacklist=simpledrm_platform_driver_init"]
+EOF
+
 fi
 
 echo "::endgroup::"
