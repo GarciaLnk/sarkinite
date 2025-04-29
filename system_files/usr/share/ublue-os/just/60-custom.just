@@ -110,7 +110,7 @@ install-svp:
 [group('Apps')]
 install-gaming-apps:
     #!/usr/bin/env bash
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak --system -y install --or-update app/com.valvesoftware.Steam/x86_64/stable \
                                             app/com.heroicgameslauncher.hgl/x86_64/stable \
                                             app/net.lutris.Lutris/x86_64/stable \
@@ -159,7 +159,7 @@ install-opentabletdriver:
         tar --strip-components=1 -xvzf /tmp/OpenTabletDriver/opentabletdriver.tar.gz -C /tmp/OpenTabletDriver && \
         pkexec cp /tmp/OpenTabletDriver/etc/udev/rules.d/70-opentabletdriver.rules /etc/udev/rules.d/71-opentabletdriver.rules && \
         rm -rf /tmp/OpenTabletDriver && \
-        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && \
+        flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo && \
         flatpak --system install -y flathub net.opentabletdriver.OpenTabletDriver && \
         mkdir -p $HOME/.config/OpenTabletDriver && \
         flatpak override --user --filesystem=xdg-config/OpenTabletDriver net.opentabletdriver.OpenTabletDriver && \

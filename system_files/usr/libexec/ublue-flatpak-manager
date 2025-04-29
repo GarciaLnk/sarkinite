@@ -24,7 +24,7 @@ if [[ -f ${VER_FILE} && ${VER} == "${VER_RAN}" ]]; then
 fi
 
 # Ensure Flathub is enabled
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak remote-modify --system --enable flathub
 
 # Disable Fedora Flatpak remotes
