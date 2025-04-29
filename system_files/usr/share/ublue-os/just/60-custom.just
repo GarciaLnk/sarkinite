@@ -369,21 +369,10 @@ install-nix:
     chmod +x /tmp/nix-installer
     sudo /tmp/nix-installer install ostree --no-confirm --determinate
     rm -f /tmp/nix-installer
-    bash -c "sudo tee /etc/sudoers.d/nix-sudo-env <<EOF
-    Defaults  secure_path = /nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:$(printenv PATH)
-    EOF"
-    sudo systemctl enable nix-gc.timer
-    . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
     nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
     nix-channel --add https://github.com/nix-community/nixGL/archive/main.tar.gz nixgl
     nix-channel --update
     nix-env -iA nixgl.auto.nixGLDefault
-    nix-env -iA nixgl.nixGLIntel
-    nix-env -iA nixgl.nixVulkanIntel
-    if [[ $(cat /etc/ublue/image_flavor) =~ "nvidia" ]] && [[ "$(grep -o "\-display" <<<"$(lshw -C display)")" -le 1 ]] && grep -q "vendor: NVIDIA Corporation" <<<"$(lshw -C display)"; then
-      nix-env -iA nixgl.auto.nixGLNvidia
-      nix-env -iA nixgl.auto.nixVulkanNvidia
-    fi
     if [ ! -f "${XDG_CONFIG_HOME:-${HOME}/.config}/nixpkgs/config.nix" ]; then
       mkdir -p "${XDG_CONFIG_HOME:-${HOME}/.config}/nixpkgs"
       echo "{
@@ -410,7 +399,7 @@ install-nix:
 update-nix:
     #!/usr/bin/env bash
     echo 'Updating Nix'
-    # sudo -i nix upgrade-nix
+    nix-channel --update
     devbox global update
 
 # Remove Nix and Devbox
@@ -418,7 +407,7 @@ update-nix:
 remove-nix:
     #!/usr/bin/env bash
     echo 'Removing Nix'
-    /nix/nix-installer uninstall
+    sudo /nix/nix-installer uninstall
     sudo systemctl disable nix-gc.timer
     sudo rm -f /etc/profile.d/devbox.sh
     sed -i '/export XDG_DATA_DIRS=/d' "${HOME}/.profile"
