@@ -64,20 +64,8 @@ ZFS_TARGZ=$(jq -r '.layers[].digest' </tmp/akmods-zfs/manifest.json | cut -d : -
 tar -xvzf /tmp/akmods-zfs/"${ZFS_TARGZ}" -C /tmp/
 mv /tmp/rpms/* /tmp/akmods-zfs/
 
-# Declare ZFS RPMs
-ZFS_RPMS=(
-	/tmp/akmods-zfs/kmods/zfs/kmod-zfs-"${KERNEL}"-*.rpm
-	/tmp/akmods-zfs/kmods/zfs/libnvpair3-*.rpm
-	/tmp/akmods-zfs/kmods/zfs/libuutil3-*.rpm
-	/tmp/akmods-zfs/kmods/zfs/libzfs5-*.rpm
-	/tmp/akmods-zfs/kmods/zfs/libzpool5-*.rpm
-	/tmp/akmods-zfs/kmods/zfs/python3-pyzfs-*.rpm
-	/tmp/akmods-zfs/kmods/zfs/zfs-*.rpm
-	pv
-)
-
 # Install
-dnf5 --repo=fedora,updates -y install "${ZFS_RPMS[@]}"
+dnf5 --repo=fedora,updates -y install /tmp/akmods-zfs/kmods/zfs/*.rpm
 
 # Depmod and autoload
 depmod -a "${KERNEL}"
