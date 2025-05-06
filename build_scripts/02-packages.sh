@@ -121,14 +121,14 @@ dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSIO
 	tela-icon-theme \
 	topgrade
 
-dnf5 --repofrompath=kylegospo-rom-properties,https://download.copr.fedorainfracloud.org/results/kylegospo/rom-properties/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
-	--setopt=kylegospo-rom-properties.gpgkey=https://download.copr.fedorainfracloud.org/results/kylegospo/rom-properties/pubkey.gpg \
-	--repo=fedora,kylegospo-rom-properties -y install \
+dnf5 --repofrompath=bazzite-org-rom-properties,https://download.copr.fedorainfracloud.org/results/bazzite-org/rom-properties/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
+	--setopt=bazzite-org-rom-properties.gpgkey=https://download.copr.fedorainfracloud.org/results/bazzite-org/rom-properties/pubkey.gpg \
+	--repo=fedora,bazzite-org-rom-properties -y install \
 	rom-properties-kf6
 
-dnf5 --repofrompath=kylegospo-webapp-manager,https://download.copr.fedorainfracloud.org/results/kylegospo/webapp-manager/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
-	--setopt=kylegospo-webapp-manager.gpgkey=https://download.copr.fedorainfracloud.org/results/kylegospo/webapp-manager/pubkey.gpg \
-	--repo=fedora,updates,kylegospo-webapp-manager -y install \
+dnf5 --repofrompath=bazzite-org-webapp-manager,https://download.copr.fedorainfracloud.org/results/bazzite-org/webapp-manager/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
+	--setopt=bazzite-org-webapp-manager.gpgkey=https://download.copr.fedorainfracloud.org/results/bazzite-org/webapp-manager/pubkey.gpg \
+	--repo=fedora,updates,bazzite-org-webapp-manager -y install \
 	webapp-manager
 
 dnf5 --repofrompath=firefoxpwa,https://packagecloud.io/filips/FirefoxPWA/rpm_any/rpm_any/x86_64 \
@@ -137,9 +137,9 @@ dnf5 --repofrompath=firefoxpwa,https://packagecloud.io/filips/FirefoxPWA/rpm_any
 	--repo=firefoxpwa -y install \
 	firefoxpwa
 
-dnf5 --repofrompath=lizardbyte-stable,https://download.copr.fedorainfracloud.org/results/lizardbyte/stable/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
-	--setopt=lizardbyte-stable.gpgkey=https://download.copr.fedorainfracloud.org/results/lizardbyte/stable/pubkey.gpg \
-	--repo=fedora,lizardbyte-stable -y install \
+dnf5 --repofrompath=lizardbyte-beta,https://download.copr.fedorainfracloud.org/results/lizardbyte/beta/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
+	--setopt=lizardbyte-beta.gpgkey=https://download.copr.fedorainfracloud.org/results/lizardbyte/beta/pubkey.gpg \
+	--repo=fedora,lizardbyte-beta -y install \
 	Sunshine
 
 dnf5 --repofrompath=ublue-os-packages,https://download.copr.fedorainfracloud.org/results/ublue-os/packages/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
