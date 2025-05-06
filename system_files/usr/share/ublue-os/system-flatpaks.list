@@ -28,6 +28,7 @@ app/io.github.getnf.embellish/x86_64/stable
 app/sh.loft.devpod/x86_64/stable
 app/org.gustavoperedo.FontDownloader/x86_64/stable
 app/me.iepure.devtoolbox/x86_64/stable
+app/dev.zed.Zed/x86_64/stable
 runtime/org.virt_manager.virt_manager.Extension.Qemu/x86_64/stable
 runtime/org.gtk.Gtk3theme.Breeze/x86_64/3.22
 runtime/org.kde.KStyle.Adwaita/x86_64/6.8
