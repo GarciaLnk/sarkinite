@@ -27,14 +27,7 @@ function brew-bundle() {
 # Check if bling is already sourced
 function check-bling() {
 	shell="$1"
-	if [[ ${shell} == "zsh" ]]; then
-		line=$(grep -n "source /usr/share/ublue-os/sarkinite-cli/bling.sh" "${ZDOTDIR:-${HOME}}/.zshrc" |
-			grep -Eo '^[^:]+')
-		if [[ -n ${line} ]]; then
-			return 1
-		fi
-		return 0
-	elif [[ ${shell} == "bash" ]]; then
+	if [[ ${shell} == "bash" ]]; then
 		if [[ -f /etc/profile.d/bling.sh ]]; then
 			return 1
 		fi
@@ -52,14 +45,7 @@ function add-bling() {
 		Exiting
 	fi
 	echo 'Setting up your Shell 🐚🐚🐚'
-	if [[ ${shell} == "zsh" ]]; then
-		echo 'Adding bling to your .zshrc 💤💤💤'
-		cat <<-EOF >>"${ZDOTDIR:-${HOME}}/.zshrc"
-			### bling.sh source start
-			test -f /usr/share/ublue-os/sarkinite-cli/bling.sh && source /usr/share/ublue-os/sarkinite-cli/bling.sh
-			### bling.sh source end
-		EOF
-	elif [[ ${shell} == "bash" ]]; then
+	if [[ ${shell} == "bash" ]]; then
 		echo 'Adding bling to /etc/profile.d/bling.sh 💥💥💥'
 		sudo bash -c 'cat <<EOF >/etc/profile.d/bling.sh
 			#!/usr/bin/bash
@@ -76,14 +62,7 @@ function add-bling() {
 # Remove bling, handle if old method
 function remove-bling() {
 	shell="$1"
-	if [[ ${shell} == "zsh" ]]; then
-		sed -i '/### bling.sh source start/,/### bling.sh source end/d' \
-			"${ZDOTDIR:-${HOME}}/.zshrc" ||
-			line=$(grep -n "source /usr/share/ublue-os/sarkinite-cli/bling.sh" \
-				"${ZDOTDIR:-${HOME}}/.zshrc" |
-				grep -Eo '^[^:]+') && sed -i "${line}"d \
-			"${ZDOTDIR:-${HOME}}/.zshrc"
-	elif [[ ${shell} == "bash" ]]; then
+	if [[ ${shell} == "bash" ]]; then
 		if [[ -f /etc/profile.d/bling.sh ]]; then
 			sudo rm -f /etc/profile.d/bling.sh
 		fi

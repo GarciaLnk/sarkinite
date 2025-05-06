@@ -104,8 +104,7 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	wl-clipboard \
 	wlr-randr \
 	xprop \
-	ydotool \
-	zsh
+	ydotool
 
 dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}" \
 	--setopt=terra.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"/key.asc \
