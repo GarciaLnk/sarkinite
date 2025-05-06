@@ -31,7 +31,7 @@ if [[ -f "/var/lib/waydroid/lxc/waydroid/config" ]]; then
 fi
 
 # Plasma Discover
-sed -i 's/^Exec=plasma-discover/& --backends flatpak-backend/' /usr/share/applications/org.kde.discover.desktop
+sed -i 's/^Exec=plasma-discover/& --backends flatpak-backend,fwupd-backend/' /usr/share/applications/org.kde.discover.desktop
 
 # Prevent Distrobox containers from being updated via the background service
 sed -i 's|uupd|& --disable-module-distrobox|' /usr/lib/systemd/system/uupd.service
