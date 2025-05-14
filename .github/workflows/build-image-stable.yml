@@ -24,7 +24,6 @@ jobs:
     with:
       brand_name: ${{ matrix.brand_name }}
       stream_name: stable
-      kernel_pin: 6.13.8-200.fc41.x86_64
 
   generate-release:
     name: Generate Release
