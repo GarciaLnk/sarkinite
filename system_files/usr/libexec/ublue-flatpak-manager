@@ -50,9 +50,7 @@ flatpak override \
 	--filesystem="${HOME}/.themes":ro \
 	--filesystem="${HOME}/.icons":ro
 
-# --env=USE_POINTER_VIEWPORT=1 fixes cursor scaling issues on GTK - remove on F42
 flatpak override \
-	--env=USE_POINTER_VIEWPORT=1 \
 	--env=XDG_CURRENT_DESKTOP=KDE
 
 # Fix printing on LibreOffice
