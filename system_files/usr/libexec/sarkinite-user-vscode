@@ -26,7 +26,7 @@ fi
 # Setup VSCode
 # Pre-install preferred VSCode Extensions
 code --install-extension ms-vscode-remote.vscode-remote-extensionpack
-code --install-extension ms-azuretools.vscode-docker
+code --install-extension ms-azuretools.vscode-containers
 code --install-extension github.copilot
 
 # Prevent future executions
