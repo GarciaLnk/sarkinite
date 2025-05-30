@@ -20,7 +20,6 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	fastfetch \
 	fcitx5 \
 	ffmpegthumbnailer \
-	firewall-config \
 	flatpak-builder \
 	foo2zjs \
 	fuse-encfs \
@@ -60,6 +59,7 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	mpv \
 	p7zip \
 	p7zip-plugins \
+	plasma-firewall \
 	plasma-wallpapers-dynamic \
 	podman-compose \
 	podman-machine \
