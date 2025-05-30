@@ -41,6 +41,7 @@ systemctl --global disable sunshine.service
 systemctl disable flatpak-add-fedora-repos.service
 systemctl enable uupd.timer
 systemctl enable input-remapper.service
+systemctl enable media-automount.service
 
 # systemd-remount-fs.service fails w/ btfs and composefs enabled
 # track for F42: https://bugzilla.redhat.com/show_bug.cgi?id=2348934
