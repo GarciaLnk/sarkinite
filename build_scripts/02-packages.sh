@@ -98,6 +98,7 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	system-reinstall-bootc \
 	timg \
 	tmux \
+	usbip \
 	usbmuxd \
 	waydroid \
 	wireguard-tools \
