@@ -110,6 +110,7 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}" \
 	--setopt=terra.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"/key.asc \
 	--repo=fedora,updates,terra -y install \
+	cleartype-fonts \
 	coolercontrol \
 	espanso-wayland \
 	firacode-nerd-fonts \
@@ -118,6 +119,8 @@ dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSIO
 	ghostty \
 	jetbrainsmono-nerd-fonts \
 	keyd \
+	ms-core-fonts \
+	ms-core-tahoma-fonts \
 	nerdfontssymbolsonly-nerd-fonts \
 	tela-icon-theme \
 	topgrade
