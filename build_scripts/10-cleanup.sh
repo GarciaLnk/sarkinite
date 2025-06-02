@@ -43,6 +43,10 @@ systemctl enable uupd.timer
 systemctl enable input-remapper.service
 systemctl enable media-automount.service
 
+# Disable old update timers
+systemctl disable rpm-ostreed-automatic.timer
+systemctl disable flatpak-system-update.timer
+
 # systemd-remount-fs.service fails w/ btfs and composefs enabled
 # track for F42: https://bugzilla.redhat.com/show_bug.cgi?id=2348934
 systemctl mask systemd-remount-fs.service
