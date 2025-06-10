@@ -30,10 +30,10 @@ dnf5 versionlock add kernel kernel-devel kernel-devel-matched kernel-core kernel
 
 # Everyone
 dnf5 --repofrompath=ublue-os-akmods,https://download.copr.fedorainfracloud.org/results/ublue-os/akmods/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
-	--repofrompath=rpmfusion-free,http://download1.rpmfusion.org/free/fedora/releases/"${FEDORA_MAJOR_VERSION}"/Everything/x86_64/os/ \
-	--setopt=rpmfusion-free.gpgkey="https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020" \
+	--repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}" \
 	--setopt=ublue-os-akmods.gpgkey=https://download.copr.fedorainfracloud.org/results/ublue-os/akmods/pubkey.gpg \
-	--repo=fedora,updates,ublue-os-akmods,rpmfusion-free -y install \
+	--setopt=terra.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"/key.asc \
+	--repo=fedora,updates,ublue-os-akmods,terra -y install \
 	v4l2loopback v4l2-relayd /tmp/akmods/kmods/*v4l2loopback*.rpm \
 	/tmp/akmods/kmods/*xone*.rpm \
 	/tmp/akmods/kmods/*openrazer*.rpm \
