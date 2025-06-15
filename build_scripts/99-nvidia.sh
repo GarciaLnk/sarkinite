@@ -2,8 +2,6 @@
 
 set -ouex pipefail
 
-RELEASE="$(rpm -E %fedora)"
-
 ## nvidia install steps
 dnf5 --repo=fedora,updates -y install /tmp/akmods-rpms/ublue-os/ublue-os-nvidia-addons-*.rpm
 
@@ -20,7 +18,15 @@ dnf5 --repo=fedora,updates,fedora-nvidia,fedora-multimedia,nvidia-container-tool
 	nvidia-driver-libs \
 	nvidia-settings \
 	nvidia-container-toolkit \
-	/tmp/akmods-rpms/kmods/kmod-nvidia-"${KERNEL_VERSION}"-"${NVIDIA_AKMOD_VERSION}".fc"${RELEASE}".rpm
+	/tmp/akmods-rpms/kmods/kmod-nvidia-"${KERNEL_VERSION}"-"${NVIDIA_AKMOD_VERSION}"."${DIST_ARCH}".rpm
+
+# Ensure the version of the Nvidia module matches the driver
+KMOD_VERSION="$(rpm -q --queryformat '%{VERSION}-%{RELEASE}' kmod-nvidia)"
+DRIVER_VERSION="$(rpm -q --queryformat '%{VERSION}-%{RELEASE}' nvidia-driver)"
+if [[ ${KMOD_VERSION} != "${DRIVER_VERSION}" ]]; then
+	echo "Error: kmod-nvidia version (${KMOD_VERSION}) does not match nvidia-driver version (${DRIVER_VERSION})"
+	exit 1
+fi
 
 dnf5 --repofrompath=ublue-os-staging,https://download.copr.fedorainfracloud.org/results/ublue-os/staging/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
 	--setopt=ublue-os-staging.gpgkey=https://download.copr.fedorainfracloud.org/results/ublue-os/staging/pubkey.gpg \
