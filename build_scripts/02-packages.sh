@@ -60,7 +60,7 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	mpv \
 	p7zip \
 	p7zip-plugins \
-	plasma-firewall \
+	plasma-firewall-"$(rpm -q --qf '%{VERSION}' plasma-desktop)" \
 	plasma-wallpapers-dynamic \
 	podman-compose \
 	podman-machine \
