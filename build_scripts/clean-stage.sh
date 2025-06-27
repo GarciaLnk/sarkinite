@@ -5,7 +5,7 @@ echo "::group:: ===$(basename "$0")==="
 set -eoux pipefail
 
 # dnf cleanup
-dnf5 remove -y ostree-grub2
+dnf5 remove -y ostree-grub2 plasma-discover-kns
 dnf5 autoremove -y
 dnf5 clean all
 
