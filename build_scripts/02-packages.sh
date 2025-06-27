@@ -101,6 +101,7 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	tmux \
 	usbip \
 	usbmuxd \
+	virtualbox-guest-additions \
 	waydroid \
 	wireguard-tools \
 	wl-clipboard \
@@ -181,12 +182,6 @@ dnf5 --repofrompath=fedora-uld,https://negativo17.org/repos/uld/fedora-"${FEDORA
 	--setopt=fedora-uld.gpgkey=https://negativo17.org/repos/RPM-GPG-KEY-slaanesh \
 	--repo=fedora,fedora-uld -y install \
 	uld
-
-# This is required so homebrew works indefinitely.
-# Symlinking it makes it so whenever another GCC version gets released it will break if the user has updated it without-
-# the homebrew package getting updated through our builds.
-# We could get some kind of static binary for GCC but this is the cleanest and most tested alternative. This Sucks.
-dnf5 --repo=fedora,updates --setopt=install_weak_deps=False -y install gcc
 
 dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
 	--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \

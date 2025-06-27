@@ -5,9 +5,7 @@ echo "::group:: ===$(basename "$0")==="
 set -eoux pipefail
 
 # Remove Existing Kernel
-for pkg in kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra; do
-	rpm --erase "${pkg}" --nodeps
-done
+dnf5 -y remove kernel-{core,modules,modules-core,modules-extra,tools,tools-libs}
 
 # Fetch Common AKMODS & Kernel RPMS
 skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods:"${AKMODS_FLAVOR}"-"${FEDORA_MAJOR_VERSION}"-"${KERNEL}" dir:/tmp/akmods
@@ -20,13 +18,10 @@ mv /tmp/rpms/* /tmp/akmods/
 dnf5 --repo=fedora,updates -y install \
 	/tmp/kernel-rpms/kernel-[0-9]*.rpm \
 	/tmp/kernel-rpms/kernel-core-*.rpm \
-	/tmp/kernel-rpms/kernel-modules-*.rpm
+	/tmp/kernel-rpms/kernel-modules-*.rpm \
+	/tmp/kernel-rpms/kernel-uki-virt-*.rpm
 
-# TODO: Figure out why akmods cache is pulling in akmods/kernel-devel
-dnf5 --repo=fedora,updates -y install \
-	/tmp/kernel-rpms/kernel-devel-*.rpm
-
-dnf5 versionlock add kernel kernel-devel kernel-devel-matched kernel-core kernel-modules kernel-modules-core kernel-modules-extra
+dnf5 versionlock add kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra kernel-uki-virt
 
 # Everyone
 dnf5 --repofrompath=ublue-os-akmods,https://download.copr.fedorainfracloud.org/results/ublue-os/akmods/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
