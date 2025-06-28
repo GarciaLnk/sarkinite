@@ -197,6 +197,7 @@ build $image="sarkinite" $tag="stable" $flavor="main" rechunk="0" ghcr="0" pipel
     ${PODMAN} build \
         "${BUILD_ARGS[@]}" \
         "${LABELS[@]}" \
+        --net=host \
         --target "${target}" \
         --tag localhost/"${image_name}:${tag}" \
         --file Containerfile \
