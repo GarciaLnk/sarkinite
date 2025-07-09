@@ -15,13 +15,10 @@ mv /tmp/rpms/* /tmp/akmods/
 # NOTE: kernel-rpms should auto-extract into correct location
 
 # Install Kernel
-dnf5 --repo=fedora,updates -y install \
-	/tmp/kernel-rpms/kernel-[0-9]*.rpm \
-	/tmp/kernel-rpms/kernel-core-*.rpm \
-	/tmp/kernel-rpms/kernel-modules-*.rpm \
-	/tmp/kernel-rpms/kernel-uki-virt-*.rpm
+dnf5 -y install /tmp/kernel-rpms/kernel{,-core,-modules,-modules-core,-modules-extra,-devel,-devel,-devel-matched}-"${KERNEL}".rpm kernel-{tools,tools-libs}-"${KERNEL}"
+dnf5 -y remove kernel-tools{,-libs}
 
-dnf5 versionlock add kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra kernel-uki-virt
+dnf5 versionlock add kernel{,-core,-modules,-modules-core,-modules-extra,-tools,-tools-lib,-headers,-devel,-devel-matched}
 
 # Everyone
 dnf5 --repofrompath=ublue-os-akmods,https://download.copr.fedorainfracloud.org/results/ublue-os/akmods/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
