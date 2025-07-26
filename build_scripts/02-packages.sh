@@ -186,11 +186,6 @@ dnf5 --repofrompath=fedora-uld,https://negativo17.org/repos/uld/fedora-"${FEDORA
 dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
 	--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
 	--repo=terra-extras -y swap \
-	kf6-kio kf6-kio-"$(rpm -q --qf '%{VERSION}' kf6-kcoreaddons)"
-
-dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
-	--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
-	--repo=terra-extras -y swap \
 	switcheroo-control switcheroo-control
 
 echo "::endgroup::"
