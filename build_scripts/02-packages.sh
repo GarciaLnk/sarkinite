@@ -12,6 +12,7 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	bootc \
 	btrfs-assistant \
 	cage \
+	davfs2 \
 	dbus-x11 \
 	ddcutil \
 	edk2-ovmf \
