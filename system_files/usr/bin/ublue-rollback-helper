@@ -25,8 +25,8 @@ function rebase_helper() {
 	echo
 
 	# Step 1: Choose image variant
-	echo "Select your Aurora image:"
-	IMAGE_OPTIONS=(aurora aurora-dx cancel)
+	echo "Select your Sarkinite image:"
+	IMAGE_OPTIONS=(sarkinite sarkinite-nvidia cancel)
 	selected_image=$(Choose "${IMAGE_OPTIONS[@]}")
 	[[ ${selected_image} == "cancel" ]] && exit 0
 
@@ -35,8 +35,8 @@ function rebase_helper() {
 
 	# Step 2: Channel Selection
 	declare -a CHANNELS
-	CHANNELS=(stable stable-daily latest)
-	echo "The default selection is stable. Stable-daily (daily builds) are for enthusiasts, and latest is for testers"
+	CHANNELS=(stable stable-daily testing)
+	echo "The default selection is stable. Stable-daily (daily builds) are for enthusiasts, and testing is for testers"
 
 	# Fetch Fedora version per channel and build display list
 	declare -a CHANNELS_DISPLAY
