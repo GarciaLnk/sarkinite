@@ -76,7 +76,6 @@ if [[ "$(basename "${SHELL}")" == "bash" ]]; then
 	[[ -n "$(command -v fzf)" ]] && eval "$(fzf --bash)"
 	[[ -n "$(command -v zoxide)" ]] && eval "$(zoxide init bash)"
 	[[ -n "$(command -v direnv)" ]] && eval "$(direnv hook bash)"
-	[[ -n "$(command -v carapace)" ]] && source <(carapace _carapace bash)
 fi
 
 HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
