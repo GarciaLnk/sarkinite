@@ -87,6 +87,9 @@ EOF
 kargs = ["rd.driver.blacklist=nouveau", "modprobe.blacklist=nouveau", "nvidia-drm.modeset=1", "initcall_blacklist=simpledrm_platform_driver_init"]
 EOF
 
+	# NVIDIA GTK4 bug
+	echo "GSK_RENDERER=ngl" >/usr/lib/environment.d/gsk.conf
+
 fi
 
 echo "::endgroup::"
