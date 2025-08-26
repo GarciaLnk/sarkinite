@@ -58,8 +58,8 @@ authselect enable-feature with-fingerprint
 dnf5 config-manager setopt "*.enabled=0"
 
 # Hide Desktop Files. Hidden removes mime associations
-sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nHidden=true@g' /usr/share/applications/htop.desktop
-sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nHidden=true@g' /usr/share/applications/nvtop.desktop
+desktop-file-edit --set-key=Hidden --set-value=true /usr/share/applications/htop.desktop
+desktop-file-edit --set-key=Hidden --set-value=true /usr/share/applications/nvtop.desktop
 
 # Waydroid desktop file
 sed -i 's@Exec=waydroid first-launch@Exec=/usr/bin/waydroid-launcher first-launch\nX-Steam-Library-Capsule=/usr/share/applications/Waydroid/capsule.png\nX-Steam-Library-Hero=/usr/share/applications/Waydroid/hero.png\nX-Steam-Library-Logo=/usr/share/applications/Waydroid/logo.png\nX-Steam-Library-StoreCapsule=/usr/share/applications/Waydroid/store-logo.png\nX-Steam-Controller-Template=Desktop@g' /usr/share/applications/Waydroid.desktop
