@@ -4,9 +4,6 @@ SingleClick=false
 ColorScheme=FluentDark
 widgetStyle=Breeze
 
-[KDE Control Module Restrictions][$i]
-kcm_plymouth.desktop=false
-
 [General]
 desktopFont=Noto Sans,10,-1,5,50,0,0,0,0,0
 fixed=FiraCode Nerd Font,10,-1,5,50,0,0,0,0,0
