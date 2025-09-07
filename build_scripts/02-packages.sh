@@ -6,15 +6,11 @@ set -ouex pipefail
 
 dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	android-tools \
-	bash-color-prompt \
 	bcache-tools \
 	borgbackup \
-	bootc \
 	btrfs-assistant \
 	cage \
 	davfs2 \
-	dbus-x11 \
-	ddcutil \
 	edk2-ovmf \
 	evtest \
 	etckeeper \
@@ -23,7 +19,6 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	ffmpegthumbnailer \
 	flatpak-builder \
 	foo2zjs \
-	fuse-encfs \
 	genisoimage \
 	git-credential-libsecret \
 	glow \
@@ -31,13 +26,9 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	gstreamer1-plugin-openh264 \
 	gum \
 	heaptrack \
-	hplip \
 	iotop-c \
 	kcm-fcitx5 \
 	kde-runtime-docs \
-	kdenetwork-filesharing \
-	kdeplasma-addons \
-	kdialog \
 	ksystemlog \
 	krb5-workstation \
 	kvantum \
@@ -56,11 +47,9 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	lm_sensors \
 	lxc \
 	make \
-	mesa-libGLU \
 	mozilla-openh264 \
 	mpv \
 	p7zip \
-	p7zip-plugins \
 	plasma-firewall-"$(rpm -q --qf '%{VERSION}' plasma-desktop)" \
 	plasma-wallpapers-dynamic \
 	podman-compose \
@@ -68,8 +57,6 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	podman-tui \
 	podmansh \
 	powertop \
-	printer-driver-brlaser \
-	pulseaudio-utils \
 	python3-pip \
 	python3-pygit2 \
 	python3-vapoursynth \
@@ -90,24 +77,20 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	rocm-opencl \
 	rocm-smi \
 	rsms-inter-fonts \
-	samba-dcerpc \
-	samba-ldb-ldap-modules \
+	samba-winbind \
 	samba-winbind-clients \
 	samba-winbind-modules \
-	samba \
 	setools-console \
 	snapd \
 	system-reinstall-bootc \
 	timg \
 	tmux \
 	usbip \
-	usbmuxd \
 	virtualbox-guest-additions \
 	waydroid \
 	wireguard-tools \
 	wl-clipboard \
 	wlr-randr \
-	xprop \
 	ydotool
 
 dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}" \
