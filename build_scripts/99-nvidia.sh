@@ -8,7 +8,7 @@ dnf5 --repo=fedora,updates -y install /tmp/akmods-rpms/ublue-os/ublue-os-nvidia-
 # shellcheck disable=SC1091
 source /tmp/akmods-rpms/kmods/nvidia-vars
 
-dnf5 --repo=fedora,updates,fedora-nvidia,fedora-multimedia,nvidia-container-toolkit -y install \
+dnf5 --repo=fedora,updates,fedora-nvidia,nvidia-container-toolkit -y install \
 	libnvidia-fbc \
 	libnvidia-ml \
 	libva-nvidia-driver \
