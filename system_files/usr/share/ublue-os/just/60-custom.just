@@ -11,7 +11,7 @@
 # foo        = no verb is used for shortcuts or something deemed important enough to use a super memorable name
 
 alias jetbrains-toolbox := install-jetbrains-toolbox
-alias spotify := setup-spotify
+alias spotify := install-spotify
 alias setup-vfio := configure-vfio
 alias switch-stream := rebase-helper
 alias switch-streams := rebase-helper
@@ -43,12 +43,10 @@ install-jetbrains-toolbox:
 
 # Configure Spotify with Spicetify
 [group('Apps')]
-setup-spotify:
+install-spotify:
     #!/usr/bin/env bash
-    if ! flatpak list | grep -q "com.spotify.Client"; then
-        echo "Installing Spotify Flatpak"
-        flatpak install --user -y flathub com.spotify.Client
-    fi
+    echo "Installing Spotify Flatpak"
+    flatpak install --user -y flathub com.spotify.Client --reinstall
     flatpak run com.spotify.Client & disown > /dev/null 2>&1 & sleep 5
     echo "Configuring Spotify with Spicetify"
     brew install spicetify-cli
@@ -64,6 +62,10 @@ setup-spotify:
     curl -Lo "${XDG_CONFIG_HOME:-${HOME}/.config}/spicetify/Extensions/adblock.js" "https://raw.githubusercontent.com/rxri/spicetify-extensions/main/adblock/adblock.js"
     spicetify config extensions adblock.js
     spicetify apply
+    DESKTOP_FILE="${HOME}/.local/share/flatpak/app/com.spotify.Client/x86_64/stable/active/export/share/applications/com.spotify.Client.desktop"
+    if [[ -f "${DESKTOP_FILE}" ]]; then
+        sed -i "s|^Exec=.*|Exec=spicetify auto|" "${DESKTOP_FILE}"
+    fi
 
 # Install GitHub Copilot CLI
 [group('Apps')]
