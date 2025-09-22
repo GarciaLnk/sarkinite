@@ -78,7 +78,7 @@ if [[ "$(basename "${SHELL}")" == "bash" ]]; then
 	[[ -n "$(command -v direnv)" ]] && eval "$(direnv hook bash)"
 fi
 
-HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
-if [[ -f ${HB_CNF_HANDLER} ]]; then
-	. "${HB_CNF_HANDLER}"
+HOMEBREW_COMMAND_NOT_FOUND_HANDLER="$(brew --repository)/Library/Homebrew/command-not-found/handler.sh"
+if [[ -f ${HOMEBREW_COMMAND_NOT_FOUND_HANDLER} ]]; then
+	source "${HOMEBREW_COMMAND_NOT_FOUND_HANDLER}"
 fi
