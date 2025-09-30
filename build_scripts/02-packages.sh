@@ -98,6 +98,7 @@ dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSIO
 	--repo=fedora,updates,terra -y install \
 	cleartype-fonts \
 	coolercontrol \
+	dwarfs \
 	espanso-wayland \
 	firacode-nerd-fonts \
 	fluent-kde-theme \
@@ -110,6 +111,13 @@ dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSIO
 	nerdfontssymbolsonly-nerd-fonts \
 	tela-icon-theme \
 	topgrade
+
+dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
+	--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
+	--repo=fedora,updates,terra-extras -y install \
+	terra-gamescope \
+	terra-wine-staging \
+	terra-winetricks
 
 dnf5 --repofrompath=bazzite-org-rom-properties,https://download.copr.fedorainfracloud.org/results/bazzite-org/rom-properties/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
 	--setopt=bazzite-org-rom-properties.gpgkey=https://download.copr.fedorainfracloud.org/results/bazzite-org/rom-properties/pubkey.gpg \
