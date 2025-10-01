@@ -34,21 +34,12 @@ for remote in fedora fedora-testing; do
 	fi
 done
 
-# Flatpak theming support
-[[ ! -L "${HOME}/.themes" ]] && ln -s "${HOME}/.local/share/themes" "${HOME}/.themes"
-[[ ! -L "${HOME}/.icons" ]] && ln -s "${HOME}/.local/share/icons" "${HOME}/.icons"
-
 flatpak override \
 	--filesystem=xdg-config/gtk-4.0:ro \
 	--filesystem=xdg-config/gtk-3.0:ro \
 	--filesystem=xdg-data/applications:ro \
 	--filesystem=xdg-data/themes:ro \
 	--filesystem=xdg-data/icons:ro
-
-flatpak override \
-	--user \
-	--filesystem="${HOME}/.themes":ro \
-	--filesystem="${HOME}/.icons":ro
 
 flatpak override \
 	--env=XDG_CURRENT_DESKTOP=KDE
