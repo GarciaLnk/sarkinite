@@ -45,8 +45,10 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	libvirt-nss \
 	liquidctl \
 	lm_sensors \
+	lutris \
 	lxc \
 	make \
+	mangohud \
 	mozilla-openh264 \
 	mpv \
 	p7zip \
@@ -87,6 +89,7 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	tmux \
 	usbip \
 	virtualbox-guest-additions \
+	vkBasalt \
 	waydroid \
 	wireguard-tools \
 	wl-clipboard \
