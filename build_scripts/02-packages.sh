@@ -19,6 +19,7 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	ffmpegthumbnailer \
 	flatpak-builder \
 	foo2zjs \
+	gamescope \
 	genisoimage \
 	git-credential-libsecret \
 	glow \
@@ -45,7 +46,6 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	libvirt-nss \
 	liquidctl \
 	lm_sensors \
-	lutris \
 	lxc \
 	make \
 	mangohud \
@@ -107,6 +107,7 @@ dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSIO
 	fluent-kde-theme \
 	fluent-theme \
 	ghostty \
+	heroic-games-launcher \
 	jetbrainsmono-nerd-fonts \
 	keyd \
 	ms-core-fonts \
@@ -118,7 +119,6 @@ dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSIO
 dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
 	--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
 	--repo=fedora,updates,terra-extras -y install \
-	terra-gamescope \
 	terra-wine-staging \
 	terra-winetricks
 
