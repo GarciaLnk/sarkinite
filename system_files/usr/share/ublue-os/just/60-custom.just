@@ -123,14 +123,14 @@ install-gaming-apps:
                                             app/io.github.ilya_zlobintsev.LACT/x86_64/stable \
                                             app/com.github.Matoking.protontricks/x86_64/stable \
                                             runtime/com.obsproject.Studio.Plugin.OBSVkCapture/x86_64/stable \
-                                            runtime/org.freedesktop.Platform.VulkanLayer.gamescope/x86_64/23.08 \
                                             runtime/org.freedesktop.Platform.VulkanLayer.gamescope/x86_64/24.08 \
-                                            runtime/org.freedesktop.Platform.VulkanLayer.OBSVkCapture/x86_64/23.08 \
+                                            runtime/org.freedesktop.Platform.VulkanLayer.gamescope/x86_64/25.08 \
                                             runtime/org.freedesktop.Platform.VulkanLayer.OBSVkCapture/x86_64/24.08 \
-                                            runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/23.08 \
+                                            runtime/org.freedesktop.Platform.VulkanLayer.OBSVkCapture/x86_64/25.08 \
                                             runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08 \
-                                            runtime/org.freedesktop.Platform.VulkanLayer.vkBasalt/x86_64/23.08 \
-                                            runtime/org.freedesktop.Platform.VulkanLayer.vkBasalt/x86_64/24.08
+                                            runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08 \
+                                            runtime/org.freedesktop.Platform.VulkanLayer.vkBasalt/x86_64/24.08 \
+                                            runtime/org.freedesktop.Platform.VulkanLayer.vkBasalt/x86_64/25.08
 
 # Install Java through Homebrew
 [group('Apps')]
