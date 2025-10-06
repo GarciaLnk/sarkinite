@@ -6,7 +6,6 @@ set -ouex pipefail
 
 dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	android-tools \
-	bcache-tools \
 	borgbackup \
 	btrfs-assistant \
 	cage \
@@ -15,7 +14,6 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	evtest \
 	etckeeper \
 	fastfetch \
-	fcitx5 \
 	ffmpegthumbnailer \
 	flatpak-builder \
 	foo2zjs \
@@ -28,7 +26,6 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	gum \
 	heaptrack \
 	iotop-c \
-	kcm-fcitx5 \
 	kde-runtime-docs \
 	ksystemlog \
 	krb5-workstation \
@@ -39,7 +36,6 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	input-remapper \
 	intel-undervolt \
 	iwd \
-	libimobiledevice \
 	libxcrypt-compat \
 	libvdpau-va-gl \
 	libvirt \
@@ -47,7 +43,6 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	liquidctl \
 	lm_sensors \
 	lxc \
-	make \
 	mangohud \
 	mozilla-openh264 \
 	mpv \
@@ -86,13 +81,10 @@ dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
 	snapd \
 	system-reinstall-bootc \
 	timg \
-	tmux \
 	usbip \
 	virtualbox-guest-additions \
 	vkBasalt \
 	waydroid \
-	wireguard-tools \
-	wl-clipboard \
 	wlr-randr \
 	ydotool
 

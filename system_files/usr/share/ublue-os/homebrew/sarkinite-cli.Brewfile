@@ -40,5 +40,3 @@ brew "xh"
 brew "yazi"
 brew "yq"
 brew "zoxide"
-
-tap "homebrew/command-not-found"
