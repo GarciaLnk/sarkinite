@@ -77,8 +77,3 @@ if [[ "$(basename "${SHELL}")" == "bash" ]]; then
 	[[ -n "$(command -v zoxide)" ]] && eval "$(zoxide init bash)"
 	[[ -n "$(command -v direnv)" ]] && eval "$(direnv hook bash)"
 fi
-
-HOMEBREW_COMMAND_NOT_FOUND_HANDLER="$(brew --repository)/Library/Homebrew/command-not-found/handler.sh"
-if [[ -f ${HOMEBREW_COMMAND_NOT_FOUND_HANDLER} ]]; then
-	source "${HOMEBREW_COMMAND_NOT_FOUND_HANDLER}"
-fi
