@@ -29,6 +29,7 @@ app/org.gustavoperedo.FontDownloader/x86_64/stable
 app/me.iepure.devtoolbox/x86_64/stable
 app/dev.zed.Zed/x86_64/stable
 app/io.github.DenysMb.Kontainer/x86_64/stable
+app/org.zealdocs.Zeal/x86_64/stable
 app/io.github.kolunmi.Bazaar/x86_64/stable
 runtime/org.virt_manager.virt_manager.Extension.Qemu/x86_64/stable
 runtime/org.gtk.Gtk3theme.Breeze/x86_64/3.22
