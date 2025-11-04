@@ -13,7 +13,7 @@ If this step is not completed during the initial setup, you can manually enroll 
 
 `ujust enroll-secure-boot-key`
 
-Secure boot is supported with our custom key. The pub key can be found in the root of the akmods repository [here](https://github.com/ublue-os/akmods/raw/main/certs/public_key.der).
+Secure boot is supported with our custom key. The pub key can be found in the root of the [akmods repository](https://github.com/ublue-os/akmods/raw/main/certs/public_key.der).
 If you'd like to enroll this key prior to installation or rebase, download the key and run the following:
 
 ```bash
