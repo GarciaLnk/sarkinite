@@ -62,7 +62,7 @@ if [[ -n "$(command -v delta)" ]]; then
 	export GIT_PAGER='delta'
 fi
 
-if [[ "$(basename "${SHELL}")" == "bash" ]]; then
+if [[ "$(basename "$(readlink "/proc/$$/exe")")" == "bash" ]]; then
 	# bash history settings
 	export PROMPT_COMMAND=('history -a' "${PROMPT_COMMAND[@]}")
 	export HISTTIMEFORMAT='%F %T - '
