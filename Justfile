@@ -698,10 +698,8 @@ fedora_version image="sarkinite" tag="stable" flavor="main" $kernel_pin="":
     #!/usr/bin/env bash
     set -eou pipefail
     just validate {{ image }} {{ tag }} {{ flavor }}
-    if [[ ! -f /tmp/manifest.json ]]; then
-        skopeo inspect --retry-times 3 docker://quay.io/fedora/fedora-coreos:{{ tag }} > /tmp/manifest.json
-    fi
-    fedora_version=$(jq -r '.Labels["ostree.linux"]' < /tmp/manifest.json | grep -oP 'fc\K[0-9]+')
+    skopeo inspect --retry-times 3 docker://quay.io/fedora/fedora-coreos:{{ tag }} > /tmp/manifest.json
+    fedora_version=$(jq -r '.Labels["org.opencontainers.image.version"]' < /tmp/manifest.json | grep -oE '^[0-9]+')
     if [[ -n "${kernel_pin:-}" ]]; then
         fedora_version=$(echo "${kernel_pin}" | grep -oP 'fc\K[0-9]+')
     fi
