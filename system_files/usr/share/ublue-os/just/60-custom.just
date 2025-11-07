@@ -187,7 +187,7 @@ install-opentabletdriver:
 sarkinite-cli:
     @/usr/libexec/ublue-bling.sh
 
-# Configure system to use vfio and kvmfr
+# Configure system to use vfio
 [group('System')]
 configure-vfio ACTION="":
     #!/usr/bin/env bash
@@ -199,21 +199,19 @@ configure-vfio ACTION="":
       <option>: Specify the quick option to skip the prompt
       Use 'vfio-on' to select Enable VFIO drivers
       Use 'vfio-off' to select Disable VFIO drivers
-      Use 'kvmfr' to enable kvmfr module for looking-glass
     EOF"
         exit 0
     elif [ "$OPTION" == "" ]; then
         bash -c "cat <<EOF
-    ${bold}VFIO and kvmfr Configuration${normal}
+    ${bold}VFIO Configuration${normal}
     This is only used for GPU passthrough of a secondary dGPU.
-    It will enable vfio and configure kvmfr for use with $(Urllink "https://looking-glass.io" "Looking Glass").
+    It will enable vfio.
     If you do not plan to use any of this then press ESC.
     ${bold}NOTE:${normal} Since this is a niche use case, support will be ${b}very limited${n}
     EOF"
         OPTION=$(Choose \
           "Enable VFIO drivers" \
           "Disable VFIO drivers" \
-          "Enable kvmfr module" \
         )
     fi
     if [[ "${OPTION,,}" =~ (^enable[[:space:]]vfio|vfio-on) ]]; then
@@ -284,8 +282,6 @@ configure-vfio ACTION="":
                 --delete-if-present="vfio_pci.disable_vga=0" \
             $VFIO_IDS_KARG
         fi
-    elif [[ "${OPTION,,}" =~ kvmfr ]]; then
-        sudo /usr/libexec/sarkinite-kvmfr-setup
     fi
 
 # Install system flatpaks for rebasers

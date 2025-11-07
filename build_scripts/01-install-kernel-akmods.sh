@@ -31,11 +31,6 @@ dnf5 --repofrompath=ublue-os-akmods,https://download.copr.fedorainfracloud.org/r
 	/tmp/akmods/kmods/*openrazer*.rpm \
 	/tmp/akmods/kmods/*framework-laptop*.rpm
 
-dnf5 --repofrompath=hikariknight-looking-glass-kvmfr,https://download.copr.fedorainfracloud.org/results/hikariknight/looking-glass-kvmfr/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
-	--setopt=hikariknight-looking-glass-kvmfr.gpgkey=https://download.copr.fedorainfracloud.org/results/hikariknight/looking-glass-kvmfr/pubkey.gpg \
-	--repo=fedora,updates,hikariknight-looking-glass-kvmfr -y install \
-	/tmp/akmods/kmods/*kvmfr*.rpm
-
 # Nvidia AKMODS
 if [[ ${IMAGE_NAME} =~ nvidia ]]; then
 	# Fetch Nvidia RPMs
