@@ -8,7 +8,7 @@ dnf5 --repo=fedora,updates -y install /tmp/akmods-rpms/ublue-os/ublue-os-nvidia-
 # shellcheck disable=SC1091
 source /tmp/akmods-rpms/kmods/nvidia-vars
 
-dnf5 --repo=fedora,updates,fedora-nvidia,nvidia-container-toolkit -y install \
+dnf5 --repo=fedora,updates,fedora-nvidia -y install \
 	libnvidia-fbc \
 	libnvidia-ml \
 	libva-nvidia-driver \
@@ -17,8 +17,13 @@ dnf5 --repo=fedora,updates,fedora-nvidia,nvidia-container-toolkit -y install \
 	nvidia-driver-cuda-libs \
 	nvidia-driver-libs \
 	nvidia-settings \
-	nvidia-container-toolkit \
 	/tmp/akmods-rpms/kmods/kmod-nvidia-"${KERNEL_VERSION}"-"${NVIDIA_AKMOD_VERSION}"."${DIST_ARCH}".rpm
+
+# Disable verification for F43 install due to issues with NVIDIA packages
+# https://github.com/NVIDIA/nvidia-container-toolkit/issues/1307
+echo "%_pkgverify_level none" >/etc/rpm/macros.verify
+dnf5 --repo=nvidia-container-toolkit -y --setopt=tsflags=nocrypto install nvidia-container-toolkit
+rm /etc/rpm/macros.verify
 
 # Ensure the version of the Nvidia module matches the driver
 KMOD_VERSION="$(rpm -q --queryformat '%{VERSION}' kmod-nvidia)"

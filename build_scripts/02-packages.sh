@@ -4,7 +4,7 @@ echo "::group:: ===$(basename "$0")==="
 
 set -ouex pipefail
 
-dnf5 --repo=fedora,updates,fedora-cisco-openh264 -y install \
+dnf5 --repo=fedora,updates,updates-archive,fedora-cisco-openh264 -y install \
 	android-tools \
 	borgbackup \
 	btrfs-assistant \
@@ -155,19 +155,20 @@ dnf5 --repofrompath=vscode,https://packages.microsoft.com/yumrepos/vscode \
 	--repo=vscode -y install \
 	code
 
-dnf5 --repofrompath=tailscale,https://pkgs.tailscale.com/stable/fedora/x86_64 \
-	--setopt=tailscale.gpgkey=https://pkgs.tailscale.com/stable/fedora/repo.gpg \
-	--repo=tailscale -y install \
-	tailscale
+dnf5 config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+dnf5 -y install tailscale
+rm -f /etc/yum.repos.d/tailscale.repo
 
-dnf5 --repofrompath=fedora-uld,https://negativo17.org/repos/uld/fedora-"${FEDORA_MAJOR_VERSION}"/x86_64/ \
-	--setopt=fedora-uld.gpgkey=https://negativo17.org/repos/RPM-GPG-KEY-slaanesh \
-	--repo=fedora,fedora-uld -y install \
-	uld
+if [[ ${FEDORA_MAJOR_VERSION} -lt "43" ]]; then
+	dnf5 --repofrompath=fedora-uld,https://negativo17.org/repos/uld/fedora-"${FEDORA_MAJOR_VERSION}"/x86_64/ \
+		--setopt=fedora-uld.gpgkey=https://negativo17.org/repos/RPM-GPG-KEY-slaanesh \
+		--repo=fedora,fedora-uld -y install \
+		uld
 
-dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
-	--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
-	--repo=terra-extras -y swap \
-	switcheroo-control switcheroo-control
+	dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
+		--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
+		--repo=terra-extras -y swap \
+		switcheroo-control switcheroo-control
+fi
 
 echo "::endgroup::"

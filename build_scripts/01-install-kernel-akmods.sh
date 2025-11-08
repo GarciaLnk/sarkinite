@@ -14,18 +14,32 @@ tar -xvzf /tmp/akmods/"${AKMODS_TARGZ}" -C /tmp/
 mv /tmp/rpms/* /tmp/akmods/
 # NOTE: kernel-rpms should auto-extract into correct location
 
+# on F43, a new problem manifests where during kernel install, dracut errors and fails
+# create a shims to bypass kernel install triggering dracut/rpm-ostree
+# seems to be minimal impact, but allows progress on build
+cd /usr/lib/kernel/install.d
+mv 05-rpmostree.install 05-rpmostree.install.bak
+printf '%s\n' '#!/bin/sh' 'exit 0' >05-rpmostree.install
+chmod +x 05-rpmostree.install
+
 # Install Kernel
 dnf5 -y install /tmp/kernel-rpms/kernel{,-core,-modules,-modules-core,-modules-extra,-devel,-devel,-devel-matched}-"${KERNEL}".rpm kernel-{tools,tools-libs}-"${KERNEL}"
 dnf5 -y remove kernel-tools{,-libs}
+
+# restore kernel install scriptlets for F43 workaround
+mv -f 05-rpmostree.install.bak 05-rpmostree.install
+cd -
 
 dnf5 versionlock add kernel{,-core,-modules,-modules-core,-modules-extra,-tools,-tools-lib,-headers,-devel,-devel-matched}
 
 # Everyone
 dnf5 --repofrompath=ublue-os-akmods,https://download.copr.fedorainfracloud.org/results/ublue-os/akmods/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
+	--repofrompath=rpmfusion-free,http://download1.rpmfusion.org/free/fedora/releases/"${FEDORA_MAJOR_VERSION}"/Everything/x86_64/os/ \
 	--repofrompath=rpmfusion-free-updates,http://download1.rpmfusion.org/free/fedora/updates/"${FEDORA_MAJOR_VERSION}"/x86_64/ \
 	--setopt=ublue-os-akmods.gpgkey=https://download.copr.fedorainfracloud.org/results/ublue-os/akmods/pubkey.gpg \
+	--setopt=rpmfusion-free.gpgkey="https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020" \
 	--setopt=rpmfusion-free-updates.gpgkey="https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020" \
-	--repo=fedora,updates,ublue-os-akmods,rpmfusion-free-updates -y install \
+	--repo=fedora,updates,ublue-os-akmods,rpmfusion-free,rpmfusion-free-updates -y install \
 	v4l2loopback /tmp/akmods/kmods/*v4l2loopback*.rpm \
 	/tmp/akmods/kmods/*xone*.rpm \
 	/tmp/akmods/kmods/*openrazer*.rpm \
@@ -45,17 +59,19 @@ if [[ ${IMAGE_NAME} =~ nvidia ]]; then
 	ln -sf libnvidia-ml.so.1 /usr/lib64/libnvidia-ml.so
 fi
 
-# Fetch ZFS RPMs
-skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods-zfs:"${AKMODS_FLAVOR}"-"${FEDORA_MAJOR_VERSION}"-"${KERNEL}" dir:/tmp/akmods-zfs
-ZFS_TARGZ=$(jq -r '.layers[].digest' </tmp/akmods-zfs/manifest.json | cut -d : -f 2)
-tar -xvzf /tmp/akmods-zfs/"${ZFS_TARGZ}" -C /tmp/
-mv /tmp/rpms/* /tmp/akmods-zfs/
+if [[ ${FEDORA_MAJOR_VERSION} -lt "43" ]]; then
+	# Fetch ZFS RPMs
+	skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods-zfs:"${AKMODS_FLAVOR}"-"${FEDORA_MAJOR_VERSION}"-"${KERNEL}" dir:/tmp/akmods-zfs
+	ZFS_TARGZ=$(jq -r '.layers[].digest' </tmp/akmods-zfs/manifest.json | cut -d : -f 2)
+	tar -xvzf /tmp/akmods-zfs/"${ZFS_TARGZ}" -C /tmp/
+	mv /tmp/rpms/* /tmp/akmods-zfs/
 
-# Install
-dnf5 --repo=fedora,updates -y install /tmp/akmods-zfs/kmods/zfs/*.rpm
+	# Install
+	dnf5 --repo=fedora,updates -y install /tmp/akmods-zfs/kmods/zfs/*.rpm
 
-# Depmod and autoload
-depmod -a "${KERNEL}"
-echo "zfs" >/usr/lib/modules-load.d/zfs.conf
+	# Depmod and autoload
+	depmod -a "${KERNEL}"
+	echo "zfs" >/usr/lib/modules-load.d/zfs.conf
+fi
 
 echo "::endgroup::"
