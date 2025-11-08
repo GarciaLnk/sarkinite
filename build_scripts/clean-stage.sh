@@ -4,11 +4,6 @@ echo "::group:: ===$(basename "$0")==="
 
 set -eoux pipefail
 
-# dnf cleanup
-dnf5 remove -y ostree-grub2 plasma-discover-kns
-dnf5 autoremove -y
-dnf5 clean all
-
 # Upstream ublue-os-signing bug, we are using /usr/etc for the container signing and bootc gets mad at this
 # FIXME: remove this once https://github.com/ublue-os/packages/issues/245 is closed
 if [[ -d /usr/etc ]]; then

@@ -38,7 +38,7 @@ systemctl enable sarkinite-groups.service
 systemctl enable --global sarkinite-user-vscode.service
 systemctl enable docker-prune.timer
 systemctl --global disable sunshine.service
-systemctl disable flatpak-add-fedora-repos.service
+systemctl mask flatpak-add-fedora-repos.service
 systemctl enable uupd.timer
 systemctl enable input-remapper.service
 systemctl enable media-automount.service
@@ -71,5 +71,13 @@ sed -i 's/ --xdg-runtime=\\"${XDG_RUNTIME_DIR}\\"//g' /usr/bin/btrfs-assistant-l
 QUALIFIED_KERNEL="$(rpm -qa | grep -P 'kernel-(\d+\.\d+\.\d+)' | sed -E 's/kernel-//')"
 /usr/bin/dracut --no-hostonly --kver "${QUALIFIED_KERNEL}" --reproducible -v --add ostree -f "/lib/modules/${QUALIFIED_KERNEL}/initramfs.img"
 chmod 0600 "/lib/modules/${QUALIFIED_KERNEL}/initramfs.img"
+
+# dnf cleanup
+dnf5 remove -y ostree-grub2 plasma-discover-kns
+dnf5 autoremove -y
+dnf5 clean all
+
+# *never* ship fedora flatpaks on the image
+rm -f /usr/lib/systemd/system/flatpak-add-fedora-repos.service
 
 echo "::endgroup::"

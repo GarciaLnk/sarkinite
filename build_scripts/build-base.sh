@@ -21,10 +21,11 @@ sysctl -p
 # Systemd, Remove Items and Regenerate initramfs
 /var/tmp/build_scripts/10-cleanup.sh
 
+# Simple Tests, shared with the base
+/var/tmp/build_scripts/20-tests.sh
+
 # Clean Up
 echo "::group:: Cleanup"
 /var/tmp/build_scripts/clean-stage.sh
-mkdir -p /var/tmp &&
-	chmod -R 1777 /var/tmp
-ostree container commit
+
 echo "::endgroup::"
