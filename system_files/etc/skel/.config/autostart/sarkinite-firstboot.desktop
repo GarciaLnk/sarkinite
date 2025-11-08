@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Sarkinite First Boot Setup
-Comment=Sets up Sarkinite Correctly On FirstBoot
-GenericName=Launcher
-Categories=Utility;System;
-Exec=/usr/bin/yafti /etc/yafti.yml
-Icon=application-x-executable
-Terminal=false
-Type=Application

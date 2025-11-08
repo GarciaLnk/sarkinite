@@ -141,11 +141,6 @@ dnf5 --repofrompath=ublue-os-packages,https://download.copr.fedorainfracloud.org
 	ublue-brew \
 	uupd
 
-dnf5 --repofrompath=ublue-os-staging,https://download.copr.fedorainfracloud.org/results/ublue-os/staging/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
-	--setopt=ublue-os-staging.gpgkey=https://download.copr.fedorainfracloud.org/results/ublue-os/staging/pubkey.gpg \
-	--repo=fedora,updates,ublue-os-staging -y install \
-	yafti
-
 dnf5 --repofrompath=docker-ce,https://download.docker.com/linux/fedora/"${FEDORA_MAJOR_VERSION}"/x86_64/stable \
 	--setopt=docker-ce.gpgkey=https://download.docker.com/linux/fedora/gpg \
 	--repo=fedora,docker-ce -y install \

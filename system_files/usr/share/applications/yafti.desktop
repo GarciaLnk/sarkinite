@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Sarkinite Portal
-Comment=First-run utility for configuring helpful additions to Sarkinite
-Icon=/usr/share/icons/Tela/scalable/apps/fedora-logo-icon.svg
-Categories=Utility;System;
-Exec=/usr/bin/yafti --force
