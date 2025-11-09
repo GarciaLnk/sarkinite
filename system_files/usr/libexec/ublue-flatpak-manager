@@ -127,10 +127,8 @@ chmod +x "${HOME}/.var/app/app.zen_browser.zen/data/bin/firefoxpwa-connector-hos
 # Workarounds for Nvidia users
 if [[ $(cat /etc/ublue/image_flavor) =~ "nvidia" ]] && [[ "$(grep -o "\-display" <<<"$(lshw -C display)")" -le 1 ]] && grep -q "vendor: NVIDIA Corporation" <<<"$(lshw -C display)"; then
 	flatpak override --env=MOZ_DISABLE_RDD_SANDBOX=1 app.zen_browser.zen
-	flatpak override --env=WEBKIT_DISABLE_COMPOSITING_MODE=1 sh.loft.devpod
 else
 	flatpak override --unset-env=MOZ_DISABLE_RDD_SANDBOX app.zen_browser.zen
-	flatpak override --unset-env=WEBKIT_DISABLE_COMPOSITING_MODE sh.loft.devpod
 fi
 
 flatpak --system update -y
