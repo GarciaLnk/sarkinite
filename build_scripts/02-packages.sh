@@ -148,7 +148,8 @@ dnf5 --repofrompath=docker-ce,https://download.docker.com/linux/fedora/"${FEDORA
 	docker-ce \
 	docker-ce-cli \
 	docker-buildx-plugin \
-	docker-compose-plugin
+	docker-compose-plugin \
+	docker-model-plugin
 
 dnf5 --repofrompath=vscode,https://packages.microsoft.com/yumrepos/vscode \
 	--setopt=vscode.gpgkey=https://packages.microsoft.com/keys/microsoft.asc \
