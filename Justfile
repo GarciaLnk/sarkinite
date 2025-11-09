@@ -703,6 +703,7 @@ fedora_version image="sarkinite" tag="stable" flavor="main" $kernel_pin="":
     if [[ -n "${kernel_pin:-}" ]]; then
         fedora_version=$(echo "${kernel_pin}" | grep -oP 'fc\K[0-9]+')
     fi
+    rm -f /tmp/manifest.json
     echo "${fedora_version}"
 
 # Image Name
