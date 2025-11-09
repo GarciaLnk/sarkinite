@@ -26,7 +26,6 @@ dnf5 --repo=fedora,updates,updates-archive,fedora-cisco-openh264 -y install \
 	gum \
 	heaptrack \
 	iotop-c \
-	kde-runtime-docs \
 	ksystemlog \
 	krb5-workstation \
 	kvantum \
