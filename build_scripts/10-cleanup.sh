@@ -42,6 +42,7 @@ systemctl mask flatpak-add-fedora-repos.service
 systemctl enable uupd.timer
 systemctl enable input-remapper.service
 systemctl enable media-automount.service
+systemctl enable flatpak-nuke-fedora.service
 
 # Disable old update timers
 systemctl disable rpm-ostreed-automatic.timer
