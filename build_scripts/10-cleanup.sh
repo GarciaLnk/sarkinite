@@ -49,7 +49,7 @@ systemctl disable rpm-ostreed-automatic.timer
 systemctl disable flatpak-system-update.timer
 
 # systemd-remount-fs.service fails w/ btfs and composefs enabled
-# track for F42: https://bugzilla.redhat.com/show_bug.cgi?id=2348934
+# still valid in F43: https://bugzilla.redhat.com/show_bug.cgi?id=2348934
 systemctl mask systemd-remount-fs.service
 
 # Enable polkit rules for fingerprint sensors via fprintd

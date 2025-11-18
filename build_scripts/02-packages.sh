@@ -153,6 +153,11 @@ dnf5 --repofrompath=docker-ce,https://download.docker.com/linux/fedora/"${FEDORA
 	docker-compose-plugin \
 	docker-model-plugin
 
+dnf5 --repofrompath=antigravity,https://us-central1-yum.pkg.dev/projects/antigravity-auto-updater-dev/antigravity-rpm \
+	--setopt=antigravity.gpgcheck=0 \
+	--repo=antigravity -y install \
+	antigravity
+
 dnf5 --repofrompath=vscode,https://packages.microsoft.com/yumrepos/vscode \
 	--setopt=vscode.gpgkey=https://packages.microsoft.com/keys/microsoft.asc \
 	--repo=vscode -y install \
