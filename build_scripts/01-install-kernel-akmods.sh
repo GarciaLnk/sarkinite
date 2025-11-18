@@ -74,4 +74,7 @@ if [[ ${FEDORA_MAJOR_VERSION} -lt "43" ]]; then
 	echo "zfs" >/usr/lib/modules-load.d/zfs.conf
 fi
 
+rm -rf /tmp/akmods /tmp/akmods-rpms /tmp/akmods-zfs /tmp/kernel-rpms
+dnf5 clean all
+
 echo "::endgroup::"

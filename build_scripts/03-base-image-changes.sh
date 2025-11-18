@@ -22,7 +22,9 @@ sed -i '/<entry name="launchers" type="StringList">/,/<\/entry>/ s/<default>[^<]
 
 # Fix caps
 setcap 'cap_net_raw+ep' /usr/libexec/ksysguard/ksgrd_network_helper
-setcap 'cap_sys_admin+p' "$(readlink -f "$(command -v sunshine)")"
+if command -v sunshine &>/dev/null; then
+	setcap 'cap_sys_admin+p' "$(readlink -f "$(command -v sunshine)")"
+fi
 
 # Waydroid
 sed -i~ -E 's/=.\$\(command -v (nft|ip6?tables-legacy).*/=/g' /usr/lib/waydroid/data/scripts/waydroid-net.sh

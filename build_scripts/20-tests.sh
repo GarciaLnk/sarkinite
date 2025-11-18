@@ -47,7 +47,6 @@ IMPORTANT_PACKAGES=(
 	docker-ce
 	libvirt
 	qemu
-	rocm-runtime
 )
 
 for package in "${IMPORTANT_PACKAGES[@]}"; do

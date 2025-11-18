@@ -24,7 +24,6 @@ dnf5 --repo=fedora,updates,updates-archive,fedora-cisco-openh264 -y install \
 	genisoimage \
 	git-credential-libsecret \
 	glow \
-	google-noto-fonts-all \
 	gstreamer1-plugin-openh264 \
 	gum \
 	heaptrack \
@@ -71,10 +70,6 @@ dnf5 --repo=fedora,updates,updates-archive,fedora-cisco-openh264 -y install \
 	qemu-user-static \
 	rclone \
 	restic \
-	rocm-clinfo \
-	rocm-hip \
-	rocm-opencl \
-	rocm-smi \
 	rsms-inter-fonts \
 	samba-winbind \
 	samba-winbind-clients \
@@ -89,6 +84,8 @@ dnf5 --repo=fedora,updates,updates-archive,fedora-cisco-openh264 -y install \
 	waydroid \
 	wlr-randr \
 	ydotool
+
+dnf5 clean all
 
 dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}" \
 	--setopt=terra.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"/key.asc \
@@ -178,5 +175,7 @@ if [[ ${FEDORA_MAJOR_VERSION} -lt "43" ]]; then
 		--repo=terra-extras -y swap \
 		switcheroo-control switcheroo-control
 fi
+
+dnf5 clean all
 
 echo "::endgroup::"

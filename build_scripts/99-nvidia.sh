@@ -48,6 +48,8 @@ dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSIO
 # kmod-nvidia-common defaults to 'nvidia-open' but this will match our akmod image
 sed -i "s/^MODULE_VARIANT=.*/MODULE_VARIANT=${KERNEL_MODULE_TYPE}/" /etc/nvidia/kernel.conf
 
+dnf5 clean all
+
 systemctl enable ublue-nvctk-cdi.service
 semodule --verbose --install /usr/share/selinux/packages/nvidia-container.pp
 
