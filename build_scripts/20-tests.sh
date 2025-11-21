@@ -38,6 +38,7 @@ IMPORTANT_PACKAGES=(
 	kwin
 	pipewire
 	plasma-desktop
+	podman
 	sddm
 	systemd
 	tailscale
