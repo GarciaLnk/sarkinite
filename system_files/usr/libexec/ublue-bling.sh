@@ -2,7 +2,7 @@
 
 set -ou pipefail
 
-# Source libujust for colors/ugum
+# Source libujust for colors
 source /usr/lib/ujust/ujust.sh
 
 # Exit Handling
@@ -88,7 +88,7 @@ function main() {
 		printf "Bling:\t%s%sDisabled%s\n" "${red}" "${bold}" "${normal}"
 	fi
 
-	# ugum enable/disable
+	# enable/disable
 	CHOICE=$(Choose enable disable cancel)
 
 	# Enable/Disable. Recurse if bad option.
