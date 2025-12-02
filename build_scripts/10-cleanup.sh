@@ -74,7 +74,7 @@ QUALIFIED_KERNEL="$(rpm -qa | grep -P 'kernel-(\d+\.\d+\.\d+)' | sed -E 's/kerne
 chmod 0600 "/lib/modules/${QUALIFIED_KERNEL}/initramfs.img"
 
 # dnf cleanup
-dnf5 remove -y ostree-grub2 plasma-discover-kns
+dnf5 remove -y ostree-grub2 plasma-discover-kns cosign
 dnf5 autoremove -y
 dnf5 clean all
 
