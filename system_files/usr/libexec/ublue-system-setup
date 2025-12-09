@@ -9,7 +9,7 @@ VEN_ID="$(cat /sys/devices/virtual/dmi/id/chassis_vendor)"
 CPU_VENDOR=$(grep "vendor_id" "/proc/cpuinfo" | uniq | awk -F": " '{ print $2 }')
 
 # SCRIPT VERSION
-HWS_VER=8
+HWS_VER=9
 HWS_VER_FILE="/etc/ublue/hws_version"
 [[ -f ${HWS_VER_FILE} ]] && HWS_VER_RAN=$(cat "${HWS_VER_FILE}")
 
@@ -19,11 +19,17 @@ KNOWN_IMAGE_NAME_FILE="/etc/ublue/image_name"
 KNOWN_IMAGE_FLAVOR_FILE="/etc/ublue/image_flavor"
 [[ -f ${KNOWN_IMAGE_FLAVOR_FILE} ]] && KNOWN_IMAGE_FLAVOR=$(cat "${KNOWN_IMAGE_FLAVOR_FILE}")
 
+# NVIDIA DRIVER VERSION IDENTIFIERS
+if [[ ${IMAGE_NAME} =~ "nvidia" ]]; then
+	FLATPAK_NVIDIA_VERSION=$(flatpak list --runtime | grep nvidia | grep -Eo "[0-9]+-[0-9]+-[0-9]+" | tail -1)
+	SYSTEM_NVIDIA_VERSION=$(grep NVIDIA /proc/driver/nvidia/version | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+" | tr '.' '-')
+fi
+
 # Run script if updated
 if [[ -f ${HWS_VER_FILE} && ${HWS_VER} == "${HWS_VER_RAN}" ]]; then
 	if [[ -f ${KNOWN_IMAGE_NAME_FILE} && -f ${KNOWN_IMAGE_FLAVOR_FILE} ]]; then
 		# Run script if image has been rebased
-		if [[ ${IMAGE_NAME} == "${KNOWN_IMAGE_NAME}" && ${IMAGE_FLAVOR} == "${KNOWN_IMAGE_FLAVOR}" ]]; then
+		if [[ ${IMAGE_NAME} == "${KNOWN_IMAGE_NAME}" && ${IMAGE_FLAVOR} == "${KNOWN_IMAGE_FLAVOR}" && ${SYSTEM_NVIDIA_VERSION} == "${FLATPAK_NVIDIA_VERSION}" ]]; then
 			echo "Hardware setup has already run. Exiting..."
 			exit 0
 		fi
@@ -56,6 +62,15 @@ if [[ ":Framework:" =~ ":${VEN_ID}:" ]]; then
 			NEEDED_KARGS+=("--append-if-missing=module_blacklist=hid_sensor_hub")
 		fi
 	fi
+fi
+
+# Fix Flatpak and System Nvidia driver mismatch
+# FIXME: This fix was added in 12/2025, remove it when there is a proper fix for this issue
+if [[ ${SYSTEM_NVIDIA_VERSION} != "${FLATPAK_NVIDIA_VERSION}" && ${IMAGE_NAME} =~ "nvidia" ]]; then
+	echo "Installing Nvidia Flatpak runtime"
+	flatpak install -y "org.freedesktop.Platform.GL.nvidia-${SYSTEM_NVIDIA_VERSION}" "org.freedesktop.Platform.GL32.nvidia-${SYSTEM_NVIDIA_VERSION}"
+else
+	echo "No Flatpak runtime changes needed"
 fi
 
 #shellcheck disable=SC2128
