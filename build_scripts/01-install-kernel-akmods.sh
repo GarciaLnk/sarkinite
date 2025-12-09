@@ -36,11 +36,14 @@ dnf5 versionlock add kernel{,-core,-modules,-modules-core,-modules-extra,-tools,
 dnf5 --repofrompath=ublue-os-akmods,https://download.copr.fedorainfracloud.org/results/ublue-os/akmods/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
 	--repofrompath=rpmfusion-free,http://download1.rpmfusion.org/free/fedora/releases/"${FEDORA_MAJOR_VERSION}"/Everything/x86_64/os/ \
 	--repofrompath=rpmfusion-free-updates,http://download1.rpmfusion.org/free/fedora/updates/"${FEDORA_MAJOR_VERSION}"/x86_64/ \
+	--repofrompath=rpmfusion-nonfree,http://download1.rpmfusion.org/nonfree/fedora/releases/"${FEDORA_MAJOR_VERSION}"/Everything/x86_64/os/ \
 	--setopt=ublue-os-akmods.gpgkey=https://download.copr.fedorainfracloud.org/results/ublue-os/akmods/pubkey.gpg \
 	--setopt=rpmfusion-free.gpgkey="https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020" \
 	--setopt=rpmfusion-free-updates.gpgkey="https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020" \
-	--repo=fedora,updates,ublue-os-akmods,rpmfusion-free,rpmfusion-free-updates -y install \
+	--setopt=rpmfusion-nonfree.gpgkey="https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020" \
+	--repo=fedora,updates,ublue-os-akmods,rpmfusion-free,rpmfusion-nonfree,rpmfusion-free-updates -y install \
 	v4l2loopback /tmp/akmods/kmods/*v4l2loopback*.rpm \
+	/tmp/akmods/kmods/*wl*.rpm \
 	/tmp/akmods/kmods/*xone*.rpm \
 	/tmp/akmods/kmods/*openrazer*.rpm \
 	/tmp/akmods/kmods/*framework-laptop*.rpm
