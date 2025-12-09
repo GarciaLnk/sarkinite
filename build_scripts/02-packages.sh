@@ -164,17 +164,10 @@ dnf5 config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fe
 dnf5 -y install tailscale
 rm -f /etc/yum.repos.d/tailscale.repo
 
-if [[ ${FEDORA_MAJOR_VERSION} -lt "43" ]]; then
-	dnf5 --repofrompath=fedora-uld,https://negativo17.org/repos/uld/fedora-"${FEDORA_MAJOR_VERSION}"/x86_64/ \
-		--setopt=fedora-uld.gpgkey=https://negativo17.org/repos/RPM-GPG-KEY-slaanesh \
-		--repo=fedora,fedora-uld -y install \
-		uld
-
-	dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
-		--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
-		--repo=terra-extras -y swap \
-		switcheroo-control switcheroo-control
-fi
+dnf5 --repofrompath=fedora-uld,https://negativo17.org/repos/uld/fedora-"${FEDORA_MAJOR_VERSION}"/x86_64/ \
+	--setopt=fedora-uld.gpgkey=https://negativo17.org/repos/RPM-GPG-KEY-slaanesh \
+	--repo=fedora,fedora-uld -y install \
+	uld
 
 dnf5 clean all
 
