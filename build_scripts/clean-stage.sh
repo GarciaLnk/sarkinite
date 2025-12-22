@@ -16,9 +16,10 @@ rm -rf /.gitkeep \
 	/var/tmp/* \
 	/var/lib/{dnf,rhsm} \
 	/var/cache/* \
-	/boot
+	/boot \
+	/tmp
 
-mkdir -p /boot
+mkdir -p /boot /tmp
 
 find /var/log -type f -exec bash -c '[ -s "$1" ] && rm "$1"' _ {} \;
 find /var/* -maxdepth 0 -type d \! -name cache -exec rm -fr {} \;
