@@ -15,3 +15,5 @@ COPY build_scripts /var/tmp/build_scripts
 
 RUN --mount=type=tmpfs,dst=/tmp \
     /var/tmp/build_scripts/build-base.sh
+
+CMD ["/sbin/init"]
