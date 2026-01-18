@@ -133,6 +133,7 @@ build $image="sarkinite" $tag="stable" $flavor="main" rechunk="0" ghcr="0" pipel
     if [[ "${flavor}" =~ nvidia ]]; then
         just verify-container "akmods-nvidia-open:${akmods_flavor}-${fedora_version}-${kernel_release}"
     fi
+    just verify-container "brew:latest"
 
     # Get Version
     if [[ "${tag}" =~ stable ]]; then

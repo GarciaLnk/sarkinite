@@ -137,7 +137,6 @@ dnf5 --repofrompath=lizardbyte-beta,https://download.copr.fedorainfracloud.org/r
 dnf5 --repofrompath=ublue-os-packages,https://download.copr.fedorainfracloud.org/results/ublue-os/packages/fedora-"${FEDORA_MAJOR_VERSION}"-x86_64/ \
 	--setopt=ublue-os-packages.gpgkey=https://download.copr.fedorainfracloud.org/results/ublue-os/packages/pubkey.gpg \
 	--repo=fedora,updates,ublue-os-packages -y install \
-	ublue-brew \
 	uupd
 
 dnf5 --repofrompath=docker-ce,https://download.docker.com/linux/fedora/"${FEDORA_MAJOR_VERSION}"/x86_64/stable \

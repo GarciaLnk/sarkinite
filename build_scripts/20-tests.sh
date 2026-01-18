@@ -7,6 +7,8 @@ set -eoux pipefail
 # Make sure this garbage never makes it to an image
 test -f /usr/lib/systemd/system/flatpak-add-fedora-repos.service && false
 
+test -f /usr/share/homebrew.tar.zst
+
 desktop-file-validate /usr/share/applications/system-update.desktop
 
 # Check for KDE Plasma version mismatch
