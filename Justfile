@@ -16,10 +16,11 @@ export SUDO_DISPLAY := if `if [ -n "${DISPLAY:-}" ] || [ -n "${WAYLAND_DISPLAY:-
 export SUDOIF := if `id -u` == "0" { "" } else if SUDO_DISPLAY == "true" { "sudo --askpass" } else { "sudo" }
 export PODMAN := if path_exists("/usr/bin/podman") == "true" { env("PODMAN", "/usr/bin/podman") } else if path_exists("/usr/bin/docker") == "true" { env("PODMAN", "docker") } else { env("PODMAN", "exit 1 ; ") }
 export PULL_POLICY := if PODMAN =~ "docker" { "missing" } else { "newer" }
+just := just_executable()
 
 [private]
 default:
-    @just --list
+    @{{ just }} --list
 
 # Check Just Syntax
 [group('Just')]
@@ -27,10 +28,10 @@ check:
     #!/usr/bin/env bash
     find . -type f -name "*.just" | while read -r file; do
     	echo "Checking syntax: $file"
-    	just --unstable --fmt --check -f $file
+        {{ just }} --unstable --fmt --check -f $file
     done
     echo "Checking syntax: Justfile"
-    just --unstable --fmt --check -f Justfile
+    {{ just }} --unstable --fmt --check -f Justfile
 
 # Fix Just Syntax
 [group('Just')]
@@ -38,10 +39,10 @@ fix:
     #!/usr/bin/env bash
     find . -type f -name "*.just" | while read -r file; do
     	echo "Checking syntax: $file"
-    	just --unstable --fmt -f $file
+        {{ just }} --unstable --fmt -f $file
     done
     echo "Checking syntax: Justfile"
-    just --unstable --fmt -f Justfile || { exit 1; }
+    {{ just }} --unstable --fmt -f Justfile || { exit 1; }
 
 # Clean Repo
 [group('Utility')]
@@ -53,7 +54,7 @@ clean $image="sarkinite" $tag="stable" $flavor="main":
     rm -f previous.manifest.json
     rm -f changelog.md
     rm -f output.env
-    image_name=$(just image_name {{ image }} {{ tag }} {{ flavor }})
+    image_name=$({{ just }} image_name {{ image }} {{ tag }} {{ flavor }})
     ${PODMAN} rmi localhost/"${image_name}":"${tag}" || true
 
 # Check if valid combo
@@ -98,10 +99,10 @@ build $image="sarkinite" $tag="stable" $flavor="main" rechunk="0" ghcr="0" pipel
     set -eoux pipefail
 
     # Validate
-    just validate "${image}" "${tag}" "${flavor}"
+    {{ just }} validate "${image}" "${tag}" "${flavor}"
 
     # Image Name
-    image_name=$(just image_name {{ image }} {{ tag }} {{ flavor }})
+    image_name=$({{ just }} image_name {{ image }} {{ tag }} {{ flavor }})
 
     # Target
     target="base"
@@ -113,10 +114,10 @@ build $image="sarkinite" $tag="stable" $flavor="main" rechunk="0" ghcr="0" pipel
     if [[ {{ ghcr }} == "0" ]]; then
         rm -f /tmp/manifest.json
     fi
-    fedora_version=$(just fedora_version '{{ image }}' '{{ tag }}' '{{ flavor }}' '{{ kernel_pin }}')
+    fedora_version=$({{ just }} fedora_version '{{ image }}' '{{ tag }}' '{{ flavor }}' '{{ kernel_pin }}')
 
     # Verify Base Image with cosign
-    just verify-container "kinoite-main:${fedora_version}"
+    {{ just }} verify-container "kinoite-main:${fedora_version}"
 
     # Kernel Release/Pin
     if [[ -z "${kernel_pin:-}" ]]; then
@@ -126,14 +127,14 @@ build $image="sarkinite" $tag="stable" $flavor="main" rechunk="0" ghcr="0" pipel
     fi
 
     # Verify Containers with Cosign
-    just verify-container "akmods:${akmods_flavor}-${fedora_version}-${kernel_release}"
+    {{ just }} verify-container "akmods:${akmods_flavor}-${fedora_version}-${kernel_release}"
     if [[ "${akmods_flavor}" =~ coreos ]]; then
-        just verify-container "akmods-zfs:${akmods_flavor}-${fedora_version}-${kernel_release}"
+        {{ just }} verify-container "akmods-zfs:${akmods_flavor}-${fedora_version}-${kernel_release}"
     fi
     if [[ "${flavor}" =~ nvidia ]]; then
-        just verify-container "akmods-nvidia-open:${akmods_flavor}-${fedora_version}-${kernel_release}"
+        {{ just }} verify-container "akmods-nvidia-open:${akmods_flavor}-${fedora_version}-${kernel_release}"
     fi
-    just verify-container "brew:latest"
+    {{ just }} verify-container "brew:latest"
 
     # Get Version
     if [[ "${tag}" =~ stable ]]; then
@@ -207,17 +208,17 @@ build $image="sarkinite" $tag="stable" $flavor="main" rechunk="0" ghcr="0" pipel
 
     # Rechunk
     if [[ "{{ rechunk }}" == "1" && "{{ ghcr }}" == "1" && "{{ pipeline }}" == "1" ]]; then
-        just rechunk "${image}" "${tag}" "${flavor}" 1 1
+        {{ just }} rechunk "${image}" "${tag}" "${flavor}" 1 1
     elif [[ "{{ rechunk }}" == "1" && "{{ ghcr }}" == "1" ]]; then
-        just rechunk "${image}" "${tag}" "${flavor}" 1
+        {{ just }} rechunk "${image}" "${tag}" "${flavor}" 1
     elif [[ "{{ rechunk }}" == "1" ]]; then
-        just rechunk "${image}" "${tag}" "${flavor}"
+        {{ just }} rechunk "${image}" "${tag}" "${flavor}"
     fi
 
 # Build Image and Rechunk
 [group('Image')]
 build-rechunk image="sarkinite" tag="stable" flavor="main" kernel_pin="":
-    @just build {{ image }} {{ tag }} {{ flavor }} 1 0 0 {{ kernel_pin }}
+    @{{ just }} build {{ image }} {{ tag }} {{ flavor }} 1 0 0 {{ kernel_pin }}
 
 # Build Image with GHCR Flag
 [group('Image')]
@@ -227,13 +228,13 @@ build-ghcr image="sarkinite" tag="stable" flavor="main" kernel_pin="":
         echo "Must Run with sudo or as root..."
         exit 1
     fi
-    just build {{ image }} {{ tag }} {{ flavor }} 0 1 0 {{ kernel_pin }}
+    {{ just }} build {{ image }} {{ tag }} {{ flavor }} 0 1 0 {{ kernel_pin }}
 
 # Build Image for Pipeline:
 [group('Image')]
 build-pipeline image="sarkinite" tag="stable" flavor="main" kernel_pin="":
     #!/usr/bin/env bash
-    ${SUDOIF} just build {{ image }} {{ tag }} {{ flavor }} 1 1 1 {{ kernel_pin }}
+    ${SUDOIF} {{ just }} build {{ image }} {{ tag }} {{ flavor }} 1 1 1 {{ kernel_pin }}
 
 # Rechunk Image
 [group('Image')]
@@ -245,15 +246,15 @@ rechunk $image="sarkinite" $tag="stable" $flavor="main" ghcr="0" pipeline="0":
     set -eoux pipefail
 
     # Validate
-    just validate "${image}" "${tag}" "${flavor}"
+    {{ just }} validate "${image}" "${tag}" "${flavor}"
 
     # Image Name
-    image_name=$(just image_name {{ image }} {{ tag }} {{ flavor }})
+    image_name=$({{ just }} image_name {{ image }} {{ tag }} {{ flavor }})
 
     # Check if image is already built
     ID=$(${PODMAN} images --filter reference=localhost/"${image_name}":"${tag}" --format "'{{ '{{.ID}}' }}'")
     if [[ -z "$ID" ]]; then
-        just build "${image}" "${tag}" "${flavor}"
+        {{ just }} build "${image}" "${tag}" "${flavor}"
     fi
 
     # Load into Rootful Podman
@@ -387,8 +388,8 @@ rechunk $image="sarkinite" $tag="stable" $flavor="main" ghcr="0" pipeline="0":
 
     # Pipeline Checks
     if [[ {{ pipeline }} == "1" && -n "${SUDO_USER:-}" ]]; then
-        sudo -u "${SUDO_USER}" just load-rechunk "${image}" "${tag}" "${flavor}"
-        sudo -u "${SUDO_USER}" just secureboot "${image}" "${tag}" "${flavor}"
+        sudo -u "${SUDO_USER}" {{ just }} load-rechunk "${image}" "${tag}" "${flavor}"
+        sudo -u "${SUDO_USER}" {{ just }} secureboot "${image}" "${tag}" "${flavor}"
     fi
 
 # Load OCI into Podman Store
@@ -398,10 +399,10 @@ load-rechunk image="sarkinite" tag="stable" flavor="main":
     set -eou pipefail
 
     # Validate
-    just validate {{ image }} {{ tag }} {{ flavor }}
+    {{ just }} validate {{ image }} {{ tag }} {{ flavor }}
 
     # Image Name
-    image_name=$(just image_name {{ image }} {{ tag }} {{ flavor }})
+    image_name=$({{ just }} image_name {{ image }} {{ tag }} {{ flavor }})
 
     # Load Image
     OUT_NAME="${image_name}_build"
@@ -419,15 +420,15 @@ run $image="sarkinite" $tag="stable" $flavor="main":
     set -eoux pipefail
 
     # Validate
-    just validate "${image}" "${tag}" "${flavor}"
+    {{ just }} validate "${image}" "${tag}" "${flavor}"
 
     # Image Name
-    image_name=$(just image_name {{ image }} {{ tag }} {{ flavor }})
+    image_name=$({{ just }} image_name {{ image }} {{ tag }} {{ flavor }})
 
     # Check if image exists
     ID=$(${PODMAN} images --filter reference=localhost/"${image_name}":"${tag}" --format "'{{ '{{.ID}}' }}'")
     if [[ -z "$ID" ]]; then
-        just build "$image" "$tag" "$flavor"
+        {{ just }} build "$image" "$tag" "$flavor"
     fi
 
     # Run Container
@@ -440,10 +441,10 @@ build-iso $image="sarkinite" $tag="stable" $flavor="main" ghcr="0" pipeline="0":
     set -eoux pipefail
 
     # Validate
-    just validate "${image}" "${tag}" "${flavor}"
+    {{ just }} validate "${image}" "${tag}" "${flavor}"
 
     # Image Name
-    image_name=$(just image_name {{ image }} {{ tag }} {{ flavor }})
+    image_name=$({{ just }} image_name {{ image }} {{ tag }} {{ flavor }})
 
     build_dir="${image_name}_build"
     mkdir -p "$build_dir"
@@ -463,7 +464,7 @@ build-iso $image="sarkinite" $tag="stable" $flavor="main" ghcr="0" pipeline="0":
         IMAGE_REPO=localhost
         ID=$(${PODMAN} images --filter reference=localhost/"${image_name}":"${tag}" --format "'{{ '{{.ID}}' }}'")
         if [[ -z "$ID" ]]; then
-            just build "$image" "$tag" "$flavor"
+            {{ just }} build "$image" "$tag" "$flavor"
         fi
     fi
 
@@ -559,7 +560,7 @@ build-iso $image="sarkinite" $tag="stable" $flavor="main" ghcr="0" pipeline="0":
 # Build ISO using GHCR Image
 [group('ISO')]
 build-iso-ghcr image="sarkinite" tag="stable" flavor="main":
-    @just build-iso {{ image }} {{ tag }} {{ flavor }} 1
+    @{{ just }} build-iso {{ image }} {{ tag }} {{ flavor }} 1
 
 # Run ISO
 [group('ISO')]
@@ -568,14 +569,14 @@ run-iso $image="sarkinite" $tag="stable" $flavor="main":
     set -eoux pipefail
 
     # Validate
-    just validate "${image}" "${tag}" "${flavor}"
+    {{ just }} validate "${image}" "${tag}" "${flavor}"
 
     # Image Name
-    image_name=$(just image_name {{ image }} {{ tag }} {{ flavor }})
+    image_name=$({{ just }} image_name {{ image }} {{ tag }} {{ flavor }})
 
     # Check if ISO Exists
     if [[ ! -f "${image_name}_build/${image_name}-${tag}.iso" ]]; then
-        just build-iso "$image" "$tag" "$flavor"
+        {{ just }} build-iso "$image" "$tag" "$flavor"
     fi
 
     # Determine which port to use
@@ -648,10 +649,10 @@ secureboot $image="sarkinite" $tag="stable" $flavor="main":
     set -eou pipefail
 
     # Validate
-    just validate "${image}" "${tag}" "${flavor}"
+    {{ just }} validate "${image}" "${tag}" "${flavor}"
 
     # Image Name
-    image_name=$(just image_name ${image} ${tag} ${flavor})
+    image_name=$({{ just }} image_name ${image} ${tag} ${flavor})
 
     # Get the vmlinuz to check
     kernel_release=$(${PODMAN} inspect "${image_name}":"${tag}" | jq -r '.[].Config.Labels["ostree.linux"]')
@@ -698,7 +699,7 @@ secureboot $image="sarkinite" $tag="stable" $flavor="main":
 fedora_version image="sarkinite" tag="stable" flavor="main" $kernel_pin="":
     #!/usr/bin/env bash
     set -eou pipefail
-    just validate {{ image }} {{ tag }} {{ flavor }}
+    {{ just }} validate {{ image }} {{ tag }} {{ flavor }}
     skopeo inspect --retry-times 3 docker://quay.io/fedora/fedora-coreos:{{ tag }} > /tmp/manifest.json
     fedora_version=$(jq -r '.Labels["org.opencontainers.image.version"]' < /tmp/manifest.json | grep -oE '^[0-9]+')
     if [[ -n "${kernel_pin:-}" ]]; then
@@ -713,7 +714,7 @@ fedora_version image="sarkinite" tag="stable" flavor="main" $kernel_pin="":
 image_name image="sarkinite" tag="stable" flavor="main":
     #!/usr/bin/env bash
     set -eou pipefail
-    just validate {{ image }} {{ tag }} {{ flavor }}
+    {{ just }} validate {{ image }} {{ tag }} {{ flavor }}
     if [[ "{{ flavor }}" =~ main ]]; then
         image_name={{ image }}
     else
@@ -732,9 +733,9 @@ generate-build-tags image="sarkinite" tag="stable" flavor="main" kernel_pin="" g
     if [[ {{ ghcr }} == "0" ]]; then
         rm -f /tmp/manifest.json
     fi
-    FEDORA_VERSION="$(just fedora_version '{{ image }}' '{{ tag }}' '{{ flavor }}' '{{ kernel_pin }}')"
-    DEFAULT_TAG=$(just generate-default-tag {{ tag }} {{ ghcr }})
-    IMAGE_NAME=$(just image_name {{ image }} {{ tag }} {{ flavor }})
+    FEDORA_VERSION="$({{ just }} fedora_version '{{ image }}' '{{ tag }}' '{{ flavor }}' '{{ kernel_pin }}')"
+    DEFAULT_TAG=$({{ just }} generate-default-tag {{ tag }} {{ ghcr }})
+    IMAGE_NAME=$({{ just }} image_name {{ image }} {{ tag }} {{ flavor }})
     # Use Build Version from Rechunk
     if [[ -z "${version:-}" ]]; then
         version="{{ tag }}-${FEDORA_VERSION}.$(date +%Y%m%d)"
