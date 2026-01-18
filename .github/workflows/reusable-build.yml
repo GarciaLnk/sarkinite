@@ -101,7 +101,7 @@ jobs:
           MATRIX_IMAGE_FLAVOR: ${{ matrix.image_flavor }}
           INPUTS_KERNEL_PIN: ${{ inputs.kernel_pin }}
         run: |
-          sudo just repo_organization="${{ github.repository_owner }}" \
+          sudo -E $(command -v just) repo_organization="${{ github.repository_owner }}" \
                     build-ghcr "${MATRIX_BASE_NAME}" \
                                "${MATRIX_STREAM_NAME}" \
                                "${MATRIX_IMAGE_FLAVOR}" \
@@ -114,7 +114,7 @@ jobs:
           MATRIX_STREAM_NAME: ${{ matrix.stream_name }}
           MATRIX_IMAGE_FLAVOR: ${{ matrix.image_flavor }}
         run: |
-          sudo just rechunk "${MATRIX_BASE_NAME}" \
+          sudo -E $(command -v just) rechunk "${MATRIX_BASE_NAME}" \
                             "${MATRIX_STREAM_NAME}" \
                             "${MATRIX_IMAGE_FLAVOR}" \
                             "1"
