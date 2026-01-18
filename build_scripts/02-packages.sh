@@ -26,6 +26,8 @@ dnf5 --repo=fedora,updates,updates-archive,fedora-cisco-openh264 -y install \
 	glow \
 	gstreamer1-plugin-openh264 \
 	gum \
+	gvfs \
+	gvfs-fuse \
 	heaptrack \
 	iotop-c \
 	ksystemlog \
