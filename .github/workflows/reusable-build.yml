@@ -127,7 +127,7 @@ jobs:
           DEFAULT_TAG: ${{ env.DEFAULT_TAG }}
           MATRIX_IMAGE_FLAVOR: ${{ matrix.image_flavor }}
         run: |
-          just load-rechunk "${MATRIX_BASE_NAME}" \
+          sudo -E $(command -v just) load-rechunk "${MATRIX_BASE_NAME}" \
                             "${DEFAULT_TAG}" \
                             "${MATRIX_IMAGE_FLAVOR}"
       - name: Secureboot Check
@@ -138,7 +138,7 @@ jobs:
           DEFAULT_TAG: ${{ env.DEFAULT_TAG }}
           MATRIX_IMAGE_FLAVOR: ${{ matrix.image_flavor }}
         run: |
-          just secureboot "${MATRIX_BASE_NAME}" \
+          sudo -E $(command -v just) secureboot "${MATRIX_BASE_NAME}" \
                           "${DEFAULT_TAG}" \
                           "${MATRIX_IMAGE_FLAVOR}"
 
@@ -178,7 +178,7 @@ jobs:
           ALIAS_TAGS: ${{ steps.generate-tags.outputs.alias_tags }}
         run: |
           set -eoux pipefail
-          just tag-images "${IMAGE_NAME}" \
+          sudo -E $(command -v just) tag-images "${IMAGE_NAME}" \
                           "${DEFAULT_TAG}" \
                           "${ALIAS_TAGS}"
 
@@ -214,12 +214,16 @@ jobs:
             set -euox pipefail
 
             for tag in ${ALIAS_TAGS}; do
-              podman push ${IMAGE_NAME}:${tag} ${IMAGE_REGISTRY}/${IMAGE_NAME}:${tag}
+              sudo -E podman push ${IMAGE_NAME}:${tag} ${IMAGE_REGISTRY}/${IMAGE_NAME}:${tag}
             done
 
             digest=$(skopeo inspect docker://${IMAGE_REGISTRY}/${IMAGE_NAME}:${DEFAULT_TAG} --format '{{.Digest}}')
 
             echo "digest=${digest}" >> $GITHUB_OUTPUT
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@7e8b541eb2e61bf99390e1afd4be13a184e9ebc5 # v3.10.1
+        if: github.event_name != 'pull_request'
 
       - name: Sign container image
         if: github.event_name != 'pull_request'
@@ -231,25 +235,6 @@ jobs:
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
           IMAGE_REGISTRY: ${{ env.IMAGE_REGISTRY }}
-
-      - name: Generate file containing outputs
-        if: github.event_name != 'pull_request'
-        env:
-          DIGEST: ${{ steps.push.outputs.outputs && fromJSON(steps.push.outputs.outputs).digest }}
-          IMAGE_REGISTRY: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}
-          IMAGE_NAME: ${{ env.IMAGE_NAME }}
-          FEDORA_VERSION: ${{ matrix.stream_name }}
-        run: echo "${IMAGE_REGISTRY}@${DIGEST}" > "${IMAGE_NAME}-${FEDORA_VERSION}.txt"
-
-      - name: Upload artifact
-        if: github.event_name != 'pull_request'
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v4
-        with:
-          name: image-${{ env.IMAGE_NAME }}-${{ matrix.stream_name }}
-          retention-days: 1
-          if-no-files-found: error
-          path: |
-            ${{ env.IMAGE_NAME }}-${{ matrix.stream_name }}.txt
 
   check:
     name: Check all builds are successful
