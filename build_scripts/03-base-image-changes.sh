@@ -21,7 +21,6 @@ ln -sf /usr/share/wallpapers/Kay/contents/images_dark/5120x2880.png /usr/share/b
 sed -i '/<entry name="launchers" type="StringList">/,/<\/entry>/ s/<default>[^<]*<\/default>/<default>preferred:\/\/filemanager,preferred:\/\/browser<\/default>/' /usr/share/plasma/plasmoids/org.kde.plasma.taskmanager/contents/config/main.xml
 
 # Fix caps
-setcap 'cap_net_raw+ep' /usr/libexec/ksysguard/ksgrd_network_helper
 if command -v sunshine &>/dev/null; then
 	setcap 'cap_sys_admin+p' "$(readlink -f "$(command -v sunshine)")"
 fi
