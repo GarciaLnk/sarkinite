@@ -81,7 +81,6 @@ dnf5 --repo=fedora,updates,updates-archive,fedora-cisco-openh264 -y install \
 	system-reinstall-bootc \
 	timg \
 	usbip \
-	virtualbox-guest-additions \
 	vkBasalt \
 	waydroid \
 	wlr-randr \
