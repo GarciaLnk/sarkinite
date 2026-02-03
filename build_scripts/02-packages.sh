@@ -17,6 +17,7 @@ dnf5 --repo=fedora,updates,updates-archive,fedora-cisco-openh264 -y install \
 	evtest \
 	etckeeper \
 	fastfetch \
+	fcitx5-m17n \
 	ffmpegthumbnailer \
 	flatpak-builder \
 	foo2zjs \
