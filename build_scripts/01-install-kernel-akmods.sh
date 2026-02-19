@@ -45,7 +45,6 @@ dnf5 --repofrompath=ublue-os-akmods,https://download.copr.fedorainfracloud.org/r
 	v4l2loopback /tmp/akmods/kmods/*v4l2loopback*.rpm \
 	/tmp/akmods/kmods/*wl*.rpm \
 	/tmp/akmods/kmods/*xone*.rpm \
-	/tmp/akmods/kmods/*openrazer*.rpm \
 	/tmp/akmods/kmods/*framework-laptop*.rpm
 
 # Nvidia AKMODS
