@@ -80,6 +80,7 @@ dnf5 --repo=fedora,updates,updates-archive,fedora-cisco-openh264 -y install \
 	setools-console \
 	snapd \
 	system-reinstall-bootc \
+	tesseract-devel \
 	timg \
 	usbip \
 	virtualbox-guest-additions \
