@@ -55,7 +55,11 @@ if [[ ${IMAGE_NAME} =~ nvidia ]]; then
 	mv /tmp/rpms/* /tmp/akmods-rpms/
 
 	# Install Nvidia RPMs
-	/var/tmp/build_scripts/99-nvidia.sh
+	IMAGE_NAME="kinoite" AKMODNV_PATH="/tmp/akmods-rpms" MULTILIB=0 /tmp/akmods-rpms/ublue-os/nvidia-install.sh
+	dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}" \
+		--setopt=terra.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"/key.asc \
+		--repo=terra -y install \
+		prime-run
 	rm -f /usr/share/vulkan/icd.d/nouveau_icd.*.json
 	ln -sf libnvidia-ml.so.1 /usr/lib64/libnvidia-ml.so
 fi
