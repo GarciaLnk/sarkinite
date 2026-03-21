@@ -222,12 +222,15 @@ jobs:
       - name: Install Cosign
         uses: sigstore/cosign-installer@ba7bc0a3fef59531c69a25acd34668d6d3fe6f22 # v4.1.0
         if: github.event_name != 'pull_request'
+        env:
+          HOME: ${{ runner.temp }}
 
       - name: Sign container image
         if: github.event_name != 'pull_request'
         run: |
-          sudo -E cosign sign -y --key env://COSIGN_PRIVATE_KEY ${IMAGE_REGISTRY}/${IMAGE_NAME}@${TAGS}
+          cosign sign -y --key env://COSIGN_PRIVATE_KEY ${IMAGE_REGISTRY}/${IMAGE_NAME}@${TAGS}
         env:
+          HOME: ${{ runner.temp }}
           TAGS: ${{ steps.push.outputs.outputs && fromJSON(steps.push.outputs.outputs).digest }}
           COSIGN_EXPERIMENTAL: false
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
