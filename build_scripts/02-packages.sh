@@ -9,6 +9,7 @@ dnf5 versionlock add plasma-desktop
 
 dnf5 --repo=fedora,updates,updates-archive,fedora-cisco-openh264 -y install \
 	android-tools \
+	autofs \
 	borgbackup \
 	btrfs-assistant \
 	cage \
