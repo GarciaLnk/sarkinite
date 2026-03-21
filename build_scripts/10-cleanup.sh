@@ -34,7 +34,7 @@ systemctl enable libvirt-workaround.service
 systemctl enable sarkinite-groups.service
 systemctl enable --global sarkinite-user-vscode.service
 systemctl enable docker-prune.timer
-systemctl --global disable sunshine.service
+systemctl --global disable app-dev.lizardbyte.app.Sunshine.service
 systemctl mask flatpak-add-fedora-repos.service
 systemctl enable uupd.timer
 systemctl enable input-remapper.service
