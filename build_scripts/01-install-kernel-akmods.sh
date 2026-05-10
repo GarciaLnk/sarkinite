@@ -5,7 +5,10 @@ echo "::group:: ===$(basename "$0")==="
 set -eoux pipefail
 
 # Remove Existing Kernel
-dnf5 -y remove kernel-{core,modules,modules-core,modules-extra,tools,tools-libs}
+dnf5 -y remove kernel{,-core,-modules,-modules-core,-modules-extra,-tools-libs,-tools}
+
+# cleanup leftovers that are not covered by kernel-* packages for some reason
+rm -rf /usr/lib/modules
 
 # Fetch Common AKMODS & Kernel RPMS
 skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods:"${AKMODS_FLAVOR}"-"${FEDORA_MAJOR_VERSION}"-"${KERNEL}" dir:/tmp/akmods
@@ -23,8 +26,7 @@ printf '%s\n' '#!/bin/sh' 'exit 0' >05-rpmostree.install
 chmod +x 05-rpmostree.install
 
 # Install Kernel
-dnf5 -y install /tmp/kernel-rpms/kernel{,-core,-modules,-modules-core,-modules-extra,-devel,-devel,-devel-matched}-"${KERNEL}".rpm kernel-{tools,tools-libs}-"${KERNEL}"
-dnf5 -y remove kernel-tools{,-libs}
+dnf5 -y install /tmp/kernel-rpms/kernel{,-core,-modules,-modules-core,-modules-extra,-devel,-devel-matched}-*.rpm
 
 # restore kernel install scriptlets for F43 workaround
 mv -f 05-rpmostree.install.bak 05-rpmostree.install
