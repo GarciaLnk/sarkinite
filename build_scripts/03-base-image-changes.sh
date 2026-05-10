@@ -31,9 +31,6 @@ fi
 # Prevent Distrobox containers from being updated via the background service
 sed -i 's|uupd|& --disable-module-distrobox|' /usr/lib/systemd/system/uupd.service
 
-# Remove Just docs since they contain non-ascii characters in filenames
-rm -rf /usr/share/doc/just/README.*.md
-
 # Make Samba usershares work OOTB
 mkdir -p /var/lib/samba/usershares
 chown -R root:usershares /var/lib/samba/usershares
