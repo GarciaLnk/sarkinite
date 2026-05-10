@@ -667,7 +667,7 @@ secureboot $image="sarkinite" $tag="stable" $flavor="main":
     openssl x509 -in /tmp/akmods.der -out /tmp/akmods.crt
 
     # Make sure we have sbverify
-    CMD="$(command -v sbverify)"
+    CMD="$(command -v sbverify || true)"
     if [[ -z "${CMD:-}" ]]; then
         temp_name="sbverify-${RANDOM}"
         ${PODMAN} run -dt \
