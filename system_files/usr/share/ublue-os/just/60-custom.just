@@ -184,6 +184,7 @@ install-opentabletdriver:
 
 # Configure Sarkinite-CLI Terminal Experience with Brew
 [group('System')]
+[no-exit-message]
 sarkinite-cli:
     @/usr/libexec/ublue-bling.sh
 
