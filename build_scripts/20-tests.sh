@@ -41,7 +41,6 @@ IMPORTANT_PACKAGES=(
 	pipewire
 	plasma-desktop
 	podman
-	plasma-login-manager
 	systemd
 	tailscale
 	uupd
