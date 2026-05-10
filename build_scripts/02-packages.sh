@@ -82,6 +82,7 @@ dnf5 --repo=fedora,updates,updates-archive,fedora-cisco-openh264 -y install \
 	snapd \
 	system-reinstall-bootc \
 	tesseract-devel \
+	tesseract-langpack-{eng,deu,fra,spa,por,ita,jpn,jpn_vert} \
 	timg \
 	usbip \
 	virtualbox-guest-additions \
