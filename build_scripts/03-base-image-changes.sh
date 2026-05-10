@@ -85,6 +85,9 @@ EOF
 kargs = ["rd.driver.blacklist=nouveau", "modprobe.blacklist=nouveau", "nvidia-drm.modeset=1", "initcall_blacklist=simpledrm_platform_driver_init"]
 EOF
 
+	# Ensure the flatpak runtime is in sync with the host driver
+	systemctl enable ublue-nvidia-flatpak-runtime-sync.service
+
 fi
 
 echo "::endgroup::"
