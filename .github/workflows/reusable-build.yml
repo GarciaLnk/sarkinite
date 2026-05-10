@@ -212,7 +212,7 @@ jobs:
             set -euox pipefail
 
             for tag in ${ALIAS_TAGS}; do
-              sudo -E podman push ${IMAGE_NAME}:${tag} ${IMAGE_REGISTRY}/${IMAGE_NAME}:${tag}
+              sudo -E podman push --compression-format=zstd:chunked --compression-level=3 ${IMAGE_NAME}:${tag} ${IMAGE_REGISTRY}/${IMAGE_NAME}:${tag}
             done
 
             digest=$(skopeo inspect docker://${IMAGE_REGISTRY}/${IMAGE_NAME}:${DEFAULT_TAG} --format '{{.Digest}}')
