@@ -42,7 +42,6 @@ dnf5 --repo=fedora,updates,updates-archive,fedora-cisco-openh264 -y install \
 	intel-undervolt \
 	iwd \
 	libxcrypt-compat \
-	libvdpau-va-gl \
 	libvirt \
 	libvirt-nss \
 	liquidctl \
