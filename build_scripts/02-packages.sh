@@ -105,7 +105,6 @@ dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSIO
 	ghostty \
 	heroic-games-launcher \
 	jetbrainsmono-nerd-fonts \
-	keyd \
 	ms-core-fonts \
 	ms-core-tahoma-fonts \
 	nerdfontssymbolsonly-nerd-fonts \
