@@ -67,8 +67,9 @@ sed -i 's@Exec=waydroid first-launch@Exec=/usr/bin/waydroid-launcher first-launc
 sed -i 's/ --xdg-runtime=\\"${XDG_RUNTIME_DIR}\\"//g' /usr/bin/btrfs-assistant-launcher
 
 QUALIFIED_KERNEL="$(rpm -qa | grep -P 'kernel-(\d+\.\d+\.\d+)' | sed -E 's/kernel-//')"
-/usr/bin/dracut --no-hostonly --kver "${QUALIFIED_KERNEL}" --reproducible -v --add ostree -f "/lib/modules/${QUALIFIED_KERNEL}/initramfs.img"
-chmod 0600 "/lib/modules/${QUALIFIED_KERNEL}/initramfs.img"
+export DRACUT_NO_XATTR=1
+/usr/bin/dracut --no-hostonly --kver "${QUALIFIED_KERNEL}" --reproducible -v -f "/lib/modules/${QUALIFIED_KERNEL}/initramfs.img"
+chmod 0600 "/usr/lib/modules/${QUALIFIED_KERNEL}/initramfs.img"
 
 # dnf cleanup
 dnf5 remove -y ostree-grub2 plasma-discover-kns cosign
