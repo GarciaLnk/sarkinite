@@ -28,7 +28,6 @@ systemctl --global enable p11-kit-server.socket
 systemctl --global enable p11-kit-server.service
 systemctl enable docker.socket
 systemctl enable podman.socket
-systemctl enable swtpm-workaround.service
 systemctl enable libvirt-workaround.service
 systemctl enable sarkinite-groups.service
 systemctl enable --global sarkinite-user-vscode.service
