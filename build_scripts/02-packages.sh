@@ -96,6 +96,8 @@ dnf5 clean all
 dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}" \
 	--setopt=terra.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"/key.asc \
 	--repo=fedora,updates,terra -y install \
+	8bitdo-udev-rules \
+	android-udev-rules \
 	cleartype-fonts \
 	coolercontrol \
 	dwarfs \
@@ -111,7 +113,8 @@ dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSIO
 	ms-core-tahoma-fonts \
 	nerdfontssymbolsonly-nerd-fonts \
 	tela-icon-theme \
-	topgrade
+	topgrade \
+	wooting-udev-rules
 
 dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
 	--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
