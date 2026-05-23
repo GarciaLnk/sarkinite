@@ -24,6 +24,7 @@ dnf5 --repo=fedora,updates,updates-archive,fedora-cisco-openh264 -y install \
 	foo2zjs \
 	gamescope \
 	genisoimage \
+	gcc{,-c++} \
 	git-credential-libsecret \
 	glow \
 	gstreamer1-plugin-openh264 \
