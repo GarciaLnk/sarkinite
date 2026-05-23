@@ -114,8 +114,7 @@ dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSIO
 	nerdfontssymbolsonly-nerd-fonts \
 	opentabletdriver \
 	tela-icon-theme \
-	topgrade \
-	wooting-udev-rules
+	topgrade
 
 dnf5 --repofrompath=terra-extras,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras \
 	--setopt=terra-extras.gpgkey=https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSION}"-extras/key.asc \
