@@ -13,10 +13,6 @@ MPV_CONFIG_DIR=/etc/mpv bash /tmp/uosc-install.sh
 curl --retry 3 -Lo /etc/mpv/scripts/thumbfast.lua https://raw.githubusercontent.com/po5/thumbfast/refs/heads/master/thumbfast.lua
 curl --retry 3 -Lo /etc/mpv/scripts/SmartCopyPaste_II.lua https://raw.githubusercontent.com/Eisa01/mpv-scripts/refs/heads/master/scripts/SmartCopyPaste_II.lua
 
-# SDDM wallpaper
-ln -sf /usr/share/wallpapers/Kay/contents/images_dark/5120x2880.png /usr/share/backgrounds/default.png
-ln -sf /usr/share/wallpapers/Kay/contents/images_dark/5120x2880.png /usr/share/backgrounds/default-dark.png
-
 # Fix caps
 if command -v sunshine &>/dev/null; then
 	setcap 'cap_sys_admin+p' "$(readlink -f "$(command -v sunshine)")"

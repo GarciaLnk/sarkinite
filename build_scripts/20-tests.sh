@@ -12,8 +12,6 @@ test -f /usr/share/homebrew.tar.zst
 desktop-file-validate /usr/share/applications/system-update.desktop
 
 # Check for KDE Plasma version mismatch
-# Fedora Repos have gotten the newer one, trying to upgrade
-# everything except a few packages, breaking SDDM and shell
 KDE_VER="$(rpm -q --qf '%{VERSION}' plasma-desktop)"
 # package picked by failures in the past
 KSCREEN_VERS="$(rpm -q --qf '%{VERSION}' kscreen)"
