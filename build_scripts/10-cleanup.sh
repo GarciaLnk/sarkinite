@@ -48,6 +48,10 @@ systemctl disable flatpak-system-update.timer
 # still valid in F43: https://bugzilla.redhat.com/show_bug.cgi?id=2348934
 systemctl mask systemd-remount-fs.service
 
+# Make speech dispatcher work by default
+# TODO: Revisit with F45: https://bugzilla.redhat.com/show_bug.cgi?id=2284507
+systemctl --global enable speech-dispatcher.socket
+
 # Enable polkit rules for fingerprint sensors via fprintd
 authselect enable-feature with-fingerprint
 
