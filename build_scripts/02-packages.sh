@@ -112,6 +112,7 @@ dnf5 --repofrompath=terra,https://repos.fyralabs.com/terra"${FEDORA_MAJOR_VERSIO
 	ms-core-fonts \
 	ms-core-tahoma-fonts \
 	nerdfontssymbolsonly-nerd-fonts \
+	opentabletdriver \
 	tela-icon-theme \
 	topgrade \
 	wooting-udev-rules
