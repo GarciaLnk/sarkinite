@@ -21,6 +21,7 @@ systemctl enable coolercontrold.service
 systemctl enable flatpak-cleanup.timer
 systemctl enable hwclock-sync.service
 systemctl enable snapper-setup.service
+systemctl enable keyd.service
 systemctl enable grub-boot-success.timer
 systemctl enable grub-boot-success.service
 systemctl --global enable p11-kit-server.socket
