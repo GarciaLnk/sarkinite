@@ -28,6 +28,7 @@ dnf5 --repo=fedora,updates,updates-archive,fedora-cisco-openh264 -y install \
 	gcc{,-c++} \
 	git-credential-libsecret \
 	glow \
+	google-noto-sans-cham-fonts \
 	gstreamer1-plugin-openh264 \
 	gum \
 	gvfs \
