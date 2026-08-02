@@ -28,8 +28,7 @@ for file in rpmdb.sqlite rpmdb.sqlite-shm rpmdb.sqlite-wal; do
 done
 
 # shellcheck disable=SC2114
-rm -rf /.gitkeep \
-	/tmp/* \
+rm -rf /tmp/* \
 	/var/tmp/* \
 	/var/lib/{dnf,rhsm} \
 	/var/cache/* \
@@ -37,9 +36,18 @@ rm -rf /.gitkeep \
 
 mkdir -p /boot
 
-find /var/log -type f -exec bash -c '[ -s "$1" ] && rm "$1"' _ {} \;
+# Things we can't delete here are mounts from podman
 find /var/* -maxdepth 0 -type d \! -name cache -exec rm -fr {} \;
 
-bootc container lint
+find /run -mindepth 1 \
+  ! -path '/run/systemd' \
+  ! -path '/run/systemd/resolve' \
+  ! -path '/run/systemd/resolve/stub-resolv.conf' \
+  ! -path '/run/secrets' \
+  ! -path '/run/secrets/*' \
+  ! -path '/run/.containerenv' \
+  -delete
+
+bootc container lint --fatal-warnings --no-truncate
 
 echo "::endgroup::"
