@@ -4,6 +4,9 @@ echo "::group:: ===$(basename "$0")==="
 
 set -eoux pipefail
 
+# this invalidates libdnf5 package
+rm -rf /usr/lib/sysimage/libdnf5/*
+
 # Upstream ublue-os-signing bug, we are using /usr/etc for the container signing and bootc gets mad at this
 # FIXME: remove this once https://github.com/ublue-os/packages/issues/245 is closed
 if [[ -d /usr/etc ]]; then
