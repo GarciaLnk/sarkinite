@@ -128,9 +128,6 @@ build $image="sarkinite" $tag="stable" $flavor="main" rechunk="0" ghcr="0" pipel
 
     # Verify Containers with Cosign
     {{ just }} verify-container "akmods:${akmods_flavor}-${fedora_version}-${kernel_release}"
-    if [[ "${akmods_flavor}" =~ coreos ]]; then
-        {{ just }} verify-container "akmods-zfs:${akmods_flavor}-${fedora_version}-${kernel_release}"
-    fi
     if [[ "${flavor}" =~ nvidia ]]; then
         {{ just }} verify-container "akmods-nvidia-open:${akmods_flavor}-${fedora_version}-${kernel_release}"
     fi

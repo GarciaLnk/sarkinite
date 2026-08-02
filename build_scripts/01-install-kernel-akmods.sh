@@ -66,20 +66,7 @@ if [[ ${IMAGE_NAME} =~ nvidia ]]; then
 	ln -sf libnvidia-ml.so.1 /usr/lib64/libnvidia-ml.so
 fi
 
-# Fetch ZFS RPMs
-skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods-zfs:"${AKMODS_FLAVOR}"-"${FEDORA_MAJOR_VERSION}"-"${KERNEL}" dir:/tmp/akmods-zfs
-ZFS_TARGZ=$(jq -r '.layers[].digest' </tmp/akmods-zfs/manifest.json | cut -d : -f 2)
-tar -xvzf /tmp/akmods-zfs/"${ZFS_TARGZ}" -C /tmp/
-mv /tmp/rpms/* /tmp/akmods-zfs/
-
-# Install
-dnf5 --repo=fedora,updates -y install /tmp/akmods-zfs/kmods/zfs/*.rpm
-
-# Depmod and autoload
-depmod -a "${KERNEL}"
-echo "zfs" >/usr/lib/modules-load.d/zfs.conf
-
-rm -rf /tmp/akmods /tmp/akmods-rpms /tmp/akmods-zfs /tmp/kernel-rpms
+rm -rf /tmp/akmods /tmp/akmods-rpms /tmp/kernel-rpms
 dnf5 clean all
 
 echo "::endgroup::"
