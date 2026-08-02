@@ -70,7 +70,7 @@ sed -i 's/ --xdg-runtime=\\"${XDG_RUNTIME_DIR}\\"//g' /usr/bin/btrfs-assistant-l
 
 QUALIFIED_KERNEL="$(rpm -qa | grep -P 'kernel-(\d+\.\d+\.\d+)' | sed -E 's/kernel-//')"
 export DRACUT_NO_XATTR=1
-/usr/bin/dracut --no-hostonly --kver "${QUALIFIED_KERNEL}" --reproducible -v -f "/lib/modules/${QUALIFIED_KERNEL}/initramfs.img"
+/usr/bin/dracut --kver "${QUALIFIED_KERNEL}" --reproducible -v -f "/lib/modules/${QUALIFIED_KERNEL}/initramfs.img"
 chmod 0600 "/usr/lib/modules/${QUALIFIED_KERNEL}/initramfs.img"
 
 # dnf cleanup
