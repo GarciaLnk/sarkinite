@@ -16,6 +16,7 @@ COPY system_files /
 COPY build_scripts /var/tmp/build_scripts
 
 RUN --mount=type=tmpfs,dst=/tmp \
+    --mount=type=tmpfs,dst=/sys/kernel/security \
     /var/tmp/build_scripts/build-base.sh
 
 CMD ["/sbin/init"]
