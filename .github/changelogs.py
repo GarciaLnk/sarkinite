@@ -42,6 +42,10 @@ From previous `{target}` version `{prev}` there have been the following changes.
 | **KDE** | {pkgrel:plasma-desktop} |
 | **Mesa** | {pkgrel:mesa-filesystem} |
 | **Podman** | {pkgrel:podman} |
+| **Bootc** | {pkgrel:bootc} |
+| **Flatpak** | {pkgrel:flatpak} |
+| **OSTree** | {pkgrel:ostree} |
+| **RPM-OSTree** | {pkgrel:rpm-ostree} |
 | **Nvidia** | {pkgrel:nvidia-driver} |
 | **Docker** | {pkgrel:docker-ce} |
 | **VSCode** | {pkgrel:code} |
